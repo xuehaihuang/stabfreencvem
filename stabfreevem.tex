@@ -93,8 +93,10 @@
 % %65N15;   %%  Error bounds
 % }
 
-% \begin{abstract}
-% \end{abstract}
+\begin{abstract}
+Stabilization-free virtual element methods in arbitrary degree of polynomial are developed for second order elliptic problems, including a nonconforming virtual element method in arbitrary dimension and a conforming virtual element method in two dimensions.
+
+\end{abstract}
 
 % \keywords{Nonconforming finite element Stokes complex, quad-curl problem, error analysis, decoupling, fast solver}
 
@@ -103,7 +105,25 @@
 
 \tableofcontents
 
-\section{Preliminaries}
+\section{Introduction}
+
+Recently a stabilization-free linear virtual element method, based on a higher order polynomial projection of the gradient of virtual element functions, is devised for Poisson equation in two dimensions in \cite{BerroneBorioMarcon2021,BerroneBorioMarcon2022}, where the degree of polynomial used in projection depends on the number of vertices of the polygon. We refer to~\cite{DAltriMirandaPatrunoSacco2021} for a discussion on smiliar stabilization-free virtual element methods for plane elasticity problem.
+The idea in \cite{BerroneBorioMarcon2021,BerroneBorioMarcon2022} is not easy to extend to construct higher order stabilization-free virtual element methods, and
+the analysis is rather elaborate. 
+This motives us to construct stabilization-free virtual element methods in arbitrary degree of polynomial and arbitrary dimension in a unified way.
+
+
+
+
+
+
+
+The rest of this paper is organized as follows. Notation and mesh conditions are presented in Section~\ref{sec:prelim}. 
+In Section~\ref{sec:divmacrofem}, $H(\div)$-conforming macro finite elements in arbitrary dimension are constructed. A stabilization-free nonconforming virtual element method in arbitrary dimension is developed in Section \ref{sec:stabfreencfmvem}. And a stabilization-free conforming virtual element method in two dimensions is devised in Section \ref{sec:stabfreecfmvem}.
+Some numerical results are shown in Section \ref{sec:numericalexamps}.
+
+
+\section{Preliminaries}\label{sec:prelim}
 
 \subsection{Notation}
 Let $\Omega\subset \mathbb{R}^d$ be a bounded
@@ -124,7 +144,7 @@ Denote by $Q_k^{K}$ the $L^2$-orthogonal projector onto $\mathbb P_k(K)$ or $\ma
 For tensor $\boldsymbol{\tau}$, let $\skw\boldsymbol{\tau}:=(\boldsymbol{\tau}-\boldsymbol{\tau}^{\intercal})/2$ be the antisymmetric part of $\boldsymbol{\tau}$.
 Denote by $\#S$ the number of elements in a finite set $S$.
 
-For a $d$-dimensional polytope $K$, let $\mathcal{F}(K)$ and $\mathcal{E}(K)$ be the set of all $(d-1)$-dimensional faces and $(d-2)$-dimensional faces of $K$ respectively. For $F\in\mathcal{F}(K)$, denote by $\boldsymbol{n}_{K,F}$ be the unit outward normal vector to $\partial K$, which will be abbreviate as $\boldsymbol{n}_F$ or $\boldsymbol{n}$ if not causing any confusion.
+For $d$-dimensional polytope $K$, let $\mathcal{F}(K)$ and $\mathcal{E}(K)$ be the set of all $(d-1)$-dimensional faces and $(d-2)$-dimensional faces of $K$ respectively. For $F\in\mathcal{F}(K)$, denote by $\boldsymbol{n}_{K,F}$ be the unit outward normal vector to $\partial K$, which will be abbreviate as $\boldsymbol{n}_F$ or $\boldsymbol{n}$ if not causing any confusion.
 
 For $d$-dimensional simplex $T$,
 let $F_i\in\mathcal F(T)$ be the $(d-1)$-dimensional face opposite to vertex $\texttt{v}_i$, $\boldsymbol n_i$ be the unit outward normal to the face $F_i$, and $\lambda_i$ be the barycentric coordinate of $\boldsymbol x$ corresponding to vertex $\texttt{v}_i$, for $i=0, 1, \cdots, d$.
@@ -137,8 +157,7 @@ For $e\in \mathcal E(F)$, denote by $\boldsymbol{n}_{F,e}$ be the unit outward n
 Let $\{\mathcal {T}_h\}$ denote a family of partitions
 of $\Omega$ into nonoverlapping simple polytopes with $h:=\max\limits_{K\in \mathcal {T}_h}h_K$
 and $h_K:=\mbox{diam}(K)$.
-Denote by $\mathcal F_h$ and $\mathcal F_h^i$ the set of all $(d-1)$-dimensional faces and interior $(d-1)$-dimensional faces of the partition $\mathcal T_h$.
-Set $\mathcal F_h^{\partial}=\mathcal F_h\backslash\mathcal F_h^i$.
+Denote by $\mathcal F_h^r$ the set of all $(d-r)$-dimensional faces of the partition $\mathcal T_h$ for $r=1,\ldots,d$. Set $\mathcal F_h:=\mathcal F_h^1$ for simplicity. Let $\mathcal F_h^{\partial}$ be the subset of $\mathcal F_h$ including all $(d-1)$-dimensional faces on $\partial\Omega$. 
 For any $F\in\mathcal{F}_h$,
 let $h_F$ be its diameter and fix a unit normal vector $\boldsymbol{n}_F$.
 For a piecewise smooth function $v$, define 
@@ -147,17 +166,19 @@ $$
 $$
 
 For domain $K$, we use $\boldsymbol{H}(\div, K)$ and $\boldsymbol{H}_0(\div, K)$ to denote the standard divergence vector spaces. 
-For $F\in\mathcal F_h$ and smooth vector function $\boldsymbol{v}$, define surface divergence
+For smooth vector function $\boldsymbol{v}$, let $\nabla\boldsymbol{v}:=(\partial_iv_j)_{1\leq i,j\leq d}$.
+On face $F\in\mathcal F_h$, define surface divergence
 $$
 \div_F\boldsymbol{v}=\div(\boldsymbol{v}-(\boldsymbol{v}\cdot\boldsymbol{n})\boldsymbol{n})=\div\boldsymbol{v}-\partial_n(\boldsymbol{v}\cdot\boldsymbol{n}).
 $$
+For smooth function $v$, define surface gradient $\nabla_Fv:=\nabla v-(\partial_nv)\boldsymbol{n}$.
 
 
 
 \subsection{Mesh conditions}
 We impose the following conditions on the mesh $\mathcal T_h$ in this paper:
 \begin{itemize}
- \item[(A1)] Each element $K\in \mathcal T_h$ and each face $F\in \mathcal F_h^r$ for $1\leq r\leq n-1$ is star-shaped with a uniformly bounded chunkiness parameter.
+ \item[(A1)] Each element $K\in \mathcal T_h$ and each face $F\in \mathcal F_h^r$ for $1\leq r\leq d-1$ is star-shaped with a uniformly bounded chunkiness parameter.
 
  \item[(A2)] There exists a quasi-uniform simplicial mesh $\mathcal T_h^*$ such that each $K\in \mathcal T_h$ is a union of some simplexes in $\mathcal T_h^*$.
 \end{itemize}
@@ -165,33 +186,28 @@ We impose the following conditions on the mesh $\mathcal T_h$ in this paper:
 For $K\in \mathcal T_h$, let $\boldsymbol{x}_K$ be the center of  the largest ball contained in $K$.
 Throughout this paper, we use
 ``$\lesssim\cdots $" to mean that ``$\leq C\cdots$", where
-$C$ is a generic positive constant independent of mesh size $h$, but may depend on the chunkiness parameter of the polytope, the degree of polynomials $k$, the dimension of space $n$, and the shape regularity and quasi-uniform constants of the virtual triangulation $\mathcal T^*_h$,
+$C$ is a generic positive constant independent of mesh size $h$, but may depend on the chunkiness parameter of the polytope, the degree of polynomials $k$, the dimension of space $d$, and the shape regularity and quasi-uniform constants of the virtual triangulation $\mathcal T^*_h$,
 which may take different values at different appearances. And $A\eqsim B$ means $A\lesssim B$ and $B\lesssim A$.
 
 For polytope $K\in \mathcal T_h$, denote by $\mathcal T_K$ the simplicial partition of $K$, which is induced from $\mathcal T_h^*$. Let $\mathcal{F}(\mathcal T_K)$ and $\mathcal{E}(\mathcal T_K)$ be the set of all $(d-1)$-dimensional faces and $(d-2)$-dimensional faces of the simplicial partition $\mathcal T_K$ respectively. Set 
 $$
 \mathcal{F}^{\partial}(\mathcal T_K):=\{F\in\mathcal{F}(\mathcal T_K): F\subset\partial K\},\quad \mathcal{E}^{\partial}(\mathcal T_K):=\{e\in\mathcal{E}(\mathcal T_K): e\subset\partial K\}.
 $$
-Denote $
-\mathcal{F}^i(\mathcal T_K):=\mathcal{F}(\mathcal T_K)\backslash\mathcal{F}^{\partial}(\mathcal T_K)$ and $\mathcal{E}^i(\mathcal T_K):=\mathcal{E}(\mathcal T_K)\backslash\mathcal{E}^{\partial}(\mathcal T_K).
-$
 
-
-%Note that (A1) and (A2) imply ${\rm diam}(F) \eqsim {\rm diam} (K)$ for all $F\in \mathcal F^r(K), 1\leq r\leq n-1$.
-%For a star-shaped domain $D$,
+Hereafter we use $T$ to represent a simplex, and $K$ to denote a general polytope.
 
 
 
 
-\section{$H(\div)$-Conforming Macro Finite Element}
+\section{$H(\div)$-Conforming Macro Finite Elements}\label{sec:divmacrofem}
 
-In this section we will construct $H(\div)$-conforming macro finite element in arbitrary dimension.
-\subsection{$H(\div)$-conforming finite element}
-For each polygon $K\in \mathcal T_h$ and $k\geq2$, let 
+In this section we will construct $H(\div)$-conforming macro finite elements in arbitrary dimension.
+\subsection{$H(\div)$-conforming finite elements}
+For polygon $K\in \mathcal T_h$ and $k\geq2$, let 
 $$
 \boldsymbol{V}_{k-1}^{BDM}(K):=\{\boldsymbol{\phi}\in\bs H(\div, K): \boldsymbol{\phi}|_{T}\in \mathbb P_{k-1}(T;\mathbb R^d) \textrm{ for each } T\in\mathcal T_K\}
 $$ 
-be the local Brezzi-Douglas-Marini (BDM) element space~\cite{BrezziDouglasMarini1986,BrezziDouglasDuranFortin1987,Nedelec:1986family}, whose DoFs are given by (cf. \cite{ChenHuang2021divdiv})
+be the local Brezzi-Douglas-Marini (BDM) element space~\cite{BrezziDouglasMarini1986,BrezziDouglasDuranFortin1987,Nedelec:1986family}, whose degrees of freedom (DoFs) are given by \cite{ChenHuang2021divdiv}
 \begin{align}
 (\boldsymbol{v}\cdot\boldsymbol{n}, q)_F, & \quad q\in \mathbb P_{k-1}(F), F\in\mathcal F(T), \label{BDMdof1} \\
 (\div\boldsymbol{v}, q)_T, & \quad q\in \mathbb P_{k-2}(T)/\mathbb R, \label{BDMdof2} \\
@@ -211,7 +227,7 @@ Define $\mathring{\boldsymbol{V}}^{RT}(K):=\boldsymbol{V}^{RT}(K)\cap \boldsymbo
 \subsection{Finite element for differential $(d-2)$-form}
 Now recall the finite element for differential $(d-2)$-form, i.e. $H\Lambda^{d-2}$-conforming finite element in \cite{ArnoldFalkWinther2006,Arnold2018}. We will present the finite element for differential $(d-2)$-form using the proxy of the differential form rather than the differential form itself as in \cite{ArnoldFalkWinther2006,Arnold2018}. 
 
-By Lemma 3.12 in \cite{ChenHuang2021divdiv}, we have
+By Lemma 3.12 in \cite{ChenHuang2021divdiv}, we have the decomposition
 \begin{equation}\label{eq:Pkvectordecomp}  
 \mathbb P_{k-1}(T;\mathbb R^{d})=\nabla P_k(T)\oplus\mathbb P_{k-2}(T;\mathbb K)\boldsymbol{x}.
 \end{equation}
@@ -245,7 +261,7 @@ Apply Lemma~\ref{lem:skwgrad} to derive $\boldsymbol{w}=\boldsymbol{0}$. Thus $\
 \begin{lemma}
 It holds the decomposition
 \begin{equation}\label{eq:Pkskwtensordecomp}  
-\mathbb P_{k-2}(T;\mathbb K)=\skw\nabla\mathbb P_{k-1}(T;\mathbb R^d)\oplus\big(\mathbb P_{k-2}(T,\mathbb K)\cap\ker(\boldsymbol{x})\big).
+\mathbb P_{k-2}(T;\mathbb K)=\skw\nabla\mathbb P_{k-1}(T;\mathbb R^d)\oplus\big(\mathbb P_{k-2}(T;\mathbb K)\cap\ker(\boldsymbol{x})\big).
 \end{equation}
 \end{lemma}
 \begin{proof}
@@ -253,7 +269,7 @@ Thanks to decomposition \eqref{eq:Pkvectordecomp}, we have
 $$
 \skw\nabla\mathbb P_{k-1}(T;\mathbb R^d)=\skw\nabla(\mathbb P_{k-2}(T;\mathbb K)\boldsymbol{x}).
 $$
-By Lemma~\ref{lem:skwgrad}, $\skw\nabla\mathbb P_{k-1}(T;\mathbb R^d)\cap\big(\mathbb P_{k-2}(T,\mathbb K)\cap\ker(\boldsymbol{x})\big)=\{\boldsymbol{0}\}$. Then we only need to check dimensions.
+By Lemma~\ref{lem:skwgrad}, $\skw\nabla\mathbb P_{k-1}(T;\mathbb R^d)\cap\big(\mathbb P_{k-2}(T;\mathbb K)\cap\ker(\boldsymbol{x})\big)=\{\boldsymbol{0}\}$. Then we only need to check dimensions.
 Due to complex \eqref{eq:polycomplex1},
 \begin{equation}\label{eq:20220324-1}  
 \dim\skw\nabla\mathbb P_{k-1}(T;\mathbb R^d)=\dim\mathbb P_{k-1}(T;\mathbb R^d)-\dim\nabla\mathbb P_k(T).
@@ -382,7 +398,7 @@ It holds from Lemma~\ref{lem:-2formfemfaceunisolvence} that $\boldsymbol{\tau}\b
 \boldsymbol{n}^{\intercal}\div\boldsymbol{\tau}=\div(\boldsymbol{n}^{\intercal}\boldsymbol{\tau})= \div_F(\boldsymbol{n}^{\intercal}\boldsymbol{\tau})+\partial_n(\boldsymbol{n}^{\intercal}\boldsymbol{\tau}\boldsymbol{n})=\div_F(\boldsymbol{n}^{\intercal}\boldsymbol{\tau}).
 \end{equation}
 Hence $\boldsymbol{n}^{\intercal}\div\boldsymbol{\tau}|_{\partial T}=0$. 
-Thanks to DoFs \eqref{BDMdof1}-\eqref{BDMdof3} for BDM element, we acquire from DoF \eqref{eq:-2formfemdof31} that $\div\boldsymbol{\tau}=\boldsymbol{0}$, which together with DoF \eqref{eq:-2formfemdof32} and decomposition \eqref{eq:Pkskwtensordecomp} gives
+Thanks to DoFs \eqref{BDMdof1}-\eqref{BDMdof3} for BDM element, we acquire from DoF \eqref{eq:-2formfemdof31} and $\div\div\boldsymbol{\tau}=0$ that $\div\boldsymbol{\tau}=\boldsymbol{0}$, which together with DoF \eqref{eq:-2formfemdof32} and decomposition \eqref{eq:Pkskwtensordecomp} gives
 $$
 (\boldsymbol{\tau}, \boldsymbol{q})_T=0  \quad \forall~\boldsymbol{q}\in \mathbb P_{k-2}(T;\mathbb K).
 $$
@@ -390,7 +406,7 @@ Applying Lemma~\ref{lem:PkKbubblecharac}, $\boldsymbol{\tau}$ has the expression
 \end{proof}
 
 
-For polygon $K\in \mathcal T_h$, define local finite element space for differential $(d-2)$-form  
+For polygon $K\in \mathcal T_h$, define the local finite element space for differential $(d-2)$-form  
 \begin{align*}  
 \boldsymbol{V}_{k}^{d-2}(K):=\{\boldsymbol{\tau}\in\bs L^2(K;\mathbb K)&: \boldsymbol{\tau}|_{T}\in \mathbb P_{k}(T;\mathbb K) \textrm{ for each } T\in\mathcal T_K, \\
 &\;\;\textrm{ all the DoFs \eqref{eq:-2formfemdof1}-\eqref{eq:-2formfemdof22} are single-valued}\}.
@@ -429,7 +445,7 @@ We only prove complex \eqref{eq:localBDMfemderhamcomplex}, since the argument fo
 
 Next prove $\boldsymbol{V}_{k-1}^{BDM}(K)\cap\ker(\div)=\div\skw\boldsymbol{V}_{k}^{d-2}(K)$. For $\boldsymbol{v}\in\boldsymbol{V}_{k-1}^{BDM}(K)\cap\ker(\div)$, by Theorem 1.1 in \cite{CostabelMcIntosh2010}, there exists $\boldsymbol{\tau}\in\boldsymbol{H}^1(K;\mathbb K)$ satisfying $\div\boldsymbol{\tau}=\div\skw\boldsymbol{\tau}=\boldsymbol{v}$. Let $\boldsymbol{\sigma}\in \boldsymbol{V}_{k}^{d-2}(K)$ be the nodal interpolation of $\boldsymbol{\tau}$ based on DoFs \eqref{eq:-2formfemdof1}-\eqref{eq:-2formfemdof32}. Thanks to DoF \eqref{eq:-2formfemdof1}, it follows from the integration by parts that
 $$
-(\div_F(\boldsymbol{\sigma}\boldsymbol{n}), 1)_F=(\boldsymbol{v}, 1)_F\quad\forall~F\in\mathcal F(\mathcal T_K),
+(\div_F(\boldsymbol{\sigma}\boldsymbol{n}), 1)_F=(\boldsymbol{v}\cdot\boldsymbol{n}, 1)_F\quad\forall~F\in\mathcal F(\mathcal T_K),
 $$
 which together with \eqref{eq:20220324-3} and DoF \eqref{eq:-2formfemdof21} that
 $$
@@ -610,14 +626,6 @@ Due to DoFs \eqref{Vpdivdof1}-\eqref{Vpdivdof3} for $\boldsymbol{V}_{k-1}^{\rm d
     (\div\boldsymbol{\phi}, q)_K & \quad\forall~q\in\mathbb P_{\max\{k-2,0\}}(K)/\mathbb R, \label{Vpdivdof2} \\
     (\boldsymbol{\phi}, \bs q)_K & \quad\forall~\bs q\in \div\mathring{\boldsymbol{V}}_{k}^{d-2}(K). \label{Vpdivdof3}
 \end{align}
-For later use, let $Q_{K,k-1}^{\div}$ be the $L^2$-orthogonal projection operator onto $\mathbb{V}_{k-1}^{\rm div}(K)$ with respect to the inner product $(\cdot, \cdot)_K$.
-Introduce discrete spaces
-\begin{align*}
-\mathbb{V}_{h,k-1}^{\rm div}&:=\{\boldsymbol{\phi}_h\in \boldsymbol{L}^2(\Omega;\mathbb R^d): \boldsymbol{\phi}_h|_K\in \mathbb{V}_{k-1}^{\rm div}(K) \textrm{ for each } K\in\mathcal T_h\}, \\
-\mathbb P_l(\mathcal T_h)&:=\{q_h\in L^2(\Omega): q_h|_K\in \mathbb P_l(K) \textrm{ for each } K\in\mathcal T_h\}
-\end{align*}
-with non-negative integer $l$.
-For $\boldsymbol{\phi}\in\boldsymbol{L}^2(\Omega;\mathbb R^d)$, let $Q_{h,k-1}^{\div}\boldsymbol{\phi}\in\mathbb{V}_{h,k-1}^{\rm div}$ be determined by $(Q_{h,k-1}^{\div}\boldsymbol{\phi})|_K=Q_{K,k-1}^{\div}(\boldsymbol{\phi}|_K)$ for each $K\in\mathcal T_h$. For $v\in L^2(\Omega)$, let $Q_h^lv\in \mathbb P_l(\mathcal T_h)$ be determined by $(Q_h^{l}v)|_K=Q_{l}^K(v|_K)$ for each $K\in\mathcal T_h$. For simplicity, the vector version of $Q_h^l$ is still denoted by $Q_h^l$. And we abbreviate $Q_h^k$ as $Q_h$ if $l=k$.
 
 As an immediate result of Lemma~\ref{lem:Vkm1divnormequivalence}, we get the following norm equivalence of space $\mathbb{V}_{k-1}^{\rm div}(K)$.
 \begin{corollary}
@@ -628,23 +636,31 @@ For $\boldsymbol{\phi}\in\mathbb{V}_{k-1}^{\rm div}(K)$, it holds the norm equiv
 \end{corollary}
 
 
+For later use, let $Q_{K,k-1}^{\div}$ be the $L^2$-orthogonal projection operator onto $\mathbb{V}_{k-1}^{\rm div}(K)$ with respect to the inner product $(\cdot, \cdot)_K$.
+Introduce discrete spaces
+\begin{align*}
+\mathbb{V}_{h,k-1}^{\rm div}&:=\{\boldsymbol{\phi}_h\in \boldsymbol{L}^2(\Omega;\mathbb R^d): \boldsymbol{\phi}_h|_K\in \mathbb{V}_{k-1}^{\rm div}(K) \textrm{ for each } K\in\mathcal T_h\}, \\
+\mathbb P_l(\mathcal T_h)&:=\{q_h\in L^2(\Omega): q_h|_K\in \mathbb P_l(K) \textrm{ for each } K\in\mathcal T_h\}
+\end{align*}
+with non-negative integer $l$.
+For $\boldsymbol{\phi}\in\boldsymbol{L}^2(\Omega;\mathbb R^d)$, let $Q_{h,k-1}^{\div}\boldsymbol{\phi}\in\mathbb{V}_{h,k-1}^{\rm div}$ be determined by $(Q_{h,k-1}^{\div}\boldsymbol{\phi})|_K=Q_{K,k-1}^{\div}(\boldsymbol{\phi}|_K)$ for each $K\in\mathcal T_h$. For $v\in L^2(\Omega)$, let $Q_h^lv\in \mathbb P_l(\mathcal T_h)$ be determined by $(Q_h^{l}v)|_K=Q_{l}^K(v|_K)$ for each $K\in\mathcal T_h$. For simplicity, the vector version of $Q_h^l$ is still denoted by $Q_h^l$. And we abbreviate $Q_h^k$ as $Q_h$ if $l=k$.
 
 
 
 
-\section{Stabilization-free nonconforming virtual element method}
+\section{Stabilization-free nonconforming virtual element method}\label{sec:stabfreencfmvem}
 
 % In this section we will develop a stabilization-free nonconforming virtual element method for the second order elliptic 
 % problem \eqref{eq:ellipitc2ndproblem}.
 
-In this section we will develop a stabilization-free nonconforming virtual element method for the second order elliptic problem
+In this section we will develop a stabilization-free nonconforming virtual element method for the second order elliptic problem in arbitrary dimension
 \begin{equation}\label{eq:ellipitc2ndproblem}
 \begin{cases}
 -\Delta u + \alpha u=f & \textrm{ in } \Omega,\\
 \qquad\qquad u=0&\textrm{ on } \partial\Omega,
 \end{cases}
 \end{equation}
-where $\Omega\subseteq\mathbb R^d$ is a bounded polygon, $f\in L^2(\Omega)$ and $\alpha$ is a positive constant. The weak formulation of problem \eqref{eq:ellipitc2ndproblem} is to find $u\in H_0^1(\Omega)$ such that
+where $\Omega\subseteq\mathbb R^d$ is a bounded polygon, $f\in L^2(\Omega)$ and $\alpha$ is a nonnegative constant. The weak formulation of problem \eqref{eq:ellipitc2ndproblem} is to find $u\in H_0^1(\Omega)$ such that
 \begin{equation}\label{eq:ellipitc2ndproblemweakform}
 a(u,v)=(f,v)\quad\forall~v\in H_0^1(\Omega),
 \end{equation}
@@ -761,9 +777,9 @@ The other side $\|Q_{k-2}^Kv\|_{0,K}^2+\sum\limits_{F\in\mathcal F(K)}h_F\|Q_{k-
 
    
 \subsection{Local inf-sup condition and norm equivalence}
-With the help of the macro element space $\mathbb{V}_{k-1}^{\rm div}(K)$, we will present a norm equivalence of space $\nabla V_k(K)$. 
+With the help of the macro element space $\mathbb{V}_{k-1}^{\rm div}(K)$, we will present a norm equivalence of space $\nabla V_k(K)$, which is vitally important to design stabilization-free virtual element methods. 
 % Let $Q_K^{\div}$ be the $L^2$-orthogonal projection operator onto $\mathbb{V}_{k-1}^{\rm div}(K)$ with respect to the inner product $(\cdot, \cdot)_K$.
-\begin{lemma}
+\begin{lemma}\label{lem:gradVknormequivalence}
 It holds the inf-sup condition
 \begin{equation}\label{eq:localdiscreteinfsup}    
 \|\nabla v\|_{0,K}\lesssim \sup_{\boldsymbol{\phi}\in\mathbb{V}_{k-1}^{\rm div}(K)}\frac{(\boldsymbol{\phi}, \nabla v)_K}{\|\boldsymbol{\phi}\|_{0,K}} \quad \forall~v\in V_k(K).
@@ -782,7 +798,7 @@ Based on DoFs \eqref{Vpdivdof1}-\eqref{Vpdivdof3}, take $\boldsymbol{\phi}\in\ma
 (\div\boldsymbol{\phi}, q)_K&=-h_K^{-2}(v, q)_K  \quad\forall~q\in\mathbb P_{\max\{k-2,0\}}(K)/\mathbb R, \\
 (\boldsymbol{\phi}, \bs q)_K&=0  \qquad\qquad\qquad\forall~\bs q\in \div\skw\mathring{\boldsymbol{V}}_{k}^{d-2}(K). 
 \end{align*}
-Then $(\boldsymbol{\phi}\cdot\boldsymbol{n})|_{F}=h_K^{-1}Q_{k-1}^Fv$ for $F\in\mathcal F(K)$. By $\div\boldsymbol{\phi}\in \mathbb P_{\max\{k-2,0\}}(K)$, we have $\div\boldsymbol{\phi}-Q_{0}^K(\div\boldsymbol{\phi})=-h_K^{-2}Q_{k-2}^Kv$. Apply the integration by parts to get
+Then $(\boldsymbol{\phi}\cdot\boldsymbol{n})|_{F}=h_K^{-1}Q_{k-1}^Fv$ for $F\in\mathcal F(K)$. Since $\div\boldsymbol{\phi}\in \mathbb P_{\max\{k-2,0\}}(K)$, we have $\div\boldsymbol{\phi}-Q_{0}^K(\div\boldsymbol{\phi})=-h_K^{-2}Q_{k-2}^Kv$. Apply the integration by parts to get
 \begin{align*}
 (\boldsymbol{\phi}, \nabla v)_K&=-(\div\boldsymbol{\phi}, v)_K + (\boldsymbol{\phi}\cdot\boldsymbol{n}, v)_{\partial K} \\
 &=-(\div\boldsymbol{\phi}-Q_{0}^K(\div\boldsymbol{\phi}), v)_K+\sum_{F\in\mathcal F(K)}(\boldsymbol{\phi}\cdot\boldsymbol{n}, Q_{k-1}^Fv)_{F} \\
@@ -798,7 +814,7 @@ On the other hand, it follows from the integration by parts that
 \|Q_0^K(\div\boldsymbol{\phi})\|_{0,K}&\lesssim h_{K}^{d/2}\big|Q_0^K(\div\boldsymbol{\phi})\big|\lesssim h_{K}^{-d/2}\big|(\div\boldsymbol{\phi},1)_{K}\big|=h_{K}^{-d/2}\big|(\boldsymbol{\phi}\cdot\boldsymbol{n},1)_{\partial K}\big| \\
 &\lesssim \sum_{F\in\mathcal F(K)}h_F^{-1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}.
 \end{align*}
-Employing the norm equivalence \eqref{eq:Vkm1divnormequivalence},
+Employing the norm equivalence \eqref{eq:Vkm1divnormequiv},
 we acquire
 \begin{align*}
 \|\boldsymbol{\phi}\|_{0,K}&\eqsim h_K\|\div\boldsymbol{\phi}\|_{0,K} +\sum_{F\in\mathcal F(K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F} \\
@@ -814,10 +830,10 @@ Finally we conclude \eqref{eq:localdiscreteinfsup} from \eqref{eq:20220204} and 
 
 
 \subsection{Discrete method}
-Define global nonconforming virtual element space
+Define the global nonconforming virtual element space
 \begin{align*}
 V_h&:=\{v_h\in L^2(\Omega): v_h|_K\in V_k(K) \textrm{ for each } K\in\mathcal T_h, \textrm{  } \\
-&\qquad\; \textrm{DoF \eqref{eq:vemdof1} is single-valued for $F\in\mathcal F_h^i$, and vanishes for $F\in \mathcal F_h^{\partial}$}\}.
+&\qquad\; \textrm{DoF \eqref{eq:vemdof1} is single-valued for $F\in\mathcal F_h$, and vanishes for $F\in \mathcal F_h^{\partial}$}\}.
 \end{align*}
 We have the discrete Poincar\'e inequality (cf. \cite[(4.16)]{ChenHuang2020ncvem})
 \begin{equation}\label{eq:vempoincareineqlty}
@@ -876,7 +892,7 @@ Thanks to the boundedness \eqref{eq:ahbounedness} and the coercivity \eqref{eq:a
 \end{proof}
 
 \subsection{Error analysis}
-\begin{theorem}
+\begin{theorem}\label{thm:errorestimateH1}
 Let $u\in H_0^1(\Omega)$ be the solution of problem \eqref{eq:ellipitc2ndproblem}, and $u_h\in V_h$ be the solution of the virtual element method \eqref{eq:vem}. Assume $u\in H^{k+1}(\Omega)$ and $f\in H^{k-1}(\Omega)$. Then
 \begin{equation}\label{eq:errorestimateH1}
 |u-u_h|_{1,h}\lesssim h^k(|u|_{k+1}+|f|_{k-1}).
@@ -914,7 +930,7 @@ $$
 $$
 Since $\mathbb P_{k-1}(K;\mathbb R^d)\subseteq\mathbb{V}_{k-1}^{\rm div}(K)$ for $K\in\mathcal T_h$, we have $Q_{h,k-1}^{\div}(Q_h^{k-1}\nabla u)=Q_h^{k-1}\nabla u$. Hence
 \begin{align*}    
-\|\nabla u-Q_{h,k-1}^{\div}\nabla_h v_h\|_0&\leq \|\nabla u-Q_{h,k-1}^{\div}\nabla_h u\|_0+\|Q_{h,k-1}^{\div}(\nabla u-\nabla_h v_h)\|_0\\
+\|\nabla u-Q_{h,k-1}^{\div}\nabla_h v_h\|_0&\leq \|\nabla u-Q_{h,k-1}^{\div}\nabla u\|_0+\|Q_{h,k-1}^{\div}(\nabla u-\nabla_h v_h)\|_0\\
 &= \|\nabla u-Q_h^{k-1}\nabla u-Q_{h,k-1}^{\div}(\nabla u-Q_h^{k-1}\nabla u)\|_0\\
 &\quad+\|Q_{h,k-1}^{\div}(\nabla u-\nabla_h v_h)\|_0 \\
 &\leq \|\nabla u-Q_h^{k-1}\nabla u\|_0+|u-v_h|_{1,h}.
@@ -938,7 +954,7 @@ At last, \eqref{eq:errorestimateH1} follows from the approximation of $V_h$ \cit
 
 
 
-\section{Stabilization-free conforming virtual element method}
+\section{Stabilization-free conforming virtual element method}\label{sec:stabfreecfmvem}
 
 In this section we will develop a stabilization-free conforming virtual element method for the second order elliptic problem \eqref{eq:ellipitc2ndproblem} in two dimensions.
 % \begin{equation}\label{eq:ellipitc2ndproblem}
@@ -955,6 +971,9 @@ In this section we will develop a stabilization-free conforming virtual element 
 
 % In this section we will construct an $H(\div)$-conforming macro finite element, and then establish a norm equivalence of the gradient of the $H^1$-conforming virtual element space, which is vital in devising a stabilization free virtual element method.
 
+For polygon $K\subset\mathbb R^2$, let $\mathcal{V}(K)$ be the set of all vertices of $K$. And we overload notation $\mathcal{E}(K)$ to denote the set of all edges of $K$ in this section.
+
+
 \subsection{$H^1$-conforming virtual element}
 
 Recall the $H^1$-conforming virtual element in \cite{Huang2021,AhmadAlsaediBrezziMariniEtAl2013,BeiraoBrezziCangianiManziniEtAl2013,BeiraoBrezziMariniRusso2014}.
@@ -964,91 +983,100 @@ v(\delta) & \quad\forall~\delta\in\mathcal V(K), \label{eq:cfmvemdof1}\\
 \frac{1}{|e|}(v, q)_e & \quad\forall~q\in\mathbb P_{k-2}(e), e\in\mathcal E(K), \label{eq:cfmvemdof2}\\
 \frac{1}{|K|}(v, q)_K & \quad\forall~q\in\mathbb P_{k-2}(K). \label{eq:cfmvemdof3}
 \end{align}
-
-To define the space of shape functions $V_k(K)$, we introduce a local $H^1$-projector $\Pi_k^K: H^1(K)\to\mathbb P_k(K)$: given $v\in H^1(K)$, let $\Pi_k^Kv\in\mathbb P_k(K)$ be determined by
-\begin{align}
-(\nabla\Pi_k^Kv, \nabla q)_K&=(\nabla v, \nabla q)_K\quad  \forall~q\in \mathbb P_k(K),\label{eq:projlocal1}\\
-\sum_{\delta\in\mathcal V(K)}(\Pi_k^Kv)(\delta)&=\sum_{\delta\in\mathcal V(K)}v(\delta).\label{eq:projlocal2}
-\end{align}
-It holds 
-\begin{equation}\label{eq:localprojprop1}
-\Pi_k^Kq=q \quad\forall~q\in\mathbb P_k(K).    
-\end{equation}
+And the space of shape functions is
+\begin{align*}
+V_k(K)&:=\big\{ v\in H^1(K): \Delta v\in \mathbb P_{k}(K),  v|_{\partial K}\in H^1(\partial K),  v|_e\in \mathbb P_{k}(e)\;\;\forall~e\in\mathcal E(K),\\    
+&\qquad\qquad\qquad\qquad\qquad\;\; \textrm{and } (v-\Pi_k^Kv, q)_K=0\quad\forall~q\in\mathbb P_{k}(K)/\mathbb P_{k-2}(K)\},
+\end{align*}
+where $\Pi_k^K$ is defined by \eqref{eq:projlocal2d1}-\eqref{eq:projlocal2d2}.
+It holds $\mathbb P_k(K)\subseteq V_k(K)$.
+% To define the space of shape functions $V_k(K)$, we introduce a local $H^1$-projector $\Pi_k^K: H^1(K)\to\mathbb P_k(K)$: given $v\in H^1(K)$, let $\Pi_k^Kv\in\mathbb P_k(K)$ be determined by
+% \begin{align}
+% (\nabla\Pi_k^Kv, \nabla q)_K&=(\nabla v, \nabla q)_K\quad  \forall~q\in \mathbb P_k(K),\label{eq:projlocal1}\\
+% \sum_{\delta\in\mathcal V(K)}(\Pi_k^Kv)(\delta)&=\sum_{\delta\in\mathcal V(K)}v(\delta).\label{eq:projlocal2}
+% \end{align}
+% It holds 
+% \begin{equation}\label{eq:localprojprop1}
+% \Pi_k^Kq=q \quad\forall~q\in\mathbb P_k(K).    
+% \end{equation}
 
 % The shape function space $V_k(K)$ is defined recursively with respect to the dimension of $K$. 
 % When $K$ is a line segment, $V_k(K)$ is defined exactly as the polynomial space $\mathbb P_k(K)$.
 % Assume $V_k(K)$ has been defined on the $l$-dimensional polytope $K$ for $l=1,\ldots, d-1$. 
 % Then for  $d$-dimensional polytope $K$, define
-Now define
-\begin{align*}
-V_k(K)&:=\big\{ v\in H^1(K): \Delta v\in \mathbb P_{k}(K),  v|_{\partial K}\in H^1(\partial K),  v|_e\in \mathbb P_{k}(e)\;\;\forall~e\in\mathcal E(K),\\    
-&\qquad\qquad\qquad\qquad\qquad\;\; \textrm{and } (v-\Pi_k^Kv, q)_K=0\quad\forall~q\in\mathbb P_{k}(K)/\mathbb P_{k-2}(K)\},
-\end{align*}
-where $\mathbb P_{k}(K)/\mathbb P_{k-2}(K)$ means the orthogonal complement space of $\mathbb P_{k-2}(K)$ in $\mathbb P_{k}(K)$ with respect to the inner product $(\cdot, \cdot)_K$.
-It holds $\mathbb P_k(K)\subseteq V_k(K)$.
 
-For $v\in V_k(K)$, the $H^1$ projection $\Pi_k^Kv$ is computable using only DoFs \eqref{eq:cfmvemdof1}-\eqref{eq:cfmvemdof3}, and the $L^2$ projection
-\begin{equation}\label{eq:cfmvemQKPik}  
-Q_k^Kv= \Pi_k^Kv + Q_{k-2}^Kv-Q_{k-2}^K\Pi_k^Kv
-\end{equation}
-is also computable using only DoFs \eqref{eq:cfmvemdof1}-\eqref{eq:cfmvemdof3}. 
-We have the norm equivalence of the virtual element space (cf. \cite[Lemma 4.7]{Huang2021} and \cite{ChenHuang2018,BrennerSung2018,BeiraodaVeigaLovadinaRusso2017}), that is for $v\in V_k(K)$,
+
+For $v\in V_k(K)$, the $H^1$ projection $\Pi_k^Kv$ and the $L^2$ projection $Q_k^Kv= \Pi_k^Kv + Q_{k-2}^Kv-Q_{k-2}^K\Pi_k^Kv$ are computable using only DoFs \eqref{eq:cfmvemdof1}-\eqref{eq:cfmvemdof3}. 
+We have the norm equivalence of space $V_k(K)$ (cf. \cite[Lemma 4.7]{Huang2021} and \cite{ChenHuang2018,BrennerSung2018,BeiraodaVeigaLovadinaRusso2017}), that is for $v\in V_k(K)$, it holds
 \begin{equation}\label{eq:cfmVknormequivalence}
 h_K^2|v|_{1,K}^2\lesssim\|v\|_{0,K}^2\eqsim \|Q_{k-2}^Kv\|_{0,K}^2 + \sum_{\delta\in \mathcal V(K)}h_K^2|v(\delta)|^2+\sum_{e\in\mathcal E(K)}h_K\|Q_{k-2}^ev\|_{0,e}^2.
 \end{equation}
 
-\subsection{Local inf-sup condition and norm equivalence}
-With the help of the macro element space $\mathbb{V}_{k}^{\rm div}(K)$, we will present a norm equivalence of space $\nabla V_k(K)$. 
-% Let $Q_K^{\div}$ be the $L^2$-orthogonal projection operator onto $\mathbb{V}_{k-1}^{\rm div}(K)$ with respect to the inner product $(\cdot, \cdot)_K$.
-\begin{lemma}
-It holds the inf-sup condition
-\begin{equation}\label{eq:cfmlocaldiscreteinfsup}    
-\|\nabla v\|_{0,K}\lesssim \sup_{\boldsymbol{\phi}\in\mathbb{V}_{k}^{\rm div}(K)}\frac{(\boldsymbol{\phi}, \nabla v)_K}{\|\boldsymbol{\phi}\|_{0,K}} \quad \forall~v\in V_k(K).
-\end{equation}
-Consequently
+Employing the same argument as in Lemma~\ref{lem:gradVknormequivalence}, from  \eqref{eq:cfmVknormequivalence}, we get the norm equivalence
 \begin{equation}\label{eq:cfmgradVknormequivalence}  
 \|Q_{K,k}^{\div}\nabla v\|_{0,K}\eqsim \|\nabla v\|_{0,K} \quad \forall~v\in V_k(K).
 \end{equation}
-\end{lemma}
-\begin{proof}
-Clearly the norm equivalence \eqref{eq:cfmgradVknormequivalence} follows from the local inf-sup condition~\eqref{eq:cfmlocaldiscreteinfsup}. We will focus on the proof of \eqref{eq:cfmlocaldiscreteinfsup}.
-Without loss of generality, assume $v\in V_k(K)\cap L_0^2(K)$.
-Based on DoFs \eqref{Vpdivdof1}-\eqref{Vpdivdof3}, take $\boldsymbol{\phi}\in\mathbb{V}_{k}^{\rm div}(K)$ such that
-\begin{align*}
-(\boldsymbol{\phi}\cdot\boldsymbol{n}, q)_e&=h_K^{-1}(v, q)_e  \quad\quad\,\forall~q\in\mathbb P_{k}(e) \textrm{ on each }  e\in\mathcal E(K), \\
-(\div\boldsymbol{\phi}, q)_K&=-h_K^{-2}(v, q)_K  \quad\forall~q\in\mathbb P_{k-2}(K)/\mathbb P_{0}(K), \\
-(\boldsymbol{\phi}, \bs q)_K&=0  \qquad\qquad\qquad\forall~\bs q\in \curl\mathring{V}_{k+1}^{\grad}(K). 
-\end{align*}
-Then $(\boldsymbol{\phi}\cdot\boldsymbol{n})|_{\partial K}=h_K^{-1}v|_{\partial K}$. By $\div\boldsymbol{\phi}\in \mathbb P_{k-2}(K)$, we have $\div\boldsymbol{\phi}-Q_{0}^K(\div\boldsymbol{\phi})=-h_K^{-2}Q_{k-2}^Kv$. Apply the integration by parts to get
-\begin{align*}
-(\boldsymbol{\phi}, \nabla v)_K&=(\boldsymbol{\phi}\cdot\boldsymbol{n}, v)_{\partial K}-(\div\boldsymbol{\phi}, v)_K=(\boldsymbol{\phi}\cdot\boldsymbol{n}, v)_{\partial K}-(\div\boldsymbol{\phi}-Q_{0}^K(\div\boldsymbol{\phi}), v)_K \\
-&=h_K^{-1}\|v\|_{0,\partial K}^2+h_K^{-2}(Q_{k-2}^Kv, v)_K=h_K^{-1}\|v\|_{0,\partial K}^2+h_K^{-2}\|Q_{k-2}^Kv\|_{0,K}^2.
-\end{align*}
-By the norm equivalence \eqref{eq:cfmVknormequivalence} and the inverse inequality, we get
-\begin{equation}\label{eq:20220528}
-\|\nabla v\|_{0,K}^{2}\lesssim h_K^{-2}\|Q_{k-2}^Kv\|_{0,K}^2+h_K^{-1}\|v\|_{0,\partial K}^2 + \sum_{\delta\in \mathcal V(K)}|v(\delta)|^2\lesssim (\boldsymbol{\phi}, \nabla v)_K.
-\end{equation}
 
-On the other hand, it follows from the integration by parts that
+
+\begin{remark}\rm
+When $k\geq2$, we can replace $Q_{K,k}^{\div}$ by the $L^2$-orthogonal projection operator onto space $\mathbb{V}_{k,k-2}^{\rm div}(K)$, where
 \begin{align*}
-\|Q_0^K(\div\boldsymbol{\phi})\|_{0,K}&\lesssim h_{K}\big|Q_0^K(\div\boldsymbol{\phi})\big|\lesssim h_{K}^{-1}\big|(\div\boldsymbol{\phi},1)_{K}\big|=h_{K}^{-1}\big|(\boldsymbol{\phi}\cdot\boldsymbol{n},1)_{\partial K}\big| \\
-&\lesssim h_{K}^{-1}\sum_{e\in\mathcal E^{\partial}(\mathcal T_K)}h_e^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,e}.
+\mathbb{V}_{k,k-2}^{\rm div}(K):=&\{\boldsymbol{\phi}\in\mathbb{V}_{k}^{\rm div}(K): \div\boldsymbol{\phi}\in\mathbb P_{k-2}(K)\} \\
+=&\{\boldsymbol{\phi}\in\boldsymbol{V}_{k}^{BDM}(K): \div\boldsymbol{\phi}\in\mathbb P_{k-2}(K), \boldsymbol{\phi}\cdot\boldsymbol{n}|_e\in\mathbb P_{k}(e)\;\;\forall~e\in\mathcal E(K)\}.
 \end{align*}
-Employing the norm equivalence \eqref{eq:Vkm1divnormequivalence},
-we acquire
-\begin{align*}
-\|\boldsymbol{\phi}\|_{0,K}&\eqsim h_K\|\div\boldsymbol{\phi}\|_{0,K} +\sum_{e\in\mathcal E^{\partial}(\mathcal T_K)}h_e^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,e} \\
-&\lesssim h_K\|\div\boldsymbol{\phi}-Q_0^K(\div\boldsymbol{\phi})\|_{0,K} +\sum_{e\in\mathcal E^{\partial}(\mathcal T_K)}h_e^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,e} \\
-&\lesssim h_K^{-1}\|Q_{k-2}^Kv\|_{0,K} +h_K^{-1/2}\|v\|_{0,\partial K}.    
-\end{align*}
-Then we obtain from the norm equivalence \eqref{eq:cfmVknormequivalence} and the Poincar\'e-Friedrichs  inequality \cite[(2.14)]{BrennerSung2018} that
-\begin{align*}
-\|\boldsymbol{\phi}\|_{0,K}
-&\lesssim h_K^{-1}\|Q_{k-2}^Kv\|_{0,K} +\sum_{\delta\in \mathcal V(K)}|v(\delta)|+\sum_{e\in\mathcal E(K)}h_K^{-1/2}\|Q_{k-2}^ev\|_{0,e} \\
-&\lesssim h_K^{-1}\|v\|_{0,K}\lesssim \|\nabla v\|_{0,K}.    
-\end{align*}
-Finally we conclude \eqref{eq:cfmlocaldiscreteinfsup} from \eqref{eq:20220528} and the last inequality.
-\end{proof}
+\end{remark}
+% \subsection{Local inf-sup condition and norm equivalence}
+% With the help of the macro element space $\mathbb{V}_{k}^{\rm div}(K)$, we will present a norm equivalence of space $\nabla V_k(K)$. 
+% % Let $Q_K^{\div}$ be the $L^2$-orthogonal projection operator onto $\mathbb{V}_{k-1}^{\rm div}(K)$ with respect to the inner product $(\cdot, \cdot)_K$.
+% \begin{lemma}
+% It holds the inf-sup condition
+% \begin{equation}\label{eq:cfmlocaldiscreteinfsup}    
+% \|\nabla v\|_{0,K}\lesssim \sup_{\boldsymbol{\phi}\in\mathbb{V}_{k}^{\rm div}(K)}\frac{(\boldsymbol{\phi}, \nabla v)_K}{\|\boldsymbol{\phi}\|_{0,K}} \quad \forall~v\in V_k(K).
+% \end{equation}
+% Consequently
+% \begin{equation}\label{eq:cfmgradVknormequivalence}  
+% \|Q_{K,k}^{\div}\nabla v\|_{0,K}\eqsim \|\nabla v\|_{0,K} \quad \forall~v\in V_k(K).
+% \end{equation}
+% \end{lemma}
+% \begin{proof}
+% Clearly the norm equivalence \eqref{eq:cfmgradVknormequivalence} follows from the local inf-sup condition~\eqref{eq:cfmlocaldiscreteinfsup}. We will focus on the proof of \eqref{eq:cfmlocaldiscreteinfsup}.
+% Without loss of generality, assume $v\in V_k(K)\cap L_0^2(K)$.
+% Based on DoFs \eqref{Vpdivdof1}-\eqref{Vpdivdof3}, take $\boldsymbol{\phi}\in\mathbb{V}_{k}^{\rm div}(K)$ such that
+% \begin{align*}
+% (\boldsymbol{\phi}\cdot\boldsymbol{n}, q)_e&=h_K^{-1}(v, q)_e  \quad\quad\,\forall~q\in\mathbb P_{k}(e) \textrm{ on each }  e\in\mathcal E(K), \\
+% (\div\boldsymbol{\phi}, q)_K&=-h_K^{-2}(v, q)_K  \quad\forall~q\in\mathbb P_{k-1}(K)/\mathbb R, \\
+% (\boldsymbol{\phi}, \bs q)_K&=0  \qquad\qquad\qquad\forall~\bs q\in \curl\mathring{V}_{k+1}^{\grad}(K). 
+% \end{align*}
+% Then $(\boldsymbol{\phi}\cdot\boldsymbol{n})|_{\partial K}=h_K^{-1}v|_{\partial K}$. By $\div\boldsymbol{\phi}\in \mathbb P_{k-1}(K)$, we have $\div\boldsymbol{\phi}-Q_{0}^K(\div\boldsymbol{\phi})=-h_K^{-2}Q_{k-1}^Kv$. Apply the integration by parts to get
+% \begin{align*}
+% (\boldsymbol{\phi}, \nabla v)_K&=(\boldsymbol{\phi}\cdot\boldsymbol{n}, v)_{\partial K}-(\div\boldsymbol{\phi}, v)_K=(\boldsymbol{\phi}\cdot\boldsymbol{n}, v)_{\partial K}-(\div\boldsymbol{\phi}-Q_{0}^K(\div\boldsymbol{\phi}), v)_K \\
+% &=h_K^{-1}\|v\|_{0,\partial K}^2+h_K^{-2}(Q_{k-1}^Kv, v)_K=h_K^{-1}\|v\|_{0,\partial K}^2+h_K^{-2}\|Q_{k-1}^Kv\|_{0,K}^2.
+% \end{align*}
+% By the norm equivalence \eqref{eq:cfmVknormequivalence} and the inverse inequality, we get
+% \begin{equation}\label{eq:20220528}
+% \|\nabla v\|_{0,K}^{2}\lesssim h_K^{-2}\|Q_{k-2}^Kv\|_{0,K}^2+h_K^{-1}\|v\|_{0,\partial K}^2 + \sum_{\delta\in \mathcal V(K)}|v(\delta)|^2\lesssim (\boldsymbol{\phi}, \nabla v)_K.
+% \end{equation}
+
+% On the other hand, it follows from the integration by parts that
+% \begin{align*}
+% \|Q_0^K(\div\boldsymbol{\phi})\|_{0,K}&\lesssim h_{K}\big|Q_0^K(\div\boldsymbol{\phi})\big|\lesssim h_{K}^{-1}\big|(\div\boldsymbol{\phi},1)_{K}\big|=h_{K}^{-1}\big|(\boldsymbol{\phi}\cdot\boldsymbol{n},1)_{\partial K}\big| \\
+% &\lesssim h_{K}^{-1}\sum_{e\in\mathcal E^{\partial}(K)}h_e^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,e}.
+% \end{align*}
+% Employing the norm equivalence \eqref{eq:Vkm1divnormequivalence},
+% we acquire
+% \begin{align*}
+% \|\boldsymbol{\phi}\|_{0,K}&\eqsim h_K\|\div\boldsymbol{\phi}\|_{0,K} +\sum_{e\in\mathcal E^{\partial}(K)}h_e^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,e} \\
+% &\lesssim h_K\|\div\boldsymbol{\phi}-Q_0^K(\div\boldsymbol{\phi})\|_{0,K} +\sum_{e\in\mathcal E^{\partial}(K)}h_e^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,e} \\
+% &\lesssim h_K^{-1}\|Q_{k-1}^Kv\|_{0,K} +h_K^{-1/2}\|v\|_{0,\partial K}.    
+% \end{align*}
+% Then we obtain from the norm equivalence \eqref{eq:cfmVknormequivalence} and the Poincar\'e-Friedrichs  inequality \cite[(2.14)]{BrennerSung2018} that
+% \begin{align*}
+% \|\boldsymbol{\phi}\|_{0,K}
+% &\lesssim h_K^{-1}\|Q_{k-1}^Kv\|_{0,K} +\sum_{\delta\in \mathcal V(K)}|v(\delta)|+\sum_{e\in\mathcal E(K)}h_K^{-1/2}\|Q_{k-2}^ev\|_{0,e} \\
+% &\lesssim h_K^{-1}\|v\|_{0,K}\lesssim \|\nabla v\|_{0,K}.    
+% \end{align*}
+% Finally we conclude \eqref{eq:cfmlocaldiscreteinfsup} from \eqref{eq:20220528} and the last inequality.
+% \end{proof}
 
 
 \subsection{Discrete method}
@@ -1066,6 +1094,17 @@ $$
 a_h(u_h, v_h):=(Q_{h,k}^{\div}\nabla u_h, Q_{h,k}^{\div}\nabla v_h)+\alpha(Q_hu_h, Q_hv_h).
 $$
 
+It is obvious that 
+\begin{equation}\label{eq:cfmahbounedness}
+a_h(u, v)\lesssim |u|_1|v|_1\quad\forall~u,v\in H_0^1(\Omega).
+\end{equation}  
+And the norm equivalence \eqref{eq:cfmgradVknormequivalence} implies
+the coercivity
+\begin{equation}\label{eq:cfmahcoercivity}
+|v_h|_1^2\lesssim a_h(v_h, v_h)\quad\forall~v_h\in V_h.
+\end{equation}  
+Therefore the stabilization-free virtual element method \eqref{eq:cfmvem} is uni-solvent.
+
 \begin{remark}\rm
 By introducing $\boldsymbol{\phi}_h=Q_{h,k}^{\div}\nabla u_h$, the virtual element method \eqref{eq:cfmvem} can be rewritten as the following primal mixed virtual element method: find $\boldsymbol{\phi}_h\in\mathbb{V}_{h,k}^{\rm div}$ and $u_h\in V_h$ such that
 \begin{equation*}
@@ -1076,30 +1115,27 @@ By introducing $\boldsymbol{\phi}_h=Q_{h,k}^{\div}\nabla u_h$, the virtual eleme
 \end{equation*}
 \end{remark}
 
-It is obvious that 
-\begin{equation}\label{eq:cfmahbounedness}
-a_h(u, v)\lesssim |u|_1|v|_1\quad\forall~u,v\in H_0^1(\Omega).
-\end{equation}  
-\begin{lemma}
-It holds the coercivity
-\begin{equation}\label{eq:cfmahcoercivity}
-|v_h|_1^2\lesssim a_h(v_h, v_h)\quad\forall~v_h\in V_h.
-\end{equation}  
-\end{lemma}
-\begin{proof}
-Due to \eqref{eq:cfmgradVknormequivalence}, we have
-$$
-\sum_{K\in\mathcal T_h}\|\nabla v_h\|_{0,K}^2\lesssim \sum_{K\in\mathcal T_h}\|Q_{K,k}^{\div}\nabla v_h\|_{0,K}^2\leq a_h(v_h, v_h)\quad\forall~v_h\in V_h,
-$$
-which implies the coercivity \eqref{eq:cfmahcoercivity}.
-\end{proof}
 
-\begin{theorem}
-The stabilization free virtual element method \eqref{eq:cfmvem} is uni-solvent.
-\end{theorem}
-\begin{proof}
-Thanks to the boundedness \eqref{eq:cfmahbounedness} and the coercivity \eqref{eq:cfmahcoercivity}, we conclude the result from the Lax-Milgram lemma \cite{LaxMilgram1954}.
-\end{proof}
+% \begin{lemma}
+% It holds the coercivity
+% \begin{equation}\label{eq:cfmahcoercivity}
+% |v_h|_1^2\lesssim a_h(v_h, v_h)\quad\forall~v_h\in V_h.
+% \end{equation}  
+% \end{lemma}
+% \begin{proof}
+% Due to \eqref{eq:cfmgradVknormequivalence}, we have
+% $$
+% \sum_{K\in\mathcal T_h}\|\nabla v_h\|_{0,K}^2\lesssim \sum_{K\in\mathcal T_h}\|Q_{K,k}^{\div}\nabla v_h\|_{0,K}^2\leq a_h(v_h, v_h)\quad\forall~v_h\in V_h,
+% $$
+% which implies the coercivity \eqref{eq:cfmahcoercivity}.
+% \end{proof}
+
+% \begin{theorem}
+% The stabilization free virtual element method \eqref{eq:cfmvem} is uni-solvent.
+% \end{theorem}
+% \begin{proof}
+% Thanks to the boundedness \eqref{eq:cfmahbounedness} and the coercivity \eqref{eq:cfmahcoercivity}, we conclude the result from the Lax-Milgram lemma \cite{LaxMilgram1954}.
+% \end{proof}
 
 \subsection{Error analysis}
 \begin{theorem}
@@ -1109,44 +1145,30 @@ Let $u\in H_0^1(\Omega)$ be the solution of problem \eqref{eq:ellipitc2ndproblem
 \end{equation}
 \end{theorem}
 \begin{proof}
-Take any $v_h\in V_h$. By the coercivity \eqref{eq:cfmahcoercivity}, \eqref{eq:cfmvem}, \eqref{eq:ellipitc2ndproblemweakform} and the error estimate of $Q_h^0$,
+Take any $v_h\in V_h$. 
+Applying the same argument as in Theorem \ref{thm:errorestimateH1}, we have
+$$
+\|\nabla u-Q_{h,k}^{\div}\nabla v_h\|_0+\|u-Q_hv_h\|_0\lesssim \|\nabla u-Q_h^{k-1}\nabla u\|_0+\|u-Q_hu\|_0+|u-v_h|_1,
+$$
+$$
+a_h(v_h, v_h-u_h)-a(u,v_h-u_h)\lesssim \|\nabla u-Q_{h,k}^{\div}\nabla v_h\|_0|v_h-u_h|_1+\|u-Q_hv_h\|_0\|v_h-u_h\|_0.
+$$
+Combining the last two inequalities gives
+$$
+a_h(v_h, v_h-u_h)-a(u,v_h-u_h)\lesssim(\|\nabla u-Q_h^{k-1}\nabla u\|_0+\|u-Q_hu\|_0+|u-v_h|_1)|v_h-u_h|_1.
+$$
+By the coercivity \eqref{eq:cfmahcoercivity}, \eqref{eq:cfmvem}, \eqref{eq:ellipitc2ndproblemweakform} and the error estimate of $Q_h^0$,
 \begin{align*}
 |v_h-u_h|_1^2&\lesssim a_h(v_h-u_h, v_h-u_h)=a_h(v_h, v_h-u_h)-(f, Q_h(v_h-u_h)) \\
 &\lesssim a_h(v_h, v_h-u_h)-a(u,v_h-u_h)+(f-Q_hf, v_h-u_h) \\
-&\lesssim a_h(v_h, v_h-u_h)-a(u,v_h-u_h)+(f-Q_hf, v_h-u_h-Q_h^0(v_h-u_h)) \\
+% &\lesssim a_h(v_h, v_h-u_h)-a(u,v_h-u_h)+(f-Q_hf, v_h-u_h-Q_h^0(v_h-u_h)) \\
 &\lesssim a_h(v_h, v_h-u_h)-a(u,v_h-u_h)+h\|f-Q_hf\|_0|v_h-u_h|_1.
 \end{align*}
-By the definitions of $a_h(\cdot, \cdot)$ and $a(\cdot, \cdot)$,
-\begin{align*}
-&\quad a_h(v_h, v_h-u_h)-a(u,v_h-u_h)\\
-&=(Q_{h,k}^{\div}\nabla v_h, Q_{h,k}^{\div}\nabla(v_h-u_h))-(\nabla u, \nabla(v_h-u_h))\\
-&\quad +\alpha(Q_hv_h, Q_h(v_h-u_h))-\alpha(u, v_h-u_h) \\
-&=(Q_{h,k}^{\div}\nabla v_h-\nabla u, \nabla(v_h-u_h))+\alpha(Q_hv_h-u,v_h-u_h)\\
-&\leq \|\nabla u-Q_{h,k}^{\div}\nabla v_h\|_0|v_h-u_h|_1+\alpha\|u-Q_hv_h\|_0\|v_h-u_h\|_0.
+Hence we get from the triangle inequality and the last two inequalities that
+\begin{align*}  
+|u-u_h|_1&\leq|u-v_h|_1+|v_h-u_h|_1 \\
+&\lesssim \|\nabla u-Q_h^{k-1}\nabla u\|_0+\|u-Q_hu\|_0+|u-v_h|_1+h\|f-Q_hf\|_0.
 \end{align*}
-Combining the last two inequalities gives
-$$
-|v_h-u_h|_1\lesssim \|\nabla u-Q_{h,k}^{\div}\nabla v_h\|_0+\|u-Q_hv_h\|_0+h\|f-Q_hf\|_0.
-$$
-Since $\mathbb P_{k-1}(K;\mathbb R^2)\subseteq\mathbb{V}_{k-1}^{\rm div}(K)$ for $K\in\mathcal T_h$, we have $Q_{h,k}^{\div}(Q_h^{k-1}\nabla u)=Q_h^{k-1}\nabla u$. Hence
-\begin{align*}    
-\|\nabla u-Q_{h,k}^{\div}\nabla v_h\|_0&\leq \|\nabla u-Q_{h,k}^{\div}\nabla u\|_0+\|Q_{h,k}^{\div}(\nabla u-\nabla v_h)\|_0\\
-&= \|\nabla u-Q_h^{k-1}\nabla u-Q_{h,k}^{\div}(\nabla u-Q_h^{k-1}\nabla u)\|_0\\
-&\quad+\|Q_{h,k}^{\div}(\nabla u-\nabla v_h)\|_0 \\
-&\leq \|\nabla u-Q_h^{k-1}\nabla u\|_0+|u-v_h|_1.
-\end{align*}
-Similarly, we have
-$$
-\|u-Q_hv_h\|_0\leq \|u-Q_hu\|_0+\|Q_h(u-v_h)\|_0\leq \|u-Q_hu\|_0+\|u-v_h\|_0.
-$$
-By combining the last three inequalities, we obtain from the Poincar\'e inequality that
-$$
-|v_h-u_h|_1\lesssim \|\nabla u-Q_h^{k-1}\nabla u\|_0+\|u-Q_hu\|_0+|u-v_h|_1+h\|f-Q_hf\|_0,
-$$
-which together with the triangle inequality yields
-$$
-|u-u_h|_1\lesssim \|\nabla u-Q_h^{k-1}\nabla u\|_0+\|u-Q_hu\|_0+|u-v_h|_1+h\|f-Q_hf\|_0.
-$$
 By the arbitrariness of $v_h\in V_h$, we derive
 $$
 |u-u_h|_1\lesssim \|\nabla u-Q_h^{k-1}\nabla u\|_0+\|u-Q_hu\|_0+h\|f-Q_hf\|_0+\inf_{v_h\in V_h}|u-v_h|_1.
@@ -1157,6 +1179,7 @@ At last, \eqref{eq:cfmerrorestimateH1} follows from the last inequality, the err
 
 
 
+\section{Numerical examples}\label{sec:numericalexamps}
 
 
 
