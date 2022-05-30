@@ -118,9 +118,9 @@ Numerical results are provided to verify the convergence rates.
 Recently a stabilization-free linear virtual element method, based on a higher order polynomial projection of the gradient of virtual element functions, is devised for Poisson equation in two dimensions in \cite{BerroneBorioMarcon2021,BerroneBorioMarcon2022}, where the degree of polynomial used in projection depends on the number of vertices of the polygon. We refer to~\cite{DAltriMirandaPatrunoSacco2021} for a discussion on similar stabilization-free virtual element methods for plane elasticity problem.
 The idea in \cite{BerroneBorioMarcon2021,BerroneBorioMarcon2022} is not easy to extend to construct higher order stabilization-free virtual element methods, and
 the analysis is rather elaborate. 
-This motives us to construct stabilization-free virtual element methods in arbitrary degree of polynomial and arbitrary dimension in a unified way.
+This motivates us to construct stabilization-free virtual element methods in arbitrary degree of polynomial and arbitrary dimension in a unified way.
 
-The key to construct stabilization-free virtual element methods to find a finite-dimensional space $\mathbb{V}(K)$ and a projector $Q_K$ onto space $\mathbb{V}(K)$ such that
+The key to construct stabilization-free virtual element methods is to find a finite-dimensional space $\mathbb{V}(K)$ and a projector $Q_K$ onto space $\mathbb{V}(K)$ such that
 \begin{enumerate}[(C1)]
 \item It holds the norm equivalence 
 \begin{equation}\label{intro:gradVknormequiv} 
@@ -137,7 +137,7 @@ $$
 $$
 hold
 rather than the norm equivalence \eqref{intro:gradVknormequiv}, then the additional stabilization term is usually necessary to ensure the coercivity of the discrete bilinear form.
-To remove the additional stabilization term, $\mathbb{V}(K)$ is taken as $\mathbb P_{l}(K; \mathbb{R}^d)$ with large enough $l$ even for the lowest order case $k=1$ in \cite{BerroneBorioMarcon2021,BerroneBorioMarcon2022,DAltriMirandaPatrunoSacco2021}, and virtual element space $V_k(K)$ is modified accordingly to make $Q_{l}^{K}\nabla v$ computable.
+To remove the additional stabilization term, $\mathbb{V}(K)$ is taken as $\mathbb P_{l}(K; \mathbb{R}^d)$ with large enough $l$ even for the lowest order case $k=1$ in \cite{BerroneBorioMarcon2021,BerroneBorioMarcon2022,DAltriMirandaPatrunoSacco2021}, and the virtual element space $V_k(K)$ has to be modified accordingly to make $Q_{l}^{K}\nabla v$ computable.
 Instead, we employ $k$th order or $(k-1)$th order $H(\div)$-conforming macro finite elements as $\mathbb{V}(K)$ in this paper, and keep the virtual element space $V_k(K)$ as usual ones.
 
 
