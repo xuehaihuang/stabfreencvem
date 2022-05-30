@@ -69,53 +69,101 @@
 
 \begin{document}
 \title[Stabilization-Free VEM]{Stabilization-Free Virtual Element Methods}
-%\author{Long Chen}%
-%\address{Department of Mathematics, University of California at Irvine, Irvine, CA 92697, USA}%
-%\email{chenlong@math.uci.edu}%
-% \author{Xuehai Huang}%
-% \address{School of Mathematics, Shanghai University of Finance and Economics, Shanghai 200433, China}%
-% \email{huang.xuehai@sufe.edu.cn}%
+\author{Chunyu Chen}%
+\address{Hunan Key Laboratory for Computation and Simulation in Science and Engineering; School of Mathematics and Computational Science, Xiangtan University, Xiangtan 411105, P.R.China }%
+ \email{...@xtu.edu.cn}%
+ \author{Xuehai Huang}%
+ \address{School of Mathematics, Shanghai University of Finance and Economics, Shanghai 200433, China}%
+ \email{huang.xuehai@sufe.edu.cn}%
+\author{Huayi Wei}%
+\address{Hunan Key Laboratory for Computation and Simulation in Science and Engineering; School of Mathematics and Computational Science, Xiangtan University, Xiangtan 411105, P.R.China }%
+ \email{weihuayi@xtu.edu.cn}%
 
+ \thanks{The second author is the corresponding author. The second author was supported by the National Natural Science Foundation of China Project 12171300, and the Natural Science Foundation of Shanghai 21ZR1480500.}
+ \thanks{The first and third authors were supported by NSFC (11871413) and in part by projects
+of Education Department of Hunan Provincial of China (19B534, 19A500).}
 
+\makeatletter
+\@namedef{subjclassname@2020}{\textup{2020} Mathematics Subject Classification}
+\makeatother
+\subjclass[2020]{
+%65F10;   %% Iterative numerical methods for linear systems
+% 58J10;   %%  Differential complexes [See also 35Nxx]; elliptic complexes
+65N12;   %%  Stability and convergence of numerical methods for boundary value problems involving PDEs;
+% 65N15;   %%  Error bounds for boundary value problems involving PDEs
+65N22;   %%  Numerical solution of discretized equations for boundary value problems involving PDEs;
+65N30;   %%  Finite element, Rayleigh-Ritz and Galerkin methods for boundary value problems involving PDEs;
+%65N55;   %%  Multigrid methods; domain decomposition for boundary value problems involving PDEs;
+% 15A69;   %%  Multilinear algebra, tensor calculus
+% 15A72;   %%  Vector and tensor algebra, theory of invariants [See also 13A50, 14L24]
+}
 
-%\thanks{The first author was supported by.}
-%\thanks{
-%The first author was supported by the National Science Foundation (NSF) DMS-1418934, and
-%in part by the Sea Poly Project of Beijing Overseas Talents and the National Natural Science Foundation of China Project 11671159.}
-% \thanks{This work was supported by the National Natural Science Foundation of China Projects 12171300 and 11771338, the Natural Science Foundation of Shanghai 21ZR1480500, and the Fundamental Research Funds for the Central Universities 2019110066.}
-
-% \subjclass[2010]{
-% %65N55;   %% Multigrid methods; domain decomposition
-% %65F10;   %%  Iterative methods for linear systems
-% 65N30;   %%  Finite elements, Rayleigh-Ritz and Galerkin methods, finite methods;
-% 65N12;   %%  Stability and convergence of numerical methods;
-% 65N22;   %%  Solution of discretized equations
-% %65N15;   %%  Error bounds
-% }
 
 \begin{abstract}
 Stabilization-free virtual element methods in arbitrary degree of polynomial are developed for second order elliptic problems, including a nonconforming virtual element method in arbitrary dimension and a conforming virtual element method in two dimensions.
-
+The key is to construct local $H(\div)$-conforming macro finite element spaces such that the associated $L^2$ projection of the gradient of virtual element functions is computable, and the $L^2$ projector has a uniform lower bound on the gradient of virtual element function spaces in $L^2$ norm.
+Optimal error estimates are derived for these stabilization-free virtual element methods.
+Numerical results are provided to verify the convergence rates.
 \end{abstract}
 
-% \keywords{Nonconforming finite element Stokes complex, quad-curl problem, error analysis, decoupling, fast solver}
+\keywords{Virtual element, stabilization-Free, macro finite element, norm equivalence, error analysis}
 
 
 \maketitle
 
-\tableofcontents
+% \tableofcontents
 
 \section{Introduction}
 
-Recently a stabilization-free linear virtual element method, based on a higher order polynomial projection of the gradient of virtual element functions, is devised for Poisson equation in two dimensions in \cite{BerroneBorioMarcon2021,BerroneBorioMarcon2022}, where the degree of polynomial used in projection depends on the number of vertices of the polygon. We refer to~\cite{DAltriMirandaPatrunoSacco2021} for a discussion on smiliar stabilization-free virtual element methods for plane elasticity problem.
+Recently a stabilization-free linear virtual element method, based on a higher order polynomial projection of the gradient of virtual element functions, is devised for Poisson equation in two dimensions in \cite{BerroneBorioMarcon2021,BerroneBorioMarcon2022}, where the degree of polynomial used in projection depends on the number of vertices of the polygon. We refer to~\cite{DAltriMirandaPatrunoSacco2021} for a discussion on similar stabilization-free virtual element methods for plane elasticity problem.
 The idea in \cite{BerroneBorioMarcon2021,BerroneBorioMarcon2022} is not easy to extend to construct higher order stabilization-free virtual element methods, and
 the analysis is rather elaborate. 
 This motives us to construct stabilization-free virtual element methods in arbitrary degree of polynomial and arbitrary dimension in a unified way.
 
+The key to construct stabilization-free virtual element methods to find a finite-dimensional space $\mathbb{V}(K)$ and a projector $Q_K$ onto space $\mathbb{V}(K)$ such that
+\begin{enumerate}[(C1)]
+\item It holds the norm equivalence 
+\begin{equation}\label{intro:gradVknormequiv} 
+\|Q_{K}\nabla v\|_{0,K}\eqsim \|\nabla v\|_{0,K} \quad \forall~v\in V_k(K)
+\end{equation}
+on shape function space $V_k(K)$ of virtual elements;
+\item The projection $Q_{K}\nabla v$ is computable based on the degrees of freedom (DoFs) of virtual elements for $v\in V_k(K)$.
+\end{enumerate}
+We can choose $Q_{K}$ as the $L^2$-orthogonal projector with respect to the inner product $(\cdot, \cdot)_K$. The norm equivalence \eqref{intro:gradVknormequiv} implies space $\mathbb{V}(K)$ should be sufficiently large compared with the virtual element space $V_k(K)$.
+In standard virtual element methods, $Q_{k-1}^{K}\nabla v$ \cite{BeiraodaVeigaBrezziMariniRusso2016} or $\nabla\Pi_k^{K}v$ \cite{BeiraoBrezziCangianiManziniEtAl2013,BeiraoBrezziMariniRusso2014,AhmadAlsaediBrezziMariniEtAl2013,AyusodeDiosLipnikovManzini2016} are used, where $Q_{k-1}^{K}$ is the $L^2$-orthogonal projector onto the $(k-1)$th order polynomial space $\mathbb P_{k-1}(K; \mathbb{R}^d)$, and $\Pi_k^{K}$ is the $H^1$ projection operator onto the $k$th order polynomial space $\mathbb P_{k}(K)$.
+While only
+$$
+\|Q_{k-1}^{K}\nabla v\|_{0,K}\lesssim \|\nabla v\|_{0,K}, \quad \|\nabla\Pi_k^{K}v\|_{0,K}\lesssim \|\nabla v\|_{0,K}
+$$
+hold
+rather than the norm equivalence \eqref{intro:gradVknormequiv}, then the additional stabilization term is usually necessary to ensure the coercivity of the discrete bilinear form.
+To remove the additional stabilization term, $\mathbb{V}(K)$ is taken as $\mathbb P_{l}(K; \mathbb{R}^d)$ with large enough $l$ even for the lowest order case $k=1$ in \cite{BerroneBorioMarcon2021,BerroneBorioMarcon2022,DAltriMirandaPatrunoSacco2021}, and virtual element space $V_k(K)$ is modified accordingly to make $Q_{l}^{K}\nabla v$ computable.
+Instead, we employ $k$th order or $(k-1)$th order $H(\div)$-conforming macro finite elements as $\mathbb{V}(K)$ in this paper, and keep the virtual element space $V_k(K)$ as usual ones.
+
+
+We first construct $H(\div)$-conforming macro finite elements based on a simplicial partition $\mathcal T_K$ of polytope $K$ in arbitrary dimension. The shape function space $\mathbb{V}_{k}^{\rm div}(K)$ is a subspace of the $k$th order Brezzi-Douglas-Marini (BDM) element space on the simplicial partition $\mathcal T_K$ for $k\geq1$ and the lowest order Raviart-Thomas (RT) element space for $k=0$, with some constraints. To ensure the $L^2$ projection $Q_{K,k}^{\div}\nabla v$ onto space $\mathbb{V}_{k}^{\rm div}(K)$ is computable for virtual element function $v\in V_k(K)$, we require $\div\boldsymbol{\phi}\in\mathbb P_{\max\{k-1,0\}}(K)$ and $\boldsymbol{\phi}\cdot\boldsymbol{n}$ on each $(d-1)$-dimensional face of $K$ is a polynomial for $\boldsymbol{\phi}\in\mathbb{V}_{k}^{\rm div}(K)$.  
+Based on these considerations and the direct decomposition of an $H(\div)$-conforming macro finite element space related to $\mathbb{V}_{k}^{\rm div}(K)$, we propose the unisolvent DoFs for space $\mathbb{V}_{k}^{\rm div}(K)$, and establish the $L^2$ norm equivalence.
+By the way, we use the matrix-vector language to review a conforming finite element for differential $(d-2)$-form in \cite{ArnoldFalkWinther2006,Arnold2018}. 
 
 
 
 
+% $$
+% \|Q_{K,k-1}^{\div}\nabla v\|_{0,K}\eqsim \|\nabla v\|_{0,K} \quad \forall~v\in V_k(K).
+% $$
+
+% $\mathbb{V}_{k-1}^{\rm div}(K)$
+
+
+
+
+By the aid of projector $Q_{K,k}^{\div}$, we advance a stabilization-free nonconforming virtual element method in arbitrary dimension and a stabilization-free conforming virtual element method in two dimensions  for second order elliptic problems.
+Indeed, these stabilization-free virtual element methods can be equivalently recast as
+primal mixed virtual element methods.
+We prove the norm equivalence \eqref{intro:gradVknormequiv} and the well-posedness of these stabilization-free virtual element methods, and derive the optimal error estimates.
+
+The idea on constructing stabilization-free virtual element methods in this paper is simple,
+and can be extended to more virtual element methods and more partial differential equations.
 
 
 The rest of this paper is organized as follows. Notation and mesh conditions are presented in Section~\ref{sec:prelim}. 
@@ -203,7 +251,7 @@ Hereafter we use $T$ to represent a simplex, and $K$ to denote a general polytop
 
 In this section we will construct $H(\div)$-conforming macro finite elements in arbitrary dimension.
 \subsection{$H(\div)$-conforming finite elements}
-For polygon $K\in \mathcal T_h$ and $k\geq2$, let 
+For $d$-dimensional polytope $K\in \mathcal T_h$ and $k\geq2$, let 
 $$
 \boldsymbol{V}_{k-1}^{BDM}(K):=\{\boldsymbol{\phi}\in\bs H(\div, K): \boldsymbol{\phi}|_{T}\in \mathbb P_{k-1}(T;\mathbb R^d) \textrm{ for each } T\in\mathcal T_K\}
 $$ 
@@ -857,7 +905,7 @@ a_h(u_h, v_h):=(Q_{h,k-1}^{\div}\nabla_h u_h, Q_{h,k-1}^{\div}\nabla_h v_h)+\alp
 $$
 
 \begin{remark}\rm
-By introducing $\boldsymbol{\phi}_h=Q_{h,k-1}^{\div}\nabla_h u_h$, the virtual element method \eqref{eq:vem} can be rewritten as the following mixed virtual element method: find $\boldsymbol{\phi}_h\in\mathbb{V}_{h,k-1}^{\rm div}$ and $u_h\in V_h$ such that
+By introducing $\boldsymbol{\phi}_h=Q_{h,k-1}^{\div}\nabla_h u_h$, the virtual element method \eqref{eq:vem} can be rewritten as the following primal mixed virtual element method: find $\boldsymbol{\phi}_h\in\mathbb{V}_{h,k-1}^{\rm div}$ and $u_h\in V_h$ such that
 \begin{equation*}
 \begin{aligned}
 (\boldsymbol{\phi}_h, \boldsymbol{\psi}_h) - (\boldsymbol{\psi}_h, \nabla_h u_h)&=0 \quad\quad\quad\quad\;\;\forall~\boldsymbol{\psi}_h\in\mathbb{V}_{h,k-1}^{\rm div},\\
