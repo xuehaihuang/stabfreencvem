@@ -1224,14 +1224,84 @@ $$
 At last, \eqref{eq:cfmerrorestimateH1} follows from the last inequality, the error estimates of $Q_h^{k-1}$ and $Q_h$, and the approximation of $V_h$ \cite{Huang2021,ChenHuang2018,BrennerSung2018,BeiraodaVeigaLovadinaRusso2017}.
 \end{proof}
 
+\begin{figure}[htbp]
+\centering
+\begin{minipage}[t]{0.49\linewidth}
+\centering
+\includegraphics[width=5cm]{./figures/convex.pdf}
+%\caption{Numberical result of example with $\mathcal T_0$.}
+\end{minipage}%
+\begin{minipage}[t]{0.49\linewidth}
+\centering
+\includegraphics[width=5cm]{./figures/nonconvex.pdf}
+%\caption{[Numberical result of example with $\mathcal T_1$].}
+\end{minipage}%
+\centering
+\caption{Convex polygon mesh $\mathcal T_0$(left) and non-convex polygon mesh 
+$\mathcal T_1$(right).}
+\label{fig:mesh}
+\end{figure}
+
 
 
 
 \section{Numerical examples}\label{sec:numericalexamps}
+In this section, we solve \eqref{eq:ellipitc2ndproblem} using the conforming
+virtual element method and the nonconforming virtual element method, 
+and give numerical results to verify convergence rates.
+
+\begin{example}\label{ex}
+    Consider the second order elliptic problem \eqref{eq:ellipitc2ndproblem}
+    on rectangular domain $\Omega = (0, 1)\times(0, 1)$, take $\alpha = 2$, 
+    the exact solution and source term are:
+    $$
+    u = \sin(\pi x)\sin(\pi y), \quad f = (2\pi^2+2)\sin(\pi x)\sin(\pi y)
+    $$
+\end{example}
+
+The rectangular domain $\Omega$ is partitioned by the convex polygon mesh
+$\mathcal T_0$ and non-convex polygon mesh $\mathcal T_1$, respectively, 
+as shown in Figure \ref{fig:mesh}. The numerical results for $k = 1, 2, 5$ are 
+listed in Figure \ref{fig:ncvemrate} \ref{fig:cvemrate}, 
+where the errors use $L^2$ norm and $H^1$-like norm. Both cases confirm the
+theoretic convergence rates.
+
+\begin{figure}[htbp]
+\centering
+\begin{minipage}[t]{0.49\linewidth}
+\centering
+\includegraphics[width=6cm]{./figures/ncvemrate_convex.png}
+%\caption{Numberical result of example with $\mathcal T_0$.}
+\end{minipage}%
+\begin{minipage}[t]{0.49\linewidth}
+\centering
+\includegraphics[width=6cm]{./figures/ncvemrate_noconvex.png}
+%\caption{[Numberical result of example with $\mathcal T_1$].}
+\end{minipage}%
+\centering
+\caption{Error $\|u - Q_h u_h\|_0$ and $\|\nabla u - Q_{h, k-1}^{div}\nabla u_h\|_0$ 
+of Example \ref{ex} on $\mathcal T_0$(left) and $\mathcal T_1$(right) with $k=1, 2, 5$.}
+\label{fig:ncvemrate}
+\end{figure}
 
 
-
-
+\begin{figure}[htbp]
+\centering
+\begin{minipage}[t]{0.49\linewidth}
+\centering
+\includegraphics[width=6cm]{./figures/cvemrate_convex.png}
+%\caption{Numberical result of example with $\mathcal T_0$.}
+\end{minipage}%
+\begin{minipage}[t]{0.49\linewidth}
+\centering
+\includegraphics[width=6cm]{./figures/cvemrate_noconvex.png}
+%\caption{[Numberical result of example with $\mathcal T_1$].}
+\end{minipage}%
+\centering
+\caption{Error $\|u - Q_h u_h\|_0$ and $\|\nabla u - Q_{h, k-1}^{div}\nabla u_h\|_0$ 
+of Example \ref{ex} on $\mathcal T_0$(left) and $\mathcal T_1$(right) with $k=1, 2, 5$.}
+\label{fig:cvemrate}
+\end{figure}
 
 
 
