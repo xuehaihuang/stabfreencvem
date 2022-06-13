@@ -71,7 +71,7 @@
 \title[Stabilization-Free VEM]{Stabilization-Free Virtual Element Methods}
 \author{Chunyu Chen}%
 \address{Hunan Key Laboratory for Computation and Simulation in Science and Engineering; School of Mathematics and Computational Science, Xiangtan University, Xiangtan 411105, P.R.China }%
- \email{...@xtu.edu.cn}%
+ \email{202131510114@smail.xtu.edu.cn}%
  \author{Xuehai Huang}%
  \address{School of Mathematics, Shanghai University of Finance and Economics, Shanghai 200433, China}%
  \email{huang.xuehai@sufe.edu.cn}%
@@ -1136,7 +1136,7 @@ $$
 Based on the weak formulation \eqref{eq:ellipitc2ndproblemweakform}, we propose a stabilization free virtual element method for problem \eqref{eq:ellipitc2ndproblem} as follows: find $u_h\in V_h$ such that
 \begin{equation}\label{eq:cfmvem}
 a_h(u_h, v_h)=(f, Q_hv_h)\quad\forall~v_h\in V_h,
-\end{equation}
+\end{equation} 
 where the discrete bilinear form 
 $$
 a_h(u_h, v_h):=(Q_{h,k}^{\div}\nabla u_h, Q_{h,k}^{\div}\nabla v_h)+\alpha(Q_hu_h, Q_hv_h).
@@ -1145,7 +1145,7 @@ $$
 It is obvious that 
 \begin{equation}\label{eq:cfmahbounedness}
 a_h(u, v)\lesssim |u|_1|v|_1\quad\forall~u,v\in H_0^1(\Omega).
-\end{equation}  
+\end{equation}   
 And the norm equivalence \eqref{eq:cfmgradVknormequivalence} implies
 the coercivity
 \begin{equation}\label{eq:cfmahcoercivity}
@@ -1159,8 +1159,8 @@ By introducing $\boldsymbol{\phi}_h=Q_{h,k}^{\div}\nabla u_h$, the virtual eleme
 \begin{aligned}
 (\boldsymbol{\phi}_h, \boldsymbol{\psi}_h) - (\boldsymbol{\psi}_h, \nabla u_h)&=0 \quad\quad\quad\quad\;\;\forall~\boldsymbol{\psi}_h\in\mathbb{V}_{h,k}^{\rm div},\\
 (\boldsymbol{\phi}_h, \nabla v_h)+\alpha(Q_hu_h, Q_hv_h)&=(f, Q_hv_h)\quad\forall~v_h\in V_h.
-\end{aligned}
-\end{equation*}
+\end{aligned} 
+\end{equation*} 
 \end{remark}
 
 
@@ -1261,46 +1261,48 @@ and give numerical results to verify convergence rates.
 
 The rectangular domain $\Omega$ is partitioned by the convex polygon mesh
 $\mathcal T_0$ and non-convex polygon mesh $\mathcal T_1$, respectively, 
-as shown in Figure \ref{fig:mesh}. The numerical results for $k = 1, 2, 5$ are 
-listed in Figure \ref{fig:ncvemrate} \ref{fig:cvemrate}, 
+as shown in Figure \ref{fig:mesh}. We use \eqref{eq:vem} and \eqref{eq:cfmvem} 
+respectively to compute Example \ref{ex}, the numerical results for $k = 1, 2, 5$ are 
+listed in Figure \ref{fig:rate1} \ref{fig:rate2}, 
 where the errors use $L^2$ norm and $H^1$-like norm. Both cases confirm the
-theoretic convergence rates.
+theoretical convergence rates.
 
 \begin{figure}[htbp]
 \centering
 \begin{minipage}[t]{0.49\linewidth}
 \centering
-\includegraphics[width=6cm]{./figures/ncvemrate_convex.png}
+\includegraphics[width=6cm]{./figures/ncvem_convex.pdf}
 %\caption{Numberical result of example with $\mathcal T_0$.}
 \end{minipage}%
 \begin{minipage}[t]{0.49\linewidth}
 \centering
-\includegraphics[width=6cm]{./figures/ncvemrate_noconvex.png}
+\includegraphics[width=6cm]{./figures/ncvem_nonconvex.pdf}
 %\caption{[Numberical result of example with $\mathcal T_1$].}
 \end{minipage}%
 \centering
-\caption{Error $\|u - Q_h u_h\|_0$ and $\|\nabla u - Q_{h, k-1}^{div}\nabla u_h\|_0$ 
-of Example \ref{ex} on $\mathcal T_0$(left) and $\mathcal T_1$(right) with $k=1, 2, 5$.}
-\label{fig:ncvemrate}
+\caption{Error $\|u - Q_h u_h\|_0$ and $\|\nabla u - Q_{h, k-1}^{div}\nabla_h u_h\|_0$ 
+of $H^1$-nonconforming virtual element method on 
+$\mathcal T_0$(left) and $\mathcal T_1$(right) with $k=1, 2, 5$.}
+\label{fig:rate1}
 \end{figure}
 
-
 \begin{figure}[htbp]
 \centering
 \begin{minipage}[t]{0.49\linewidth}
 \centering
-\includegraphics[width=6cm]{./figures/cvemrate_convex.png}
+\includegraphics[width=6cm]{./figures/cvem_convex.pdf}
 %\caption{Numberical result of example with $\mathcal T_0$.}
 \end{minipage}%
 \begin{minipage}[t]{0.49\linewidth}
 \centering
-\includegraphics[width=6cm]{./figures/cvemrate_noconvex.png}
+\includegraphics[width=6cm]{./figures/cvem_nonconvex.pdf}
 %\caption{[Numberical result of example with $\mathcal T_1$].}
 \end{minipage}%
 \centering
-\caption{Error $\|u - Q_h u_h\|_0$ and $\|\nabla u - Q_{h, k-1}^{div}\nabla u_h\|_0$ 
-of Example \ref{ex} on $\mathcal T_0$(left) and $\mathcal T_1$(right) with $k=1, 2, 5$.}
-\label{fig:cvemrate}
+\caption{Error $\|u - Q_h u_h\|_0$ and $\|\nabla u - Q_{h, k}^{div}\nabla u_h\|_0$ 
+of $H^1$-conforming virtual element method  on $\mathcal T_0$(left) and 
+$\mathcal T_1$(right) with $k=1, 2, 5$.}
+\label{fig:rate2}
 \end{figure}
 
 
