@@ -1,0 +1,103 @@
+% SIAM Shared Information Template
+% This is information that is shared between the main document and any
+% supplement. If no supplement is required, then this information can
+% be included directly in the main document.
+
+
+% Packages and macros go here
+\usepackage{lipsum}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{algorithmic}
+
+\usepackage{amssymb}
+\usepackage{amsmath,amscd}
+\usepackage{mathrsfs}
+\usepackage{stmaryrd}
+\usepackage{chemarrow}
+\usepackage{enumerate}
+\usepackage{graphicx}
+\usepackage[all]{xy}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usepackage{multirow}
+\usepackage[colorinlistoftodos]{todonotes}
+% \usepackage[colorlinks=true, allcolors=blue]{hyperref}
+% \usepackage[hyperpageref]{backref}
+
+\ifpdf
+  \DeclareGraphicsExtensions{.eps,.pdf,.png,.jpg}
+\else
+  \DeclareGraphicsExtensions{.eps}
+\fi
+
+% theorems
+% \newtheorem{theorem}{Theorem}[section]
+% \newtheorem{lemma}[theorem]{Lemma}
+% \newtheorem{corollary}[theorem]{Corollary}
+% \newtheorem{proposition}[theorem]{Proposition}
+% \newtheorem{definition}[theorem]{Definition}
+% \newtheorem{example}[theorem]{Example}
+% \newtheorem{exercise}[theorem]{Exercise}
+% \newtheorem{question}[theorem]{Question}
+% % \newtheorem{remark}[theorem]{Remark}
+% \newtheorem{assumption}[theorem]{Assumption}
+% \newtheorem{alg}[theorem]{Algorithm}
+
+\DeclareMathOperator*{\img}{img}
+%\DeclareMathOperator*{\span}{span}
+\newcommand{\sign}{\operatorname{sign}}
+\newcommand{\curl}{\operatorname{curl}}
+\renewcommand{\div}{\operatorname{div}}
+%\renewcommand{\grad}{\operatorname{grad}}
+\newcommand{\grad}{\operatorname{grad}}
+\newcommand{\tr}{\operatorname{tr}}
+% \DeclareMathOperator*{\tr}{tr}
+\DeclareMathOperator*{\rot}{rot}
+\DeclareMathOperator*{\var}{Var}
+\newcommand{\dev}{\operatorname{dev}}
+\newcommand{\sym}{\operatorname{sym}}
+\newcommand{\skw}{\operatorname{skw}}
+\newcommand{\spn}{\operatorname{spn}}
+\newcommand{\mspn}{\operatorname{mspn}}
+\newcommand{\mskw}{\operatorname{mskw}}
+\newcommand{\vskw}{\operatorname{vskw}}
+\newcommand{\vspn}{\operatorname{vspn}}
+\newcommand{\defm}{\operatorname{def}}
+\newcommand{\hess}{\operatorname{hess}}
+
+% Add a serial/Oxford comma by default.
+\newcommand{\creflastconjunction}{, and~}
+
+% Used for creating new theorem and remark environments
+\newsiamremark{remark}{Remark}
+\newsiamremark{hypothesis}{Hypothesis}
+\crefname{hypothesis}{Hypothesis}{Hypotheses}
+\newsiamthm{claim}{Claim}
+
+% Sets running headers as well as PDF title and authors
+\headers{Stabilization-Free VEM}{C. Chen, X. Huang and H. Wei}
+
+% Title. If the supplement option is on, then "Supplementary Material"
+% is automatically inserted before the title.
+\title{Stabilization-Free Virtual Element Methods\thanks{\today
+\funding{The second author is the corresponding author. The second author was supported by the National Natural Science Foundation of China Project 12171300, and the Natural Science Foundation of Shanghai 21ZR1480500. The first and third authors were supported by NSFC (11871413) and in part by projects
+of Education Department of Hunan Provincial of China (19B534, 19A500).}}}
+
+
+\author{Chunyu Chen\thanks{Hunan Key Laboratory for Computation and Simulation in Science and Engineering; School of Mathematics and Computational Science, Xiangtan University, Xiangtan 411105, P.R.China 
+  (\email{202131510114@smail.xtu.edu.cn}, \email{weihuayi@xtu.edu.cn}).}
+\and Xuehai Huang\thanks{School of Mathematics, Shanghai University of Finance and Economics, Shanghai 200433, China (\email{huang.xuehai@sufe.edu.cn}).}
+\and Huayi Wei\footnotemark[2]
+}
+
+
+\usepackage{amsopn}
+\DeclareMathOperator{\diag}{diag}
+
+
+%%% Local Variables: 
+%%% mode:latex
+%%% TeX-master: "ex_article"
+%%% End: 
