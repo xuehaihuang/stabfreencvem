@@ -1246,27 +1246,24 @@ $\mathcal T_1$(right).}
 
 
 \section{Numerical examples}\label{sec:numericalexamps}
-In this section, we solve \eqref{eq:ellipitc2ndproblem} using the conforming
-virtual element method and the nonconforming virtual element method, 
-and give numerical results to verify convergence rates.
+In this section, we will numerically verify the convergence of the nonconforming virtual element method \eqref{eq:vem} and the conforming
+virtual element method \eqref{eq:cfmvem}.
 
-\begin{example}\label{ex}
-    Consider the second order elliptic problem \eqref{eq:ellipitc2ndproblem}
-    on rectangular domain $\Omega = (0, 1)\times(0, 1)$, take $\alpha = 2$, 
-    the exact solution and source term are:
-    $$
-    u = \sin(\pi x)\sin(\pi y), \quad f = (2\pi^2+2)\sin(\pi x)\sin(\pi y)
-    $$
-\end{example}
+% \begin{example}\label{ex}
+Consider the second order elliptic problem \eqref{eq:ellipitc2ndproblem} with $\alpha = 2$
+on rectangular domain $\Omega = (0, 1)\times(0, 1)$. 
+The exact solution and source term are given by
+$$
+u = \sin(\pi x)\sin(\pi y), \quad f = (2\pi^2+2)\sin(\pi x)\sin(\pi y).
+$$
+% \end{example}
 
 The rectangular domain $\Omega$ is partitioned by the convex polygon mesh
 $\mathcal T_0$ and non-convex polygon mesh $\mathcal T_1$, respectively, 
-as shown in Figure \ref{fig:mesh}. We use \eqref{eq:vem} and \eqref{eq:cfmvem} 
-respectively to compute Example \ref{ex}, the numerical results for $k = 1, 2, 5$ are 
-listed in Figure \ref{fig:rate1} \ref{fig:rate2}, 
-where the errors use $L^2$ norm and $H^1$-like norm. Both cases confirm the
-theoretical convergence rates.
-
+In both virtual element methods \eqref{eq:vem} and \eqref{eq:cfmvem}, we choose $k = 1, 2, 5$.
+The numerical results of the nonconforming virtual element method \eqref{eq:vem} on meshes $\mathcal T_0$ and $\mathcal T_1$ mesh are shown in Figure \ref{fig:rate1}. We can see that $\|u - Q_h u_h\|_0=O(h^{k+1})$ and $\|\nabla u - Q_{h, k-1}^{\div}\nabla_h u_h\|_0=O(h^{k})$, which coincide with Theorem~\ref{thm:errorestimateH1}.
+And the numerical results of the conforming virtual element method \eqref{eq:vem} are presented in Figure \ref{fig:rate2}. Again $\|u - Q_h u_h\|_0=O(h^{k+1})$ and $\|\nabla u - Q_{h, k}^{\div}\nabla u_h\|_0=O(h^{k})$, which confirm the
+theoretical convergence rate in Theorem~\ref{thm:errorestimateH1}.
 \begin{figure}[htbp]
 \centering
 \begin{minipage}[t]{0.49\linewidth}
@@ -1280,8 +1277,8 @@ theoretical convergence rates.
 %\caption{[Numberical result of example with $\mathcal T_1$].}
 \end{minipage}%
 \centering
-\caption{Error $\|u - Q_h u_h\|_0$ and $\|\nabla u - Q_{h, k-1}^{div}\nabla_h u_h\|_0$ 
-of $H^1$-nonconforming virtual element method on 
+\caption{Errors $\|u - Q_h u_h\|_0$ and $\|\nabla u - Q_{h, k-1}^{\div}\nabla_h u_h\|_0$ 
+of nonconforming virtual element method \eqref{eq:vem} on 
 $\mathcal T_0$(left) and $\mathcal T_1$(right) with $k=1, 2, 5$.}
 \label{fig:rate1}
 \end{figure}
@@ -1299,8 +1296,8 @@ $\mathcal T_0$(left) and $\mathcal T_1$(right) with $k=1, 2, 5$.}
 %\caption{[Numberical result of example with $\mathcal T_1$].}
 \end{minipage}%
 \centering
-\caption{Error $\|u - Q_h u_h\|_0$ and $\|\nabla u - Q_{h, k}^{div}\nabla u_h\|_0$ 
-of $H^1$-conforming virtual element method  on $\mathcal T_0$(left) and 
+\caption{Errors $\|u - Q_h u_h\|_0$ and $\|\nabla u - Q_{h, k}^{\div}\nabla u_h\|_0$ 
+of conforming virtual element method \eqref{eq:cfmvem} on $\mathcal T_0$(left) and 
 $\mathcal T_1$(right) with $k=1, 2, 5$.}
 \label{fig:rate2}
 \end{figure}
