@@ -137,4 +137,9 @@ J.-C. N{\'e}d{\'e}lec.
 \newblock A new family of mixed finite elements in {${\bf R}^3$}.
 \newblock {\em Numer. Math.}, 50(1):57--81, 1986.
 
+\bibitem{fealpy}
+H.~Wei and Y.~Huang.
+\newblock Fealpy: Finite element analysis library in python.
+\newblock https://github.com/weihuayi/fealpy, Xiangtan University, 2017-2021.
+
 \end{thebibliography}
