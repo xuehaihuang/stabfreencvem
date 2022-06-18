@@ -129,21 +129,43 @@ The key to construct stabilization-free virtual element methods is to find a fin
 on shape function space $V_k(K)$ of virtual elements;
 \item The projection $Q_{K}\nabla v$ is computable based on the degrees of freedom (DoFs) of virtual elements for $v\in V_k(K)$.
 \end{enumerate}
-We can choose $Q_{K}$ as the $L^2$-orthogonal projector with respect to the inner product $(\cdot, \cdot)_K$. The norm equivalence \eqref{intro:gradVknormequiv} implies space $\mathbb{V}(K)$ should be sufficiently large compared with the virtual element space $V_k(K)$.
-In standard virtual element methods, $Q_{k-1}^{K}\nabla v$ \cite{BeiraodaVeigaBrezziMariniRusso2016} or $\nabla\Pi_k^{K}v$ \cite{BeiraoBrezziCangianiManziniEtAl2013,BeiraoBrezziMariniRusso2014,AhmadAlsaediBrezziMariniEtAl2013,AyusodeDiosLipnikovManzini2016} are used, where $Q_{k-1}^{K}$ is the $L^2$-orthogonal projector onto the $(k-1)$th order polynomial space $\mathbb P_{k-1}(K; \mathbb{R}^d)$, and $\Pi_k^{K}$ is the $H^1$ projection operator onto the $k$th order polynomial space $\mathbb P_{k}(K)$.
-While only
+We can choose $Q_{K}$ as the $L^2$-orthogonal projector with respect to the
+inner product $(\cdot, \cdot)_K$. The norm equivalence
+\eqref{intro:gradVknormequiv} implies space $\mathbb{V}(K)$ should be
+sufficiently large compared with the virtual element space $V_k(K)$.  In
+standard virtual element methods, $Q_{k-1}^{K}\nabla v$
+\cite{BeiraodaVeigaBrezziMariniRusso2016} or $\nabla\Pi_k^{K}v$
+\cite{BeiraoBrezziCangianiManziniEtAl2013,BeiraoBrezziMariniRusso2014,AhmadAlsaediBrezziMariniEtAl2013,AyusodeDiosLipnikovManzini2016}
+are used, where $Q_{k-1}^{K}$ is the $L^2$-orthogonal projector onto the
+$(k-1)$-th order polynomial space $\mathbb P_{k-1}(K; \mathbb{R}^d)$, and
+$\Pi_k^{K}$ is the $H^1$ projection operator onto the $k$-th order polynomial
+space $\mathbb P_{k}(K)$.  While only
 $$
 \|Q_{k-1}^{K}\nabla v\|_{0,K}\lesssim \|\nabla v\|_{0,K}, \quad \|\nabla\Pi_k^{K}v\|_{0,K}\lesssim \|\nabla v\|_{0,K}
 $$
 hold
 rather than the norm equivalence \eqref{intro:gradVknormequiv}, then the additional stabilization term is usually necessary to ensure the coercivity of the discrete bilinear form.
 To remove the additional stabilization term, $\mathbb{V}(K)$ is taken as $\mathbb P_{l}(K; \mathbb{R}^d)$ with large enough $l$ even for the lowest order case $k=1$ in \cite{BerroneBorioMarcon2021,BerroneBorioMarcon2022,DAltriMirandaPatrunoSacco2021}, and the virtual element space $V_k(K)$ has to be modified accordingly to make $Q_{l}^{K}\nabla v$ computable.
-Instead, we employ $k$th order or $(k-1)$th order $H(\div)$-conforming macro finite elements as $\mathbb{V}(K)$ in this paper, and keep the virtual element space $V_k(K)$ as usual ones.
+Instead, we employ $k$-th order or $(k-1)$-th order $H(\div)$-conforming macro finite elements as $\mathbb{V}(K)$ in this paper, and keep the virtual element space $V_k(K)$ as usual ones.
 
 
-We first construct $H(\div)$-conforming macro finite elements based on a simplicial partition $\mathcal T_K$ of polytope $K$ in arbitrary dimension. The shape function space $\mathbb{V}_{k}^{\rm div}(K)$ is a subspace of the $k$th order Brezzi-Douglas-Marini (BDM) element space on the simplicial partition $\mathcal T_K$ for $k\geq1$ and the lowest order Raviart-Thomas (RT) element space for $k=0$, with some constraints. To ensure the $L^2$ projection $Q_{K,k}^{\div}\nabla v$ onto space $\mathbb{V}_{k}^{\rm div}(K)$ is computable for virtual element function $v\in V_k(K)$, we require $\div\boldsymbol{\phi}\in\mathbb P_{\max\{k-1,0\}}(K)$ and $\boldsymbol{\phi}\cdot\boldsymbol{n}$ on each $(d-1)$-dimensional face of $K$ is a polynomial for $\boldsymbol{\phi}\in\mathbb{V}_{k}^{\rm div}(K)$.  
-Based on these considerations and the direct decomposition of an $H(\div)$-conforming macro finite element space related to $\mathbb{V}_{k}^{\rm div}(K)$, we propose the unisolvent DoFs for space $\mathbb{V}_{k}^{\rm div}(K)$, and establish the $L^2$ norm equivalence.
-By the way, we use the matrix-vector language to review a conforming finite element for differential $(d-2)$-form in \cite{ArnoldFalkWinther2006,Arnold2018}. 
+We first construct $H(\div)$-conforming macro finite elements based on a
+simplicial partition $\mathcal T_K$ of polytope $K$ in arbitrary dimension. The
+shape function space $\mathbb{V}_{k}^{\rm div}(K)$ is a subspace of the $k$th
+order Brezzi-Douglas-Marini (BDM) element space on the simplicial partition
+$\mathcal T_K$ for $k\geq1$ and the lowest order Raviart-Thomas (RT) element
+space for $k=0$, with some constraints. To ensure the $L^2$ projection
+$Q_{K,k}^{\div}\nabla v$ onto space $\mathbb{V}_{k}^{\rm div}(K)$ is computable
+for virtual element function $v\in V_k(K)$, we require
+$\div\boldsymbol{\phi}\in\mathbb P_{\max\{k-1,0\}}(K)$ and
+$\boldsymbol{\phi}\cdot\boldsymbol{n}$ on each $(d-1)$-dimensional face of $K$
+is a polynomial for $\boldsymbol{\phi}\in\mathbb{V}_{k}^{\rm div}(K)$.  Based on
+these considerations and the direct decomposition of an $H(\div)$-conforming
+macro finite element space related to $\mathbb{V}_{k}^{\rm div}(K)$, we propose
+the unisolvent DoFs for space $\mathbb{V}_{k}^{\rm div}(K)$, and establish the
+$L^2$ norm equivalence.  By the way, we use the matrix-vector language to review
+a conforming finite element for differential $(d-2)$-form in
+\cite{ArnoldFalkWinther2006,Arnold2018}. 
 
 
 
