@@ -1,0 +1,505 @@
+% ----------------------------------------------------------------
+% AMS-LaTeX Paper ************************************************
+% **** -----------------------------------------------------------
+\documentclass[10pt]{amsart}
+%\textwidth 14.5cm
+%\textheight 22cm
+%\hoffset -1.5cm
+%\voffset -2.2cm
+\usepackage{graphicx}
+\usepackage{latexsym}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{color}
+\usepackage{stmaryrd}
+\usepackage{chemarrow}
+\usepackage[all]{xy}
+\usepackage[pdftex,bookmarksnumbered,bookmarksopen,colorlinks,linkcolor=blue,anchorcolor=black,citecolor=blue,urlcolor=blue]{hyperref}
+
+%\usepackage{mathabx}
+% ----------------------------------------------------------------
+\vfuzz2pt % Don't report over-full v-boxes if over-edge is small
+\hfuzz2pt % Don't report over-full h-boxes if over-edge is small
+% THEOREMS -------------------------------------------------------
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}
+%\numberwithin{equation}{section}
+% MATH -----------------------------------------------------------
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\Real}{\mathbb R}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\To}{\longrightarrow}
+\newcommand{\BX}{\mathbf{B}(X)}
+\newcommand{\A}{\mathcal{A}}
+
+\newcommand{\dx}{\,{\rm d}x}
+\newcommand{\dd}{\,{\rm d}}
+\newcommand{\bs}{\boldsymbol}
+\newcommand{\mcal}{\mathcal}
+
+\DeclareMathOperator*{\img}{img}
+%\DeclareMathOperator*{\span}{span}
+\newcommand{\sign}{\operatorname{sign}}
+\newcommand{\curl}{\operatorname{curl}}
+\renewcommand{\div}{\operatorname{div}}
+%\renewcommand{\grad}{\operatorname{grad}}
+\newcommand{\grad}{\operatorname{grad}}
+\newcommand{\tr}{\operatorname{tr}}
+% \DeclareMathOperator*{\tr}{tr}
+\DeclareMathOperator*{\rot}{rot}
+\DeclareMathOperator*{\var}{Var}
+\newcommand{\dev}{\operatorname{dev}}
+\newcommand{\sym}{\operatorname{sym}}
+\newcommand{\skw}{\operatorname{skw}}
+\newcommand{\spn}{\operatorname{spn}}
+\newcommand{\mspn}{\operatorname{mspn}}
+\newcommand{\mskw}{\operatorname{mskw}}
+\newcommand{\vskw}{\operatorname{vskw}}
+\newcommand{\vspn}{\operatorname{vspn}}
+\newcommand{\defm}{\operatorname{def}}
+\newcommand{\hess}{\operatorname{hess}}
+% ----------------------------------------------------------------
+\begin{document}
+
+\title{\large Detailed Response to Referees}%
+
+\date{}%
+%\dedicatory{}%
+%\commby{}%
+% ----------------------------------------------------------------
+
+\maketitle
+
+The authors greatly appreciate the questions and concerns the reviewers have raised in the report, as well as the careful reading that has fixed our grammatical errors. Other than some single word typos, important changes are highlighted in colored texts in this revision. 
+
+
+
+
+
+
+\tableofcontents
+
+%We thank the Referee for the valuable comments that helped us to improve the manuscript. In
+%the revised version of the manuscript, all non-minor modifications are highlighted in red colour.
+%Below, we address the points raised in the report.
+
+\vskip0.5cm
+\section{Response to Reviewer 1}
+\begin{enumerate}[1.]
+
+\item \textsf{The English presentation is unfortunately very dodgy and should be revised before any type of resubmission.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+
+\medskip
+
+\item \textsf{An important question is whether you have in mind specific occasions where stabilization free virtual elements are superior to stabilized ones. More precisely, your procedure is sensibly more expensive and complicated than that of the standard VEM: you need a simplicial tessellation of each element; you project on BDM-type polynomial spaces; the theoretical setting itself is rather involved. If there are no apparent advantages in some specific occasion, the stabilization-free approach seems to be rather lame.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{Lines 17-18; when you discuss the results in references [9,10,20], I am not quite sure that the polynomial degree of the projection depends only on the number of vertices. In fact, in an updated version of the preprint [19], it is possible to see that also the shape of the polygon plays a role in the choice of such a polynomial degree.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{Line 22; ``arbitrary dimension'' only refers to the nonconforming version of the scheme. Please, better highlight this fact.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{I appreciate the fact that you “preview” equation (1.1) in the introduction, as it is the lynchpin of the forthcoming analysis. Yet, it would be beneficial a brief comment on the hidden constants. For instance, you should state on what such constants depend on.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{Lines 41-43; you should underline that the polynomial spaces onto which you project are based on a regular simplicial tessellation of the elements of the mesh.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{Lines 50-51; when you define the function $\phi$, are you sure that the normal component of the trace is a polynomial only on the faces of $K$? Don't you also need this property to be valid on the faces of the simplicial tessellation of $K$?.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{Line 138; you may wish to recall the degrees of freedom of this space, even though they are well known.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{Line 305; reference [21, Lemma 10] for the polynomial inverse inequality is not proper; in fact, the inverse estimate follows from standard polynomial inverse estimates on simplices (refer, e.g., to Verf{\"u}rth's book), the regularity of the element, and standard polynomial inverse estimates.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{Line 305; reference [11, (2.18)] is also a standard scaled trace inequality (refer to any PDE textbook).}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{Line 308-309; you also use the definition of negative norm (which I cannot find), an integration by parts, and a Cauchy-Schwarz inequality.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{Line 310; “other side” $-\!\!\!-\!\!\!-\!\!\!>$“lower bound”.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{Lines 311-312; are you sure about the definition of $\phi_1$? What about the degrees of freedom on internal faces?}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{Elaborate more the equivalence (3.26).}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{You should write that the eq. in 322 is proven based on the inequality on lines 315-316.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{Line 323; the operator $I_K^{\div}$ should be defined explicitly.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{Eq. (3.28); can you elaborate more on the first inequality? Moreover, the second inequality follows from the bound on line 322; you should underline this.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{After line 336, can you state the difference between the space defined on line 336 and that on line 263?.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{The definition of the DoFs in eqs. (4.3) and (4.4) is wrong: you should first pick bases of bulk and face polynomial spaces and define the moments accordingly.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{Line 381; the space $\mathbb P_p\backslash\mathbb P_{p-2}$ is not defined as an orthogonal complement, but rather as any completion of the smaller space into the larger one. The two definitions are equivalent if you use orthogonal polynomial bases, which I humbly think is not what you are actually doing.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{You may wish to shorten up or even remove the proof of Lemma 4.1, which is standard in the virtual element literature.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{Line 406; “inequality”$-\!\!\!-\!\!\!>$“inequalities”; moreover, mention that you use both $H^1$-$L^2$ and $L^2$ boundary-$L^2$ bulk inverse inequalities.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{Line 408; is [11, (2.15)] the proper reference for the Poincar\'e-Friedrichs inequality? I think is a standard result and you may wish to cite any standard PDE book.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{Eq. (4.12); if you complete the sequence of identities and inequalities with $h_k^2|v|_{1,K}^2$, you get indeed a norm equivalence (and not only an upper bound).}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{Lines 445 and 456; explain from where the term $Q_0^k(\div\phi)$ appears.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{Provide more details on the inequality on lines 457-458.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{Eq. (4.16); why do you cite [15, (4.16)]? It probably follows from [Brenner, SINUM 2003] and the definition of the nonconforming space.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{Line 484; the first inequality is probably a “$\approx$”.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{Line 486; “uni-solvent”$-\!\!\!-\!\!\!>$“well posed”?}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{The definition of the DoFs in eqs. (5.1), (5.2), and (5.3) is wrong: you should first pick bases of bulk and face polynomial spaces and define the moments accordingly.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{You may wish to reduce or even drop the proof or Theorem 5.3, which appears to be a standard Strang-type result for the VEM.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{In the numerical section, I agree that it is important to check the rate of convergence of the method.
+However, the convergence does not automatically guarantee the invertibility of the local stiffness matrices, as imposing the Dirichlet boundary conditions may have a “stabilizing effect”. So, you should investigate the number of zero eigenvalues of the local stiffness matrix.\\
+For instance, pick three different hexagonal elements with a fixed degree of accuracy, e.g., k = 3: the first being a regular hexagon; the second being a quasi-regular hexagon (small perturbation of the previous element); the third being a square with an edge containing two hanging nodes. Check whether the stiffness matrix always has only one zero eigenvalue, i.e., the method is indeed stabilization free.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{My feeling is that the proposed stabilization-free approach is much more expensive than the standard one. Thus, you should check the assembling time of the stabilization-free and standard VEMs, on: ($i$) a (reasonably large) sequence of meshes; ($ii$) fixing a mesh, increasing the degree of accuracy, e.g., up to $k = 10$.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{Along the same avenue, you should also compare the condition number of the global matrices obtained with the two approaches in the two situations ($i$) and ($ii$) above. Furthermore, you may also wish to consider sequences of meshes with “collapsing elements” (refine a mesh and change the aspect ratio), and check the condition numbers again. As a suggestion, since the condition number should be computed scaling the diagonal of the matrix, you can empirically check such conditioning by testing the two approaches on a patch test. The conditioning can be estimated checking the growth of the error for the patch test.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{Minor issues (I will not highlight all the typos but only few of them as an example):
+\begin{itemize}
+\item line 3; “Poisson”$-\!\!\!-\!\!\!>$“the Poisson”;
+\item line 24; “space”$-\!\!\!-\!\!\!>$“the space”;
+\item line 31; “space”$-\!\!\!-\!\!\!>$“that the space”;
+\item line 43; “usual”$-\!\!\!-\!\!\!>$“the usual”;
+\item line 49; “space”$-\!\!\!-\!\!\!>$“the space”;
+\item line 68; “. And”$-\!\!\!-\!\!\!>$“and”;
+\item line 81; “banach”$-\!\!\!-\!\!\!>$“Banach”;
+\item line 82; “and $\mathbb K$, where $\mathbb K$”$-\!\!\!-\!\!\!>$“and $\mathbb K$”; 
+\item line 105; “surface”$-\!\!\!-\!\!\!>$“the surface”;
+\item line 107; “smooth”$-\!\!\!-\!\!\!>$“a smooth”;
+\item line 262; “shape”$-\!\!\!-\!\!\!>$“the shape”;
+\item line 347; “discrete”$-\!\!\!-\!\!\!>$“the discrete”;
+\item lines 465-466; “DoF”$-\!\!\!-\!\!\!>$“DoFs”; “is”$-\!\!\!-\!\!\!>$“are”; “vanishes”$-\!\!\!-\!\!\!>$“vanish”; 
+\item line 511; “inequlities”$-\!\!\!-\!\!\!>$“inequalities”;
+\item line 549; “DoFs”$-\!\!\!-\!\!\!>$“the DoFs”.
+\end{itemize}
+}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+
+\end{enumerate}
+
+
+
+\section{Response to Reviewer 2}
+%\smallskip \noindent {\bf Response to Reviewer 2}.
+
+\begin{enumerate}[1.]
+\item \textsf{A significantly more thorough review of the literature is required. Indeed, very little mention of other stabilization free methods are given. It is difficult to gauge how this work compares to the existing literature and where the true novelty of the work lies. For example, in the reference \cite{CicuttinErnLemaire2019} a stabilisation free method is designed by considering a HHO space of unknowns and a recon- struction in a VEM space. See \cite[Remark 5.1]{CicuttinErnLemaire2019}. How does the current article compare to this work? Moreover, the authors do not make it clear what the benefit of a “stabilization-free” VEM is.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{At equation (3.4) (and continuing below) the space $\mathbb P_{k-2}(T;\mathbb K)\boldsymbol{x}$ is considered. Is this standard notation? At first I thought $\boldsymbol{x}$ was a predefined point (e.g. the centre of $T$) and the space $\mathbb P_{k-2}(T;\mathbb K)\boldsymbol{x}$ was the set of functions that could be written as a polynomial valued anti-symmetric tensor times the predefined point $\boldsymbol{x}$. However, I think what is actually meant is $\mathbb P_{k-2}(T;\mathbb K)\boldsymbol{x}=\{f:T\to\mathbb R^d: f(\boldsymbol{x})=\boldsymbol{P}_{k-2}(\boldsymbol{x})\boldsymbol{x},\quad \forall\boldsymbol{x}\in T, \boldsymbol{P}_{k-2}\in \mathbb P_{k-2}(T;\mathbb K)\}$. The authors should clarify here.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{Line 149: “$(I +\boldsymbol{x}\cdot\nabla)\boldsymbol{w} = \boldsymbol{0}$, which implies $\boldsymbol{w} = \boldsymbol{0}$”. I do not see how this follows. We have that
+$$(\nabla\boldsymbol{w}(\boldsymbol{x}))\boldsymbol{x}=-\boldsymbol{w}(\boldsymbol{x})\quad\forall\boldsymbol{x}\in T.
+$$
+It is not clear to me how the conclusion that $\boldsymbol{w} = \boldsymbol{0}$ follows. The authors
+should precise their reasoning.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{In the proof of Lemma 12, the authors apply a discrete trace inequality to the
+quantity 
+$$
+\sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}
+$$
+and cite [11, (2.18)]. However, [11, (2.18)] is a continuous trace inequality and there is no justification given for why the discrete trace inequality holds in this particular case. Moreover, it is not explained how one concludes that $\|\div\boldsymbol{\phi}\|_{-1,K}\lesssim \|\boldsymbol{\phi}\|_{0,K}$.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{In the proof of Lemma 4.1, the authors claim that
+$$
+h_K^{\frac{1}{2}}\|\partial_nv\|_{0,\partial K}\lesssim |v|_{1,K}.
+$$
+This is a sort of discrete trace inequality and the authors justify it by citing (A.3)-(A.4) in [15]. However, it is not apparent to me how this follows from (A.3)-(A.4). Moreover, the authors conclude that “with the multiplicative trace inequality”
+$$
+h_K^{\frac{1}{2}}\|v\|_{0,\partial K}\lesssim h_K^{-1}\|v\|_{0,K}.
+$$
+Again, this is a discrete trace inequality, and it is not specified why it is valid on the virtual space $V_k(K)$. The same goes for the arguments used in the proof of Lemma 4.3.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{When introducing the nonconforming virtual element method in Section 4, the authors should give some references for NCVEM. In particular, I don’t think the space $V_k(K)$ is the classical NCVEM space (e.g. that defined in \cite{AyusodeDiosLipnikovManzini2016}). The authors should give reference to where this space is first introduced.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{It seems that the main novelty of this work is the construction of a space
+\begin{align*}
+\mathbb V_{k-1}^{\div}(K):=\{\boldsymbol{\phi}&\in L^2(K): \div\boldsymbol{\phi}\in\mathbb P_{k-2}(K), \\
+& \boldsymbol{\phi}\cdot\boldsymbol{n}_F\in\mathbb P^{k-1}(F)\;\forall F\in\mathcal F(K), \boldsymbol{\phi}|_T\in\mathbb P_{k-1}(T)^d\;\forall T\in\mathcal T_K
+\}
+\end{align*}
+and a computable $L^2$ projector $Q_{K,k-1}^{\div}$ onto $\mathbb V_{k-1}^{\div}(K)$ such that
+$$
+\|Q_{K,k-1}^{\div}\nabla v\|_{0,K}\simeq \|\nabla v\|_{0,K} \quad\forall v\in V_k(K),
+$$
+where $V_k(K)$ is the non-conforming space defined at line 378 (or in Section 5 the authors consider the conforming space defined at line 544). This result is stated in Lemma 4.4 and its proof relies on the norm equivalence (3.32) and the set of uni-solvent DOFs (3.29)-(3.31). However, upon reading Section 3.2 for the first time, it is difficult to grasp what it is the authors are actually trying to achieve. Are all of the spaces, definitions and lemmas in Section 3.2 really necessary to prove Lemma 4.4? If so, the authors should state the main result of Lemma 4.4 in an earlier section, and leave much of the details of Section 3.2 and the proof of Lemma 4.4 to a later section so that readers can understand what the authors are trying to achieve.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{In Section 4, the authors design a stabilization free NCVEM for a reaction-diffusion problem, and in section 5 a stabilization free VEM. This seems an odd choice as one does not require a Poincar\'e inequality for the coercivity of the continuous blinear form. Indeed, if
+$$
+a(u, v)=(\nabla u, \nabla v)_{\Omega}+\alpha (u, v)_{\Omega}
+$$
+with $\alpha > 0$ then it holds trivially that
+$$
+\|u\|_{1,\Omega}^2\leq\max(1,\alpha^{-1})a(u,u).
+$$
+While things mightn't be so simple at the discrete level, it would seem more
+appropriate to consider a Poisson problem.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{In the numerical section, the authors should compare their results to standard VEM and NCVEM to highlight any benefit their approach has.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+\medskip
+
+\item \textsf{I suggest the authors conduct a thorough proof read of the manuscript as there are many typos, grammatical errors and poorly constructed sentences.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+
+
+
+\end{enumerate}
+
+
+\section{Response to Reviewer 3}
+%\smallskip \noindent {\bf Response to Reviewer 2}.
+
+\begin{enumerate}[1.]
+\item \textsf{The paper under review presents an interesting and promising idea to avoid the stabilization term in the Virtual Element Method. The procedure adopted is very general and in principle can be used in many different settings. The paper is well written and the proofs are given with appropriate details. 
+The only modification I require is a more in-depth comparison with the classical stabilized version with respect to the computational cost, in the two- and three-dimensional case, by making explicit examples in cases of interest.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+...
+
+
+
+
+\end{enumerate}
+
+
+\bibliographystyle{abbrv}
+\bibliography{../paper}
+
+% ----------------------------------------------------------------
+\end{document}
+% ----------------------------------------------------------------
