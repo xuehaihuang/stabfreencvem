@@ -109,35 +109,68 @@ The authors greatly appreciate the questions and concerns the reviewers have rai
 \item \textsf{An important question is whether you have in mind specific occasions where stabilization free virtual elements are superior to stabilized ones. More precisely, your procedure is sensibly more expensive and complicated than that of the standard VEM: you need a simplicial tessellation of each element; you project on BDM-type polynomial spaces; the theoretical setting itself is rather involved. If there are no apparent advantages in some specific occasion, the stabilization-free approach seems to be rather lame.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+The stabilization term in virtual element methods (VEM) brings about some problems. 
+\begin{enumerate}
+\item 
+The local stabilization term $S_K(\cdot, \cdot)$ has to satisfy 
+$$
+c_{*} |v|_{1,K}^2\leq S_K(v,v)\leq c^{*} |v|_{1,K}^2 
+$$
+for $v$ belongs to the non-polynomial subspace of the virtual element space, which influences the condition number of the stiffness matrix and brings in the pollution factor $\frac{\max\{1, c^*\}}{\min\{1, c_*\}}$ in the error estimates \cite{DassiMascotto2018,BeiraodaVeigaDassiRusso2017,Mascotto2018}.  
+\item 
+The stabilization term appears in both side of the a posteriori error estimates when bounding the error by the residual error estimators \cite{CangianiGeorgoulisPryerSutton2017}.
+\item 
+For the a posteriori error analysis on anisotropic polygonal meshes in \cite{AntoniettiBerroneBorioDAuriaEtAl2022}, the stabilization dominates the error estimator, which makes the anisotropic a posteriori error estimator suboptimal. 
+\item The stabilization term significantly affects the performance of the VEM for the Poisson eigenvalue problem \cite{BoffiGardiniGastaldi2020},
+and improper choices of the stabilization term will produce useless results.
+\item 
+Special stabilization terms are designed for a nonlinear elasto-plastic deformation problem \cite{HudobivnikAldakheelWriggers2019} and an electromagnetic interface problem in three dimensions \cite{CaoChenGuo2023}, which are not easy to be extended to other problems.
+\item Numerical examples in \cite{BerroneBorioMarcon2022} show that the stabilization-free VEM in \cite{BerroneBorioMarcon2021} outperforms the standard VEM in \cite{BeiraodaVeigaBrezziMariniRusso2016} for anisotropic elliptic problems on general convex polygonal meshes.
+\end{enumerate}
+
+
+
+
 
 \medskip
 
-\item \textsf{Lines 17-18; when you discuss the results in references [9,10,20], I am not quite sure that the polynomial degree of the projection depends only on the number of vertices. In fact, in an updated version of the preprint [19], it is possible to see that also the shape of the polygon plays a role in the choice of such a polynomial degree.}
+\item \textsf{Lines 17-18; when you discuss the results in references \cite{BerroneBorioMarcon2021,BerroneBorioMarcon2022,DAltriMirandaPatrunoSacco2021}, I am not quite sure that the polynomial degree of the projection depends only on the number of vertices. In fact, in an updated version of the preprint \cite{BerroneBorioMarcon2021}, it is possible to see that also the shape of the polygon plays a role in the choice of such a polynomial degree.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+Yes. In \cite{BerroneBorioMarcon2021}, the polynomial degree $l$ should satisfy
+$$
+(l+1)(l+2) - \dim\mathcal{P}_l^{\textrm{ker}}(E)\geq N_E^V-1.
+$$
+And the dimension of $\mathcal{P}_l^{\textrm{ker}}(E)$ generally depends on the geometry of the polygon. While the authors prove that
+$$
+\dim\mathcal{P}_l^{\textrm{ker}}(E)\leq l(l+1)
+$$
+in \cite[Theorem 2]{BerroneBorioMarcon2021}. This means a sufficient condition for $l$ is 
+$$
+l\geq \frac{1}{2}(N_E^V-3).
+$$
 
 \medskip
 
 \item \textsf{Line 22; ``arbitrary dimension'' only refers to the nonconforming version of the scheme. Please, better highlight this fact.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+Thanks for this suggestion. We have emphasized it.
 
 \medskip
 
 \item \textsf{I appreciate the fact that you “preview” equation (1.1) in the introduction, as it is the lynchpin of the forthcoming analysis. Yet, it would be beneficial a brief comment on the hidden constants. For instance, you should state on what such constants depend on.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+Thanks for this suggestion. We have presented a comment as follows: The hidden constants in (1.1) are independent of the size of $K$, but depend on the degree of polynomials, and the chunkiness parameter and the geometric dimension of $K$; see Section~2.2 for details.
 
 \medskip
 
 \item \textsf{Lines 41-43; you should underline that the polynomial spaces onto which you project are based on a regular simplicial tessellation of the elements of the mesh.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+Thanks for this suggestion. We have mentioned it.
+
 
 \medskip
 
@@ -151,7 +184,8 @@ The authors greatly appreciate the questions and concerns the reviewers have rai
 \item \textsf{Line 138; you may wish to recall the degrees of freedom of this space, even though they are well known.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+Thanks for this suggestion. We have recalled it.
+
 
 \medskip
 

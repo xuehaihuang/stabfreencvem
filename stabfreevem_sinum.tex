@@ -34,6 +34,12 @@
 %</award-group>
 %</funding-group>
 
+\newcommand{\LC}[1]{\textcolor{red}{#1}}
+% \newcommand{\XH}[1]{\textcolor{cyan}{#1}}
+\newcommand{\XH}[1]{\textcolor{red}{#1}}
+\newcommand{\revision}[1]{{\color{red!85!black}{#1}}}
+
+
 \begin{document}
 
 \maketitle
@@ -54,13 +60,30 @@ virtual element, stabilization-free, macro finite element, norm equivalence, err
 \end{MSCcodes}
 
 \section{Introduction}
+\XH{A stabilization term is usually required in the virtual element methods (VEM) to ensure the coercivity of the discrete bilinear form \cite{BeiraoBrezziCangianiManziniEtAl2013,BeiraoBrezziMariniRusso2014}, while the stabilization term also brings about some problems. The local stabilization term $S_K(\cdot, \cdot)$ has to satisfy 
+$$
+c_{*} |v|_{1,K}^2\leq S_K(v,v)\leq c^{*} |v|_{1,K}^2 
+$$
+for $v$ belongs to the non-polynomial subspace of the virtual element space, which influences the condition number of the stiffness matrix and brings in the pollution factor $\frac{\max\{1, c^*\}}{\min\{1, c_*\}}$ in the error estimates \cite{DassiMascotto2018,BeiraodaVeigaDassiRusso2017,Mascotto2018}.  
+The stabilization term appears in both side of the a posteriori error estimates when bounding the error by the residual error estimators \cite{CangianiGeorgoulisPryerSutton2017}.
+For the a posteriori error analysis on anisotropic polygonal meshes in \cite{AntoniettiBerroneBorioDAuriaEtAl2022}, the stabilization dominates the error estimator, which makes the anisotropic a posteriori error estimator suboptimal. 
+The stabilization term significantly affects the performance of the VEM for the Poisson eigenvalue problem \cite{BoffiGardiniGastaldi2020},
+and improper choices of the stabilization term will produce useless results.
+Special stabilization terms are designed for a nonlinear elasto-plastic deformation problem \cite{HudobivnikAldakheelWriggers2019} and an electromagnetic interface problem in three dimensions \cite{CaoChenGuo2023}, which are not easy to be extended to other problems. 
+}
 
-Recently a stabilization-free linear virtual element method, based on a higher order polynomial projection of the gradient of virtual element functions, is devised for Poisson equation in two dimensions in \cite{BerroneBorioMarcon2021,BerroneBorioMarcon2022}, where the degree of polynomial used in projection depends on the number of vertices of the polygon. We refer to~\cite{DAltriMirandaPatrunoSacco2021} for a discussion on similar stabilization-free virtual element methods for plane elasticity problem.
-The idea in \cite{BerroneBorioMarcon2021,BerroneBorioMarcon2022} is not easy to extend to construct higher order stabilization-free virtual element methods, and
+
+Recently a stabilization-free linear VEM, based on a higher order polynomial projection of the gradient of virtual element functions, is devised for Poisson equation in two dimensions in \cite{BerroneBorioMarcon2021}, where the degree of polynomial used in projection depends on the number of vertices of the polygon \XH{and generally the geometry of the polygon}. 
+\XH{Numerical examples in \cite{BerroneBorioMarcon2022} show that the stabilization-free VEM in \cite{BerroneBorioMarcon2021} outperforms the standard VEM in \cite{BeiraodaVeigaBrezziMariniRusso2016} for anisotropic elliptic problems on general convex polygonal meshes.}
+The stabilization-free VEM in \cite{BerroneBorioMarcon2021} is then applied to solve the Laplacian eigenvalue problem \cite{MengWangBuMei2022}. Along this line, similar stabilization-free virtual element methods are devised for plane elasticity problem in~\cite{DAltriMirandaPatrunoSacco2021,ChenSukumar2022,ChenSukumar2023}.
+The idea in \cite{BerroneBorioMarcon2021} is difficult to be extended to construct stabilization-free virtual element methods in higher dimensions, and
 the analysis is rather elaborate. 
-This motivates us to construct stabilization-free virtual element methods in arbitrary degree of polynomial and arbitrary dimension in a unified way.
+\XH{
+% This motivates us to construct a nonconforming VEM in arbitrary dimension and a conforming VEM in two dimensions in arbitrary degree of polynomial  in a unified way.
+This motivates us to construct stabilization-free VEMs in arbitrary degree of polynomial, including a nonconforming VEM in arbitrary dimension and a conforming VEM in two dimensions,  in a unified way.
+}
 
-The key to construct stabilization-free virtual element methods is to find a finite-dimensional space $\mathbb{V}(K)$ and a projector $Q_K$ onto space $\mathbb{V}(K)$ such that
+The key to construct stabilization-free VEMs is to find a finite-dimensional space $\mathbb{V}(K)$ for polytope $K$ and a projector $Q_K$ onto space $\mathbb{V}(K)$ such that
 \begin{enumerate}[(C1)]
 \item It holds the norm equivalence 
 \begin{equation}\label{intro:gradVknormequiv} 
@@ -69,6 +92,7 @@ The key to construct stabilization-free virtual element methods is to find a fin
 on shape function space $V_k(K)$ of virtual elements;
 \item The projection $Q_{K}\nabla v$ is computable based on the degrees of freedom (DoFs) of virtual elements for $v\in V_k(K)$.
 \end{enumerate}
+\XH{The hidden constants in \eqref{intro:gradVknormequiv} are independent of the size of $K$, but depend on the degree of polynomials, and the chunkiness parameter and the geometric dimension of $K$; see Section~\ref{sec:meshcondition} for details.}
 We can choose $Q_{K}$ as the $L^2$-orthogonal projector with respect to the
 inner product $(\cdot, \cdot)_K$. The norm equivalence
 \eqref{intro:gradVknormequiv} implies space $\mathbb{V}(K)$ should be
@@ -86,7 +110,7 @@ space $\mathbb P_{k}(K)$.  While only
 hold
 rather than the norm equivalence \eqref{intro:gradVknormequiv}, then the additional stabilization term is usually necessary to ensure the coercivity of the discrete bilinear form.
 To remove the additional stabilization term, $\mathbb{V}(K)$ is taken as $\mathbb P_{l}(K; \mathbb{R}^d)$ with large enough $l$ even for the lowest order case $k=1$ in \cite{BerroneBorioMarcon2021,BerroneBorioMarcon2022,DAltriMirandaPatrunoSacco2021}, and the virtual element space $V_k(K)$ has to be modified accordingly to make $Q_{l}^{K}\nabla v$ computable.
-Instead, we employ $k$-th order or $(k-1)$-th order $H(\div)$-conforming macro finite elements as $\mathbb{V}(K)$ in this paper, and keep the virtual element space $V_k(K)$ as usual ones.
+Instead, \XH{based on a regular simplicial tessellation of polytope $K$}, we employ $k$-th order or $(k-1)$-th order $H(\div)$-conforming macro finite elements as $\mathbb{V}(K)$ in this paper, and keep the virtual element space $V_k(K)$ as usual ones.
 
 
 We first construct $H(\div)$-conforming macro finite elements based on a
@@ -185,7 +209,7 @@ For smooth function $v$, define surface gradient $\nabla_Fv:=\nabla v-(\partial_
 
 
 
-\subsection{Mesh conditions}
+\subsection{Mesh conditions}\label{sec:meshcondition}
 We impose the following conditions on the mesh $\mathcal T_h$ in this paper:
 \begin{itemize}
  \item[(A1)] Each element $K\in \mathcal T_h$ and each face $F\in \mathcal F_h^r$ for $1\leq r\leq d-1$ is star-shaped with a uniformly bounded chunkiness parameter.
@@ -215,21 +239,27 @@ In this section we will construct $H(\div)$-conforming macro finite elements in 
 \subsection{$H(\div)$-conforming finite elements}
 For $d$-dimensional polytope $K\in \mathcal T_h$ and $k\geq2$, let 
 \[
-\boldsymbol{V}_{k-1}^{BDM}(K):=\{\boldsymbol{\phi}\in\boldsymbol{H}(\div, K): \boldsymbol{\phi}|_{T}\in \mathbb P_{k-1}(T;\mathbb R^d) \textrm{ for each } T\in\mathcal T_K\}
+\boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K):=\{\boldsymbol{\phi}\in\boldsymbol{H}(\div, K): \boldsymbol{\phi}|_{T}\in \mathbb P_{k-1}(T;\mathbb R^d) \textrm{ for each } T\in\mathcal T_K\}
 \]
 be the local Brezzi-Douglas-Marini (BDM) element space~\cite{BrezziDouglasMarini1986,BrezziDouglasDuranFortin1987,Nedelec:1986family}, whose degrees of freedom (DoFs) are given by \cite{ChenHuang2021divdiv}
 \begin{align}
 (\boldsymbol{v}\cdot\boldsymbol{n}, q)_F, & \quad q\in \mathbb P_{k-1}(F), F\in\mathcal F(T), \label{BDMdof1} \\
 (\div\boldsymbol{v}, q)_T, & \quad q\in \mathbb P_{k-2}(T)/\mathbb R, \label{BDMdof2} \\
-(\boldsymbol{v}, \boldsymbol{q})_T, & \quad \boldsymbol{q}\in \mathbb P_{k-3}(T;\mathbb K)\boldsymbol{x}. \label{BDMdof3}
+(\boldsymbol{v}, \boldsymbol{q})_T, & \quad \boldsymbol{q}\in \mathbb P_{k-3}(T;\mathbb K)\boldsymbol{x} \label{BDMdof3}
 \end{align}
-Define $\mathring{\boldsymbol{V}}_{k-1}^{BDM}(K):=\boldsymbol{V}_{k-1}^{BDM}(K)\cap \boldsymbol{H}_0(\div, K)$.
+for $T\in\mathcal T_K$.
+Define $\mathring{\boldsymbol{V}}_{k-1}^{\mathrm{BDM}}(K):=\boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K)\cap \boldsymbol{H}_0(\div, K)$.
 
-We also need the lowest order Raviart-Thomas (RT) element space~\cite{BrezziDouglasMarini1986,BrezziDouglasDuranFortin1987,Nedelec:1986family}
+We also need the lowest order Raviart-Thomas (RT) element space~\cite{RaviartThomas1977,Nedelec1980}
 \[
-\boldsymbol{V}^{RT}(K):=\{\boldsymbol{\phi}\in\boldsymbol{H}(\div, K): \boldsymbol{\phi}|_{T}\in \mathbb P_{0}(T;\mathbb R^d)+\boldsymbol{x}\mathbb P_{0}(T) \textrm{ for each } T\in\mathcal T_K\}.
+\boldsymbol{V}^{\mathrm{RT}}(K):=\{\boldsymbol{\phi}\in\boldsymbol{H}(\div, K): \boldsymbol{\phi}|_{T}\in \mathbb P_{0}(T;\mathbb R^d)+\boldsymbol{x}\mathbb P_{0}(T) \textrm{ for each } T\in\mathcal T_K\}.
 \]
-Define $\mathring{\boldsymbol{V}}^{RT}(K):=\boldsymbol{V}^{RT}(K)\cap \boldsymbol{H}_0(\div, K)$.
+\XH{The DoFs are given by
+\[
+(\boldsymbol{v}\cdot\boldsymbol{n}, q)_F,  \quad q\in \mathbb P_{0}(F), F\in\mathcal F(T)
+\]
+for $T\in\mathcal T_K$.}
+Define $\mathring{\boldsymbol{V}}^{\mathrm{RT}}(K):=\boldsymbol{V}^{\mathrm{RT}}(K)\cap \boldsymbol{H}_0(\div, K)$.
 
 
 
@@ -239,7 +269,7 @@ Now recall the finite element for differential $(d-2)$-form, i.e. $H\Lambda^{d-2
 
 By Lemma 3.12 in \cite{ChenHuang2021divdiv}, we have the decomposition
 \begin{equation}\label{eq:Pkvectordecomp}  
-\mathbb P_{k-1}(T;\mathbb R^{d})=\nabla P_k(T)\oplus\mathbb P_{k-2}(T;\mathbb K)\boldsymbol{x}.
+\mathbb P_{k-1}(T;\mathbb R^{d})=\nabla\mathbb P_k(T)\oplus\mathbb P_{k-2}(T;\mathbb K)\boldsymbol{x}.
 \end{equation}
 
 \begin{lemma}\label{lem:skwgrad}
@@ -435,16 +465,16 @@ For completeness, we will prove the exactness of these complexes.
 \begin{lemma}
 Let $k\geq2$. Finite element complexes
 \begin{equation}\label{eq:localBDMfemderhamcomplex}
-\boldsymbol{V}_{k}^{d-2}(K)\xrightarrow{\div\skw}\boldsymbol{V}_{k-1}^{BDM}(K)\xrightarrow{\div} V_{k-2}^{L^2}(K)\to0,    
+\boldsymbol{V}_{k}^{d-2}(K)\xrightarrow{\div\skw}\boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K)\xrightarrow{\div} V_{k-2}^{L^2}(K)\to0,    
 \end{equation}
 \begin{equation}\label{eq:localRTfemderhamcomplex}
-\boldsymbol{V}_{1}^{d-2}(K)\xrightarrow{\div\skw}\boldsymbol{V}^{RT}(K)\xrightarrow{\div} V_{0}^{L^2}(K)\to0,    
+\boldsymbol{V}_{1}^{d-2}(K)\xrightarrow{\div\skw}\boldsymbol{V}^{\mathrm{RT}}(K)\xrightarrow{\div} V_{0}^{L^2}(K)\to0,    
 \end{equation}
 \begin{equation}\label{eq:localBDMfemderhamcomplex0}
-\mathring{\boldsymbol{V}}_{k}^{d-2}(K)\xrightarrow{\div\skw}\mathring{\boldsymbol{V}}_{k-1}^{BDM}(K)\xrightarrow{\div} \mathring{V}_{k-2}^{L^2}(K)\to0,    
+\mathring{\boldsymbol{V}}_{k}^{d-2}(K)\xrightarrow{\div\skw}\mathring{\boldsymbol{V}}_{k-1}^{\mathrm{BDM}}(K)\xrightarrow{\div} \mathring{V}_{k-2}^{L^2}(K)\to0,    
 \end{equation}
 \begin{equation}\label{eq:localRTfemderhamcomplex0}
-\mathring{\boldsymbol{V}}_{1}^{d-2}(K)\xrightarrow{\div\skw}\mathring{\boldsymbol{V}}^{RT}(K)\xrightarrow{\div} \mathring{V}_{0}^{L^2}(K)\to0,    
+\mathring{\boldsymbol{V}}_{1}^{d-2}(K)\xrightarrow{\div\skw}\mathring{\boldsymbol{V}}^{\mathrm{RT}}(K)\xrightarrow{\div} \mathring{V}_{0}^{L^2}(K)\to0,    
 \end{equation}
 are exact, where $\mathring{V}_{k-2}^{L^2}(K):=V_{k-2}^{L^2}(K)/\mathbb R$, and
 \[
@@ -452,9 +482,9 @@ V_{k-2}^{L^2}(K):=\{v\in L^2(K): v|_{T}\in \mathbb P_{k-2}(T) \textrm{ for each 
 \]
 \end{lemma}
 \begin{proof}
-We only prove complex \eqref{eq:localBDMfemderhamcomplex}, since the argument for the rest complexes is similar. Clearly \eqref{eq:localBDMfemderhamcomplex} is a complex. We refer to \cite[Section 4]{ChenHuang2021divX} for the proof of $\div\boldsymbol{V}_{k-1}^{BDM}(K)=V_{k-2}^{L^2}(K)$.
+We only prove complex \eqref{eq:localBDMfemderhamcomplex}, since the argument for the rest complexes is similar. Clearly \eqref{eq:localBDMfemderhamcomplex} is a complex. We refer to \cite[Section 4]{ChenHuang2021divX} for the proof of $\div\boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K)=V_{k-2}^{L^2}(K)$.
 
-Next prove $\boldsymbol{V}_{k-1}^{BDM}(K)\cap\ker(\div)=\div\skw\boldsymbol{V}_{k}^{d-2}(K)$. For $\boldsymbol{v}\in\boldsymbol{V}_{k-1}^{BDM}(K)\cap\ker(\div)$, by Theorem 1.1 in \cite{CostabelMcIntosh2010}, there exists $\boldsymbol{\tau}\in\boldsymbol{H}^1(K;\mathbb K)$ satisfying $\div\boldsymbol{\tau}=\div\skw\boldsymbol{\tau}=\boldsymbol{v}$. Let $\boldsymbol{\sigma}\in \boldsymbol{V}_{k}^{d-2}(K)$ be the nodal interpolation of $\boldsymbol{\tau}$ based on DoFs \eqref{eq:-2formfemdof1}-\eqref{eq:-2formfemdof32}. Thanks to DoF \eqref{eq:-2formfemdof1}, it follows from the integration by parts that
+Next prove $\boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K)\cap\ker(\div)=\div\skw\boldsymbol{V}_{k}^{d-2}(K)$. For $\boldsymbol{v}\in\boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K)\cap\ker(\div)$, by Theorem 1.1 in \cite{CostabelMcIntosh2010}, there exists $\boldsymbol{\tau}\in\boldsymbol{H}^1(K;\mathbb K)$ satisfying $\div\boldsymbol{\tau}=\div\skw\boldsymbol{\tau}=\boldsymbol{v}$. Let $\boldsymbol{\sigma}\in \boldsymbol{V}_{k}^{d-2}(K)$ be the nodal interpolation of $\boldsymbol{\tau}$ based on DoFs \eqref{eq:-2formfemdof1}-\eqref{eq:-2formfemdof32}. Thanks to DoF \eqref{eq:-2formfemdof1}, it follows from the integration by parts that
 \[
 (\div_F(\boldsymbol{\sigma}\boldsymbol{n}), 1)_F=(\boldsymbol{v}\cdot\boldsymbol{n}, 1)_F\quad\forall~F\in\mathcal F(\mathcal T_K),
 \]
@@ -480,13 +510,13 @@ For $k\geq1$, by finite element complexes \eqref{eq:localBDMfemderhamcomplex}-\e
 For each polygon $K\in \mathcal T_h$, 
 define shape function space
 \[
-\boldsymbol{V}_{k-1}^{\rm div}(K):=\{\boldsymbol{\phi}\in\boldsymbol{V}_{k-1}^{BDM}(K): \div\boldsymbol{\phi}\in\mathbb P_{k-2}(K)\},
+\boldsymbol{V}_{k-1}^{\rm div}(K):=\{\boldsymbol{\phi}\in\boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K): \div\boldsymbol{\phi}\in\mathbb P_{k-2}(K)\},
 \]
 for $k\geq 2$, and 
 \[
-\boldsymbol{V}_{0}^{\rm div}(K):=\{\boldsymbol{\phi}\in\boldsymbol{V}_{0}^{RT}(K): \div\boldsymbol{\phi}\in\mathbb P_{0}(K)\}.
+\boldsymbol{V}_{0}^{\rm div}(K):=\{\boldsymbol{\phi}\in\boldsymbol{V}_{0}^{\mathrm{RT}}(K): \div\boldsymbol{\phi}\in\mathbb P_{0}(K)\}.
 \]
-Apparently $\mathbb P_{k-1}(K;\mathbb R^d)\subseteq\boldsymbol{V}_{k-1}^{\rm div}(K)$, $\boldsymbol{V}_{0}^{\rm div}(K)\cap\ker(\div)=\boldsymbol{V}_0^{RT}(K)\cap\ker(\div)$, and $\boldsymbol{V}_{k-1}^{\rm div}(K)\cap\ker(\div)=\boldsymbol{V}_{k-1}^{BDM}(K)\cap\ker(\div)$ for $k\geq2$.
+Apparently $\mathbb P_{k-1}(K;\mathbb R^d)\subseteq\boldsymbol{V}_{k-1}^{\rm div}(K)$, $\boldsymbol{V}_{0}^{\rm div}(K)\cap\ker(\div)=\boldsymbol{V}_0^{\mathrm{RT}}(K)\cap\ker(\div)$, and $\boldsymbol{V}_{k-1}^{\rm div}(K)\cap\ker(\div)=\boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K)\cap\ker(\div)$ for $k\geq2$.
 
 
 In the following lemma we present a direct sum decomposition of space $\boldsymbol{V}_{k-1}^{\rm div}(K)$.
@@ -507,7 +537,7 @@ is exact.
 We only prove the case $k\geq2$, as the proof for case $k=1$ is similar.
 Since $\div:(\boldsymbol{x}-\boldsymbol{x}_K)\mathbb P_{k-2}(K)\to\mathbb P_{k-2}(K)$ is bijective \cite[Lemma 3.1]{ChenHuang2021divdiv}, we have $\div\skw \boldsymbol{V}_{k}^{d-2}(K)\cap(\boldsymbol{x}-\boldsymbol{x}_K)\mathbb P_{k-2}(K)=\{\boldsymbol{0}\}$. Clearly $\div\skw \boldsymbol{V}_{k}^{d-2}(K) \oplus(\boldsymbol{x}-\boldsymbol{x}_K)\mathbb P_{k-2}(K)\subseteq \boldsymbol{V}_{k-1}^{\rm div}(K)$.
 
-On the other side, for $\boldsymbol{\phi}\in \boldsymbol{V}_{k-1}^{\rm div}(K)$, by $\div\boldsymbol{\phi}\in \mathbb P_{k-2}(K)$, there exists a $q\in\mathbb P_{k-2}(K)$ such that $\div((\boldsymbol{x}-\boldsymbol{x}_K)q)=\div\boldsymbol{\phi}$, i.e. $\boldsymbol{\phi}-(\boldsymbol{x}-\boldsymbol{x}_K)q\in\boldsymbol{V}_{k-1}^{\rm div}(K)\cap\ker(\div)=\boldsymbol{V}_{k-1}^{BDM}(K)\cap\ker(\div)$. Thanks to finite element complex \eqref{eq:localBDMfemderhamcomplex}, $\boldsymbol{\phi}-(\boldsymbol{x}-\boldsymbol{x}_K)q\in\div\skw \boldsymbol{V}_{k}^{d-2}(K)$. Thus \eqref{eq:Vdivlocaldecomp} follows.
+On the other side, for $\boldsymbol{\phi}\in \boldsymbol{V}_{k-1}^{\rm div}(K)$, by $\div\boldsymbol{\phi}\in \mathbb P_{k-2}(K)$, there exists a $q\in\mathbb P_{k-2}(K)$ such that $\div((\boldsymbol{x}-\boldsymbol{x}_K)q)=\div\boldsymbol{\phi}$, i.e. $\boldsymbol{\phi}-(\boldsymbol{x}-\boldsymbol{x}_K)q\in\boldsymbol{V}_{k-1}^{\rm div}(K)\cap\ker(\div)=\boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K)\cap\ker(\div)$. Thanks to finite element complex \eqref{eq:localBDMfemderhamcomplex}, $\boldsymbol{\phi}-(\boldsymbol{x}-\boldsymbol{x}_K)q\in\div\skw \boldsymbol{V}_{k}^{d-2}(K)$. Thus \eqref{eq:Vdivlocaldecomp} follows.
 \end{proof}
 
 Based on the space decomposition \eqref{eq:Vdivlocaldecomp} and the degrees of freedom of BDM element, we propose the following DoFs for space $\boldsymbol{V}_{k-1}^{\rm div}(K)$
@@ -588,7 +618,7 @@ By the inverse inequality \cite[Lemma 10]{Huang2020} and the trace inequality \c
 &\lesssim \|\div\boldsymbol{\phi}\|_{-1,K} + \|\boldsymbol{\phi}\|_{0,K} \lesssim \|\boldsymbol{\phi}\|_{0,K}.    
 \end{align*}
 
-Next we focus on the proof of the other side. Again we only prove the case $k\geq2$, whose argument can be applied to case $k=1$. Take $\boldsymbol{\phi}_1\in\boldsymbol{V}_{k-1}^{BDM}(K)$ such that $\boldsymbol{\phi}_1\cdot\boldsymbol{n}|_{\partial K}=\boldsymbol{\phi}\cdot\boldsymbol{n}_{\partial K}$, and all the DoFs \eqref{BDMdof1}-\eqref{BDMdof3} of $\boldsymbol{\phi}_1$ in the interior of $K$ vanish. We have
+Next we focus on the proof of the other side. Again we only prove the case $k\geq2$, whose argument can be applied to case $k=1$. Take $\boldsymbol{\phi}_1\in\boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K)$ such that $\boldsymbol{\phi}_1\cdot\boldsymbol{n}|_{\partial K}=\boldsymbol{\phi}\cdot\boldsymbol{n}_{\partial K}$, and all the DoFs \eqref{BDMdof1}-\eqref{BDMdof3} of $\boldsymbol{\phi}_1$ in the interior of $K$ vanish. We have
 \begin{equation}\label{eq:20220324-5}
 \|\boldsymbol{\phi}_1\|_{0,K}\eqsim \sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F},
 \end{equation}
@@ -611,14 +641,14 @@ Obviously we have
 \[
 \|\nabla w\|_{0,K}\lesssim h_K\|\div(\boldsymbol{\phi}-\boldsymbol{\phi}_1)\|_{0,K}\lesssim h_K\|\div\boldsymbol{\phi}\|_{0,K} +\sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}.
 \]
-Let $I_K^{\div}: \boldsymbol{H}_0(\div,K)\to\mathring{\boldsymbol{V}}_{k-1}^{BDM}(K)$ be the $L^2$-bounded commuting projection operator in \cite{ChristiansenWinther2008}. Set $\boldsymbol{\phi}_2=-I_K^{\div}(\nabla w)\in\mathring{\boldsymbol{V}}_{k-1}^{BDM}(K)$. We have
+Let $I_K^{\div}: \boldsymbol{H}_0(\div,K)\to\mathring{\boldsymbol{V}}_{k-1}^{\mathrm{BDM}}(K)$ be the $L^2$-bounded commuting projection operator in \cite{ChristiansenWinther2008}. Set $\boldsymbol{\phi}_2=-I_K^{\div}(\nabla w)\in\mathring{\boldsymbol{V}}_{k-1}^{\mathrm{BDM}}(K)$. We have
 \begin{equation}\label{eq:20220324-6}
 \div\boldsymbol{\phi}_2=-\Delta w=\div(\boldsymbol{\phi}-\boldsymbol{\phi}_1),
 \end{equation}
 \begin{equation}\label{eq:20220324-7}
 \|\boldsymbol{\phi}_2\|_{0,K}\lesssim \|\nabla w\|_{0,K}\lesssim h_K\|\div\boldsymbol{\phi}\|_{0,K} +\sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}.
 \end{equation}
-By \eqref{eq:20220324-6}, $\boldsymbol{\phi}-\boldsymbol{\phi}_1-\boldsymbol{\phi}_2\in\mathring{\boldsymbol{V}}_{k-1}^{BDM}(K)\cap\ker(\div)$, which together the exactness of complex \eqref{eq:localBDMfemderhamcomplex0} indicates $\boldsymbol{\phi}-\boldsymbol{\phi}_1-\boldsymbol{\phi}_2\in\div\mathring{\boldsymbol{V}}_{k}^{d-2}(K)$. Hence
+By \eqref{eq:20220324-6}, $\boldsymbol{\phi}-\boldsymbol{\phi}_1-\boldsymbol{\phi}_2\in\mathring{\boldsymbol{V}}_{k-1}^{\mathrm{BDM}}(K)\cap\ker(\div)$, which together the exactness of complex \eqref{eq:localBDMfemderhamcomplex0} indicates $\boldsymbol{\phi}-\boldsymbol{\phi}_1-\boldsymbol{\phi}_2\in\div\mathring{\boldsymbol{V}}_{k}^{d-2}(K)$. Hence
 \begin{align*}  
 \|\boldsymbol{\phi}\|_{0,K}&\lesssim \|\boldsymbol{\phi}_1\|_{0,K}+\|\boldsymbol{\phi}_2\|_{0,K}+\|\boldsymbol{\phi}-\boldsymbol{\phi}_1-\boldsymbol{\phi}_2\|_{0,K} \\
 &\lesssim \|\boldsymbol{\phi}_1\|_{0,K}+\|\boldsymbol{\phi}_2\|_{0,K}+\sup_{\boldsymbol{\psi}\in\div\mathring{\boldsymbol{V}}_{k}^{d-2}(K)}\frac{(\boldsymbol{\phi}-\boldsymbol{\phi}_1-\boldsymbol{\phi}_2, \boldsymbol{\psi})_K}{\|\boldsymbol{\psi}\|_{0,K}} \\
@@ -1034,7 +1064,7 @@ Employing the same argument as in Lemma~\ref{lem:gradVknormequivalence}, from  \
 When $k\geq2$, we can replace $Q_{K,k}^{\div}$ by the $L^2$-orthogonal projection operator onto space $\mathbb{V}_{k,k-2}^{\rm div}(K)$, where
 \begin{align*}
 \mathbb{V}_{k,k-2}^{\rm div}(K):=&\{\boldsymbol{\phi}\in\mathbb{V}_{k}^{\rm div}(K): \div\boldsymbol{\phi}\in\mathbb P_{k-2}(K)\} \\
-=&\{\boldsymbol{\phi}\in\boldsymbol{V}_{k}^{BDM}(K): \div\boldsymbol{\phi}\in\mathbb P_{k-2}(K), \boldsymbol{\phi}\cdot\boldsymbol{n}|_e\in\mathbb P_{k}(e)\;\;\forall~e\in\mathcal E(K)\}.
+=&\{\boldsymbol{\phi}\in\boldsymbol{V}_{k}^{\mathrm{BDM}}(K): \div\boldsymbol{\phi}\in\mathbb P_{k-2}(K), \boldsymbol{\phi}\cdot\boldsymbol{n}|_e\in\mathbb P_{k}(e)\;\;\forall~e\in\mathcal E(K)\}.
 \end{align*}
 \end{remark}
 % \subsection{Local inf-sup condition and norm equivalence}
