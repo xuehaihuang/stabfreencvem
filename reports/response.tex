@@ -18,6 +18,7 @@
 \usepackage{chemarrow}
 \usepackage[all]{xy}
 \usepackage[pdftex,bookmarksnumbered,bookmarksopen,colorlinks,linkcolor=blue,anchorcolor=black,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{booktabs}
 
 %\usepackage{mathabx}
 % ----------------------------------------------------------------
@@ -174,10 +175,42 @@ Thanks for this suggestion. We have mentioned it.
 
 \medskip
 
-\item \textsf{Lines 50-51; when you define the function $\phi$, are you sure that the normal component of the trace is a polynomial only on the faces of $K$? Don't you also need this property to be valid on the faces of the simplicial tessellation of $K$?.}
+\item \textsf{Lines 50-51; when you define the function $\phi$, are you sure that the normal component of the trace is a polynomial only on the faces of $K$? Don't you also need this property to be valid on the faces of the simplicial tessellation of $K$?}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+Base on $d$-dimensional polytope $K\in \mathcal T_h$ and its simplicial partition $\mathcal T_K$ of $K$, we define the following $H(\div)$-conforming finite element spaces in this paper:
+% For $d$-dimensional polytope $K\in \mathcal T_h$ and $k\geq2$, let 
+\begin{align*}    
+\boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K)&=\{\boldsymbol{\phi}\in\boldsymbol{H}(\div, K): \boldsymbol{\phi}|_{T}\in \mathbb P_{k-1}(T;\mathbb R^d) \textrm{ for each } T\in\mathcal T_K\}\textrm{ for } k\geq2, \\
+\boldsymbol{V}^{\mathrm{RT}}(K)&=\{\boldsymbol{\phi}\in\boldsymbol{H}(\div, K): \boldsymbol{\phi}|_{T}\in \mathbb P_{0}(T;\mathbb R^d)+\boldsymbol{x}\mathbb P_{0}(T) \textrm{ for each } T\in\mathcal T_K\}, \\
+\boldsymbol{V}_{k-1}^{\rm div}(K)&=\{\boldsymbol{\phi}\in\boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K): \div\boldsymbol{\phi}\in\mathbb P_{k-2}(K)\}\textrm{ for } k\geq2, \\
+\boldsymbol{V}_{0}^{\rm div}(K)&=\{\boldsymbol{\phi}\in\boldsymbol{V}_{0}^{\mathrm{RT}}(K): \div\boldsymbol{\phi}\in\mathbb P_{0}(K)\},
+\\
+\mathbb{V}_{k-1}^{\rm div}(K)&=\{\boldsymbol{\phi}\in\boldsymbol{V}_{k-1}^{\rm div}(K): \boldsymbol{\phi}\cdot\boldsymbol{n}|_F\in\mathbb P_{k-1}(F) \textrm{ for each } F\in\mathcal F(K)\}.
+\end{align*}
+We compare these spaces for polytope $K$ and face $F\in\mathcal F(K)$ in the following table.
+\begin{center}
+\renewcommand\arraystretch{1.3}
+\begin{tabular}[t]{|c|c|c|c|}
+% \toprule
+\hline
+$\boldsymbol{\phi}$ & $\boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K)/\boldsymbol{V}^{\mathrm{RT}}(K)$ & $\boldsymbol{V}_{k-1}^{\rm div}(K)$ & $\mathbb{V}_{k-1}^{\rm div}(K)$  \\
+\hline
+% \midrule 
+$(\div\boldsymbol{\phi})|_K$ & piecewise polynomial & polynomial & polynomial \\
+\hline
+$(\boldsymbol{\phi}\cdot\boldsymbol{n})|_F$ & piecewise polynomial & piecewise polynomial & polynomial \\
+\hline
+% \bottomrule
+\end{tabular}
+\end{center}
+We can see that both $(\div\boldsymbol{\phi})|_K$ and $(\boldsymbol{\phi}\cdot\boldsymbol{n})|_F$ are polynomials for $\boldsymbol{\phi}\in\mathbb{V}_{k-1}^{\rm div}(K)$.
+
+To ensure the $L^2$ projection
+$Q_{K,k}^{\div}\nabla v$ onto space $\mathbb{V}_{k}^{\rm div}(K)$ is computable
+for virtual element function $v\in V_k(K)$, we only require
+$(\boldsymbol{\phi}\cdot\boldsymbol{n})|_F$ to be a polynomial for each $(d-1)$-dimensional face $F$ of $K$. But $(\boldsymbol{\phi}\cdot\boldsymbol{n})|_F$ can be a piecewise polynomial for interior face $F$ of the simplicial tessellation of $K$.
+
 
 \medskip
 
@@ -192,49 +225,86 @@ Thanks for this suggestion. We have recalled it.
 \item \textsf{Line 305; reference [21, Lemma 10] for the polynomial inverse inequality is not proper; in fact, the inverse estimate follows from standard polynomial inverse estimates on simplices (refer, e.g., to Verf{\"u}rth's book), the regularity of the element, and standard polynomial inverse estimates.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+We add references \cite{Ciarlet1978,Verfuerth2013} in the revised manuscript.
 
 \medskip
 
 \item \textsf{Line 305; reference [11, (2.18)] is also a standard scaled trace inequality (refer to any PDE textbook).}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+We add reference \cite[Theorem 1.5.1.10]{Grisvard1985} in the revised manuscript.
 
 \medskip
 
 \item \textsf{Line 308-309; you also use the definition of negative norm (which I cannot find), an integration by parts, and a Cauchy-Schwarz inequality.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+We revise the first part of the proof of Lemma 3.12 as follows.
+
+By the inverse inequality \cite{Ciarlet1978,Verfuerth2013} (see also \cite[Lemma 10]{Huang2020}),
+$$
+h_K\|\div\boldsymbol{\phi}\|_{0,K}\lesssim  \|\div\boldsymbol{\phi}\|_{-1,K},
+$$ 
+where
+$$
+\|\div\boldsymbol{\phi}\|_{-1,K}=\sup_{v\in H_0^1(K)}\frac{(\div\boldsymbol{\phi}, v)_K}{|v|_{1,K}}=-\sup_{v\in H_0^1(K)}\frac{(\boldsymbol{\phi}, \nabla v)_K}{|v|_{1,K}} \leq \|\boldsymbol{\phi}\|_{0,K}.
+$$
+Then we have
+\begin{equation}\label{eq:20230201}  
+h_K\|\div\boldsymbol{\phi}\|_{0,K}\lesssim \|\boldsymbol{\phi}\|_{0,K}.
+\end{equation}
+For $F\in\mathcal F^{\partial}(\mathcal T_K)$, there exists a simplex $T\in\mathcal T_K$ satisfying $F\subset\partial T$, then apply the trace inequality \cite[Theorem 1.5.1.10]{Grisvard1985} (see also \cite[(2.18)]{BrennerSung2018}) and the inverse inequality to get
+$$
+h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F} \lesssim \|\boldsymbol{\phi}\|_{0,T}+h_T|\boldsymbol{\phi}|_{1,T}\lesssim \|\boldsymbol{\phi}\|_{0,T}.
+$$ 
+This means
+$$
+\sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F} \lesssim \sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}\|\boldsymbol{\phi}\|_{0,T}\lesssim \|\boldsymbol{\phi}\|_{0,K}.
+$$ 
+Combining \eqref{eq:20230201}, the Cauchy-Schwarz inequality and the last inequality yields
+$$
+h_K\|\div\boldsymbol{\phi}\|_{0,K}+\sup_{\boldsymbol{\psi}\in\div\mathring{\boldsymbol{V}}_{k}^{d-2}(K)}\frac{(\boldsymbol{\phi}, \boldsymbol{\psi})_K}{\|\boldsymbol{\psi}\|_{0,K}} +\sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}\lesssim \|\boldsymbol{\phi}\|_{0,K}.
+$$
 
 \medskip
 
 \item \textsf{Line 310; “other side” $-\!\!\!-\!\!\!-\!\!\!>$“lower bound”.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+It has been corrected.
 
 \medskip
 
 \item \textsf{Lines 311-312; are you sure about the definition of $\phi_1$? What about the degrees of freedom on internal faces?}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+We define $\boldsymbol{\phi}_1\in\boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K)$ based on DoFs (3.1)-(3.3).
+To be specific, $(\boldsymbol{\phi}_1\cdot\boldsymbol{n})|_{\partial K}=(\boldsymbol{\phi}\cdot\boldsymbol{n})|_{\partial K}$, and all the DoFs (3.1)-(3.3) of $\boldsymbol{\phi}_1$ interior to $K$ equal to zero.
 
 \medskip
 
 \item \textsf{Elaborate more the equivalence (3.26).}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+We revise it as follows.
+
+By the norm equivalence on each simplex $T\in\mathcal T_K$ and the vanishing DoFs~(3.1)-(3.3), we get
+\begin{align*}%\label{eq:20220324-5}
+\|\boldsymbol{\phi}_1\|_{0,K}^2 = \sum_{T\in\mathcal T_K}\|\boldsymbol{\phi}_1\|_{0,T}^2 \eqsim \sum_{T\in\mathcal T_K}\sum_{F\in\mathcal F(T)}h_F\|\boldsymbol{\phi}_1\cdot\boldsymbol{n}\|_{0,F}^2 =\sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}^2.
+\end{align*}
+Due to the vanishing DoF (3.2), it holds that $\div\boldsymbol{\phi}_1=Q_0^T(\div\boldsymbol{\phi}_1)$ for $T\in\mathcal T_K$.
+Then apply the integration by parts and the Cauchy-Schwarz inequality to acquire
+\begin{equation*}%\label{eq:202302011}  
+\|\div\boldsymbol{\phi}_1\|_{0,T}^2=\|Q_0^T(\div\boldsymbol{\phi}_1)\|_{0,T}^2
+\leq\frac{1}{|T|}\sum_{F\in\mathcal F(T)\cap\mathcal F^{\partial}(\mathcal T_K)}|F|\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}^2\;\;\forall~T\in\mathcal T_K.
+\end{equation*}
 
 \medskip
 
 \item \textsf{You should write that the eq. in 322 is proven based on the inequality on lines 315-316.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+Thanks for this suggest. We have revised it.
 
 \medskip
 
@@ -332,7 +402,7 @@ Thanks for this suggestion. We have recalled it.
 \item \textsf{Line 486; “uni-solvent”$-\!\!\!-\!\!\!>$“well posed”?}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+It has been corrected.
 
 \medskip
 
@@ -430,7 +500,7 @@ should precise their reasoning.}
 
 \medskip
 
-\item \textsf{In the proof of Lemma 12, the authors apply a discrete trace inequality to the
+\item \textsf{In the proof of Lemma 3.12, the authors apply a discrete trace inequality to the
 quantity 
 $$
 \sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}
@@ -438,7 +508,19 @@ $$
 and cite [11, (2.18)]. However, [11, (2.18)] is a continuous trace inequality and there is no justification given for why the discrete trace inequality holds in this particular case. Moreover, it is not explained how one concludes that $\|\div\boldsymbol{\phi}\|_{-1,K}\lesssim \|\boldsymbol{\phi}\|_{0,K}$.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+For $F\in\mathcal F^{\partial}(\mathcal T_K)$, there exists a simplex $T\in\mathcal T_K$ satisfying $F\subset\partial T$. We can use the trace inequality \cite[(2.18)]{BrennerSung2018} and the inverse inequality to get
+$$
+h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F} \lesssim \|\boldsymbol{\phi}\|_{0,T}+h_T|\boldsymbol{\phi}|_{1,T}\lesssim \|\boldsymbol{\phi}\|_{0,T}.
+$$ 
+Then
+$$
+\sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F} \lesssim \sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}\|\boldsymbol{\phi}\|_{0,T}\lesssim \|\boldsymbol{\phi}\|_{0,K}.
+$$ 
+
+For the second question, it can be explained as follows:
+$$
+\|\div\boldsymbol{\phi}\|_{-1,K}=\sup_{v\in H_0^1(K)}\frac{(\div\boldsymbol{\phi}, v)_K}{|v|_{1,K}}=-\sup_{v\in H_0^1(K)}\frac{(\boldsymbol{\phi}, \nabla v)_K}{|v|_{1,K}} \leq \|\boldsymbol{\phi}\|_{0,K}.
+$$
 
 \medskip
 

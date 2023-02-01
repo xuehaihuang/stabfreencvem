@@ -165,7 +165,7 @@ polytope. Given a bounded domain $K\subset\mathbb{R}^{d}$ and a
 non-negative integer $m$, let $H^m(K)$ be the usual Sobolev space of functions
 on $K$.
 The corresponding norm and semi-norm are denoted respectively by
-$\Vert\cdot\Vert_{m,K}$ and $|\cdot|_{m,K}$. By convention, let $L^2(K)=H^0(K)$. 
+$\Vert\cdot\Vert_{m,K}$ and $|\cdot|_{m,K}$. By convention, let $L^2(K)=H^0(K)$. Denote by $L_0^2(K)$ the space of all functions in $L^2(K)$ with zero integral.
 Let $(\cdot, \cdot)_K$ be the standard inner product on $L^2(K)$. If $K$ is $\Omega$, we abbreviate
 $\Vert\cdot\Vert_{m,K}$, $|\cdot|_{m,K}$ and $(\cdot, \cdot)_K$ by $\Vert\cdot\Vert_{m}$, $|\cdot|_{m}$ and $(\cdot, \cdot)$,
 respectively. Let $H_0^m(K)$ be the closure of $\mathcal C_{0}^{\infty}(K)$ with
@@ -247,7 +247,7 @@ be the local Brezzi-Douglas-Marini (BDM) element space~\cite{BrezziDouglasMarini
 (\div\boldsymbol{v}, q)_T, & \quad q\in \mathbb P_{k-2}(T)/\mathbb R, \label{BDMdof2} \\
 (\boldsymbol{v}, \boldsymbol{q})_T, & \quad \boldsymbol{q}\in \mathbb P_{k-3}(T;\mathbb K)\boldsymbol{x} \label{BDMdof3}
 \end{align}
-for $T\in\mathcal T_K$.
+for $T\in\mathcal T_K$. Here $\mathbb P_{k-2}(T)/\mathbb R:=\mathbb P_{k-2}(T)\cap L_0^2(T)$.
 Define $\mathring{\boldsymbol{V}}_{k-1}^{\mathrm{BDM}}(K):=\boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K)\cap \boldsymbol{H}_0(\div, K)$.
 
 We also need the lowest order Raviart-Thomas (RT) element space~\cite{RaviartThomas1977,Nedelec1980}
@@ -612,21 +612,54 @@ For $\boldsymbol{\phi}\in\boldsymbol{V}_{k-1}^{\rm div}(K)$, it holds the norm e
 \end{equation}
 \end{lemma}
 \begin{proof}
-By the inverse inequality \cite[Lemma 10]{Huang2020} and the trace inequality \cite[(2.18)]{BrennerSung2018}, we have
-\begin{align*}
-&\quad h_K\|\div\boldsymbol{\phi}\|_{0,K}+\sup_{\boldsymbol{\psi}\in\div\mathring{\boldsymbol{V}}_{k}^{d-2}(K)}\frac{(\boldsymbol{\phi}, \boldsymbol{\psi})_K}{\|\boldsymbol{\psi}\|_{0,K}} +\sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}\\
-&\lesssim \|\div\boldsymbol{\phi}\|_{-1,K} + \|\boldsymbol{\phi}\|_{0,K} \lesssim \|\boldsymbol{\phi}\|_{0,K}.    
-\end{align*}
-
-Next we focus on the proof of the other side. Again we only prove the case $k\geq2$, whose argument can be applied to case $k=1$. Take $\boldsymbol{\phi}_1\in\boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K)$ such that $\boldsymbol{\phi}_1\cdot\boldsymbol{n}|_{\partial K}=\boldsymbol{\phi}\cdot\boldsymbol{n}_{\partial K}$, and all the DoFs \eqref{BDMdof1}-\eqref{BDMdof3} of $\boldsymbol{\phi}_1$ in the interior of $K$ vanish. We have
-\begin{equation}\label{eq:20220324-5}
-\|\boldsymbol{\phi}_1\|_{0,K}\eqsim \sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F},
+\XH{By the inverse inequality \cite{Ciarlet1978,Verfuerth2013} (see also \cite[Lemma 10]{Huang2020}),
+$$
+h_K\|\div\boldsymbol{\phi}\|_{0,K}\lesssim  \|\div\boldsymbol{\phi}\|_{-1,K},
+$$ 
+where
+$$
+\|\div\boldsymbol{\phi}\|_{-1,K}=\sup_{v\in H_0^1(K)}\frac{(\div\boldsymbol{\phi}, v)_K}{|v|_{1,K}}=-\sup_{v\in H_0^1(K)}\frac{(\boldsymbol{\phi}, \nabla v)_K}{|v|_{1,K}} \leq \|\boldsymbol{\phi}\|_{0,K}.
+$$
+Then we have
+\begin{equation}\label{eq:20230201}  
+h_K\|\div\boldsymbol{\phi}\|_{0,K}\lesssim \|\boldsymbol{\phi}\|_{0,K}.
 \end{equation}
-\[
+For $F\in\mathcal F^{\partial}(\mathcal T_K)$, there exists a simplex $T\in\mathcal T_K$ satisfying $F\subset\partial T$, then apply the trace inequality \cite[Theorem 1.5.1.10]{Grisvard1985} (see also \cite[(2.18)]{BrennerSung2018}) and the inverse inequality to get
+$$
+h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F} \lesssim \|\boldsymbol{\phi}\|_{0,T}+h_T|\boldsymbol{\phi}|_{1,T}\lesssim \|\boldsymbol{\phi}\|_{0,T}.
+$$ 
+This means
+$$
+\sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F} \lesssim \sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}\|\boldsymbol{\phi}\|_{0,T}\lesssim \|\boldsymbol{\phi}\|_{0,K}.
+$$ 
+Combining \eqref{eq:20230201}, the Cauchy-Schwarz inequality and the last inequality yields
+$$
+h_K\|\div\boldsymbol{\phi}\|_{0,K}+\sup_{\boldsymbol{\psi}\in\div\mathring{\boldsymbol{V}}_{k}^{d-2}(K)}\frac{(\boldsymbol{\phi}, \boldsymbol{\psi})_K}{\|\boldsymbol{\psi}\|_{0,K}} +\sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}\lesssim \|\boldsymbol{\phi}\|_{0,K}.
+$$
+}
+% \begin{align*}
+% &\quad h_K\|\div\boldsymbol{\phi}\|_{0,K}+\sup_{\boldsymbol{\psi}\in\div\mathring{\boldsymbol{V}}_{k}^{d-2}(K)}\frac{(\boldsymbol{\phi}, \boldsymbol{\psi})_K}{\|\boldsymbol{\psi}\|_{0,K}} +\sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}\\
+% &\lesssim \|\div\boldsymbol{\phi}\|_{-1,K} + \|\boldsymbol{\phi}\|_{0,K} \lesssim \|\boldsymbol{\phi}\|_{0,K}.    
+% \end{align*}
+
+Next we focus on the proof of the \XH{lower bound}. Again we only prove the case $k\geq2$, whose argument can be applied to case $k=1$. Take $\boldsymbol{\phi}_1\in\boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K)$ such that $(\boldsymbol{\phi}_1\cdot\boldsymbol{n})|_{\partial K}=(\boldsymbol{\phi}\cdot\boldsymbol{n})|_{\partial K}$, and \XH{all the DoFs \eqref{BDMdof1}-\eqref{BDMdof3} of $\boldsymbol{\phi}_1$ interior to $K$ equal to zero}. 
+\XH{By the norm equivalence on each simplex $T$ and the vanishing DoFs \eqref{BDMdof2}-\eqref{BDMdof3}, we get
+\begin{align}\label{eq:20220324-5}
+\|\boldsymbol{\phi}_1\|_{0,K}^2 = \sum_{T\in\mathcal T_K}\|\boldsymbol{\phi}_1\|_{0,T}^2 \eqsim \sum_{T\in\mathcal T_K}\sum_{F\in\mathcal F(T)}h_F\|\boldsymbol{\phi}_1\cdot\boldsymbol{n}\|_{0,F}^2 =\sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}^2.
+\end{align}
+Due to the vanishing DoF \eqref{BDMdof2}, it holds that $\div\boldsymbol{\phi}_1=Q_0^T(\div\boldsymbol{\phi}_1)$ for $T\in\mathcal T_K$.
+% We have
+% \begin{equation}
+% \|\boldsymbol{\phi}_1\|_{0,K}\eqsim \sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F},
+% \end{equation}
+Then apply the integration by parts and the Cauchy-Schwarz inequality to acquire
+\begin{equation}\label{eq:202302011}
 \|\div\boldsymbol{\phi}_1\|_{0,T}^2=\|Q_0^T(\div\boldsymbol{\phi}_1)\|_{0,T}^2
-\leq\frac{1}{|T|}\sum_{F\in\mathcal F(T)\cap\mathcal F^{\partial}(\mathcal T_K)}|F|\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}^2\quad\forall~T\in\mathcal T_K.
-\]
-Then let $w\in H^1(K)/\mathbb R$ be the solution of 
+\leq\frac{1}{|T|}\sum_{F\in\mathcal F(T)\cap\mathcal F^{\partial}(\mathcal T_K)}|F|\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}^2\;\;\forall~T\in\mathcal T_K.
+\end{equation}
+}
+% for $T\in\mathcal T_K$.
+Now let $w\in H^1(K)/\mathbb R$ be the solution of 
 \[
 \begin{cases}
 -\Delta w= \div(\boldsymbol{\phi}-\boldsymbol{\phi}_1)\quad\textrm{ in } K, \\
@@ -637,7 +670,7 @@ The weak formulation is
 \[
 (\nabla w, \nabla v)_K=(\div(\boldsymbol{\phi}-\boldsymbol{\phi}_1), v)_K\quad\forall~v\in H^1(K)/\mathbb R.
 \]
-Obviously we have
+Obviously \XH{we obtain from \eqref{eq:202302011} that}
 \[
 \|\nabla w\|_{0,K}\lesssim h_K\|\div(\boldsymbol{\phi}-\boldsymbol{\phi}_1)\|_{0,K}\lesssim h_K\|\div\boldsymbol{\phi}\|_{0,K} +\sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}.
 \]
@@ -927,7 +960,7 @@ which implies the coercivity \eqref{eq:ahcoercivity}.
 \end{proof}
 
 \begin{theorem}
-The stabilization free virtual element method \eqref{eq:vem} is uni-solvent.
+The stabilization free virtual element method \eqref{eq:vem} is \XH{well-posed}.
 \end{theorem}
 \begin{proof}
 Thanks to the boundedness \eqref{eq:ahbounedness} and the coercivity \eqref{eq:ahcoercivity}, we conclude the result from the Lax-Milgram lemma \cite{LaxMilgram1954}.
