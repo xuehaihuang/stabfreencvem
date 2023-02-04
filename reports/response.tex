@@ -311,91 +311,152 @@ Thanks for this suggest. We have revised it.
 \item \textsf{Line 323; the operator $I_K^{\div}$ should be defined explicitly.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+The definition of the $L^2$-bounded commuting projection operator is not trivial, and can not be explicitly given shortly.
+Reference \cite{ChristiansenWinther2008} constructs such an operator in the whole paper. 
+And references \cite{ArnoldGuzman2021,FalkWinther2014} focus on the construction of local $L^2$-bounded commuting projection operators in the whole paper. Thus in the revised manuscript, we present the properties of $I_K^{\div}$ instead of the explicit definition. And we use the local $L^2$-bounded operator in \cite{ArnoldGuzman2021,FalkWinther2014} instead of that in \cite{ChristiansenWinther2008}.
+
+The modification is given as follows.
+
+Let $I_K^{\div}: \boldsymbol{H}_0(\div,K)\to\mathring{\boldsymbol{V}}_{k-1}^{\mathrm{BDM}}(K)$ be the local $L^2$-bounded commuting projection operator in \cite{ArnoldGuzman2021,FalkWinther2014}, then
+\begin{equation}\label{eq:20230203}  
+\|I_K^{\div}\boldsymbol{\psi}\|_{0,K} \lesssim \|\boldsymbol{\psi}\|_{0,K}\quad\forall~\boldsymbol{\psi}\in \boldsymbol{H}_0(\div,K),
+\end{equation}
+\[
+\div(I_K^{\div}\boldsymbol{\psi})=\div\boldsymbol{\psi} \quad \textrm{ for } \boldsymbol{\psi}\in \boldsymbol{H}_0(\div,K) \textrm{ satisfying } \div\boldsymbol{\psi}\in V_{k-2}^{L^2}(K),
+\]
+where $
+V_{k-2}^{L^2}(K)=\{v\in L^2(K): v|_{T}\in \mathbb P_{k-2}(T) \textrm{ for } T\in\mathcal T_K\}
+$.
 
 \medskip
 
 \item \textsf{Eq. (3.28); can you elaborate more on the first inequality? Moreover, the second inequality follows from the bound on line 322; you should underline this.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+We have revised them as follows.
+
+% We have
+% \begin{equation*}%\label{eq:20220324-6}
+% \div\boldsymbol{\phi}_2=-\div(I_K^{\div}(\nabla w))=-\Delta w=\div(\boldsymbol{\phi}-\boldsymbol{\phi}_1).
+% \end{equation*}
+It follows from \eqref{eq:20230203} and (3.29) (i.e. the bound on line 322) that
+\begin{equation*}%\label{eq:20220324-7}
+\|\boldsymbol{\phi}_2\|_{0,K}=\|I_K^{\div}(\nabla w)\|_{0,K}\lesssim \|\nabla w\|_{0,K}\lesssim h_K\|\div\boldsymbol{\phi}\|_{0,K} +\sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}.
+\end{equation*}
 
 \medskip
 
 \item \textsf{After line 336, can you state the difference between the space defined on line 336 and that on line 263?.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+We have compared space $\boldsymbol{V}_{k-1}^{\rm div}(K)$ and space $\mathbb{V}_{k-1}^{\rm div}(K)$ in question 7.
+Indeed, on each face $F\in\mathcal F(K)$, $(\boldsymbol{\phi}\cdot\boldsymbol{n})|_F$ is a polynomial for $\boldsymbol{\phi}\in\mathbb{V}_{k-1}^{\rm div}(K)$ but $(\boldsymbol{\phi}\cdot\boldsymbol{n})|_F$ is a piecewise polynomial for $\boldsymbol{\phi}\in\boldsymbol{V}_{k-1}^{\rm div}(K)$.
 
 \medskip
 
 \item \textsf{The definition of the DoFs in eqs. (4.3) and (4.4) is wrong: you should first pick bases of bulk and face polynomial spaces and define the moments accordingly.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+We have revised DoFs (4.3) and (4.4) as
+\begin{align*}
+\frac{1}{|F|}(v, \phi_i^F)_F, & \quad i=1,\ldots, \dim\mathbb P_{k-1}(F), F\in\mathcal F(K), 
+\\
+\frac{1}{|K|}(v, \phi_i^K)_K, & \quad i=1,\ldots, \dim\mathbb P_{k-2}(K),
+\end{align*}
+where $\{\phi_i^F\}_{i=1}^{\dim\mathbb P_{k-1}(F)}$ is a basis of $\mathbb P_{k-1}(F)$, and $\{\phi_i^K\}_{i=1}^{\dim\mathbb P_{k-2}(K)}$ a basis of $\mathbb P_{k-2}(K)$.
 
 \medskip
 
 \item \textsf{Line 381; the space $\mathbb P_p\backslash\mathbb P_{p-2}$ is not defined as an orthogonal complement, but rather as any completion of the smaller space into the larger one. The two definitions are equivalent if you use orthogonal polynomial bases, which I humbly think is not what you are actually doing.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+Now we use $\mathbb P_{k-2}^{\perp}(K)$ to denote the orthogonal complement space of $\mathbb P_{k-2}(K)$ in $\mathbb P_{k}(K)$ with respect to the inner product $(\cdot, \cdot)_K$.
 
 \medskip
 
 \item \textsf{You may wish to shorten up or even remove the proof of Lemma 4.1, which is standard in the virtual element literature.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+One reviewer has questions on the proof of Lemma 4.1. Thus we modify the proof and keep it.
 
 \medskip
 
 \item \textsf{Line 406; “inequality”$-\!\!\!-\!\!\!>$“inequalities”; moreover, mention that you use both $H^1$-$L^2$ and $L^2$ boundary-$L^2$ bulk inverse inequalities.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+They have been corrected.
 
 \medskip
 
-\item \textsf{Line 408; is [11, (2.15)] the proper reference for the Poincar\'e-Friedrichs inequality? I think is a standard result and you may wish to cite any standard PDE book.}
+\item \textsf{Line 408; is [11, (2.15)] the proper reference for the Poincar\'e-Friedrichs inequality? I think it is a standard result and you may wish to cite any standard PDE book.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+We have changed it to reference \cite{Necas1967}.
 
 \medskip
 
 \item \textsf{Eq. (4.12); if you complete the sequence of identities and inequalities with $h_k^2|v|_{1,K}^2$, you get indeed a norm equivalence (and not only an upper bound).}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+We have the norm equivalence
+\[
+\|v\|_{0,K}^2\eqsim \|Q_{k-2}^Kv\|_{0,K}^2+\sum_{F\in\mathcal F(K)}h_F\|Q_{k-1}^Fv\|_{0,F}^2 \quad\forall~v\in V_k(K),
+\]
+and the inequality
+\[
+h_K|v|_{1,K}\lesssim \|v\|_{0,K}\quad\forall~v\in V_k(K).
+\]
+But we do not have 
+the equivalence
+\[
+h_K|v|_{1,K}\eqsim \|v\|_{0,K}\quad\forall~v\in V_k(K).
+\]
+Indeed, when $v$ is a nonzero constant, we have
+$$
+h_K|v|_{1,K}=0,\quad \|v\|_{0,K}>0.
+$$ 
 
 \medskip
 
-\item \textsf{Lines 445 and 456; explain from where the term $Q_0^k(\div\phi)$ appears.}
+\item \textsf{Lines 445 and 456; explain from where the term $Q_0^K(\div\phi)$ appears.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+Since $v\in L_0^2(K)$, then $Q_{0}^Kv=0$ and $v=v-Q_{0}^Kv$. Noting that $Q_{0}^K(\div\boldsymbol{\phi})$ is constant, we have
+$$
+(Q_{0}^K(\div\boldsymbol{\phi}), v)_K=(Q_{0}^K(\div\boldsymbol{\phi}), v-Q_{0}^Kv)_K=0.
+$$
 
 \medskip
 
 \item \textsf{Provide more details on the inequality on lines 457-458.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+Notice that $\div\boldsymbol{\phi}-Q_{0}^K(\div\boldsymbol{\phi})=-h_K^{-2}Q_{k-2}^Kv$ and $(\boldsymbol{\phi}\cdot\boldsymbol{n})|_{F}=h_K^{-1}Q_{k-1}^Fv$ for $F\in\mathcal F(K)$.
+We get from 
+\begin{align*}
+\|\boldsymbol{\phi}\|_{0,K}%&\eqsim h_K\|\div\boldsymbol{\phi}\|_{0,K} +\sum_{F\in\mathcal F(K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F} \\
+&\lesssim h_K\|\div\boldsymbol{\phi}-Q_0^K(\div\boldsymbol{\phi})\|_{0,K} +\sum_{F\in\mathcal F(K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}
+\end{align*}
+that
+\[
+\|\boldsymbol{\phi}\|_{0,K}\lesssim h_K^{-1}\|Q_{k-2}^Kv\|_{0,K} +\sum_{F\in\mathcal F(K)}h_F^{-1/2}\|Q_{k-1}^Fv\|_{0,F}.
+\]
+
 
 \medskip
 
 \item \textsf{Eq. (4.16); why do you cite [15, (4.16)]? It probably follows from [Brenner, SINUM 2003] and the definition of the nonconforming space.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+Thanks for this suggestion.
+Now we cite reference \cite{Brenner2003}.
 
 \medskip
 
 \item \textsf{Line 484; the first inequality is probably a “$\approx$”.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+It has been corrected.
 
 \medskip
 
@@ -409,14 +470,20 @@ It has been corrected.
 \item \textsf{The definition of the DoFs in eqs. (5.1), (5.2), and (5.3) is wrong: you should first pick bases of bulk and face polynomial spaces and define the moments accordingly.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+We have revised DoFs (5.1), (5.2), and (5.3) as
+\begin{align*}
+v(\delta), & \quad \delta\in\mathcal V(K), \\
+\frac{1}{|e|}(v, \phi_i^e)_e, & \quad i=1,\ldots, k-1, e\in\mathcal E(K), \\
+\frac{1}{|K|}(v, \phi_i^K)_K, & \quad i=1,\ldots, \dim\mathbb P_{k-2}(K),
+\end{align*}
+where $\{\phi_i^e\}_{i=1}^{k-1}$ is a basis of $\mathbb P_{k-2}(e)$, and $\{\phi_i^K\}_{i=1}^{\dim\mathbb P_{k-2}(K)}$ a basis of $\mathbb P_{k-2}(K)$.
 
 \medskip
 
-\item \textsf{You may wish to reduce or even drop the proof or Theorem 5.3, which appears to be a standard Strang-type result for the VEM.}
+\item \textsf{You may wish to reduce or even drop the proof of Theorem 5.3, which appears to be a standard Strang-type result for the VEM.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+Thanks for this suggestion. We have removed the proof of Theorem 5.3.
 
 \medskip
 
@@ -464,7 +531,7 @@ For instance, pick three different hexagonal elements with a fixed degree of acc
 }
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+We proofread the paper carefully. All of them have been corrected.
 
 
 \end{enumerate}
@@ -535,7 +602,39 @@ $$
 Again, this is a discrete trace inequality, and it is not specified why it is valid on the virtual space $V_k(K)$. The same goes for the arguments used in the proof of Lemma 4.3.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+\begin{itemize}
+    \item 
+For virtual function $v\in V_k(K)$, apply (A.3) in \cite{ChenHuang2020ncvem} to get
+\[
+h_K\|\Delta v\|_{0,K}\lesssim |v|_{1,K}.
+\]
+By (A.4) with $m=j=1$ in \cite{ChenHuang2020ncvem}, it follows that
+\[
+h_K^{1/2}\|\partial_nv\|_{0,\partial K}\lesssim |v|_{1,K}+h_K\|\Delta v\|_{0,K}.
+\]
+Combining the last two inequalities yields
+\[
+h_K\|\Delta v\|_{0,K}+h_K^{1/2}\|\partial_nv\|_{0,\partial K}\lesssim |v|_{1,K}.
+\]
+\item The multiplicative trace inequality is
+\[
+\|v\|_{0,\partial K}\lesssim h_K^{-1/2}\|v\|_{0,K}^{1/2}(\|v\|_{0,K}^{1/2}+h_K^{1/2}|v|_{1,K}^{1/2}) \quad\forall~v\in H^1(K).
+\]
+Since $v\in V_k(K)\subset H^1(K)$, inserting the last multiplicative trace inequality into the inequality
+\[
+|v|_{1,K}\lesssim h_K^{-1}\|v\|_{0,K}+h_K^{-1/2}\|v\|_{0,\partial K},
+\]
+we get
+\begin{align*}
+|v|_{1,K}&\lesssim h_K^{-1}\|v\|_{0,K}+h_K^{-1}\|v\|_{0,K}^{1/2}(\|v\|_{0,K}^{1/2}+h_K^{1/2}|v|_{1,K}^{1/2}) \\
+&\lesssim h_K^{-1}\|v\|_{0,K}+h_K^{-1/2}\|v\|_{0,K}^{1/2}|v|_{1,K}^{1/2}.
+\end{align*}
+Then apply the Young's inequality to acquire
+\[
+|v|_{1,K}\lesssim h_K^{-1}\|v\|_{0,K}.
+\]
+\end{itemize}
+
 
 \medskip
 
