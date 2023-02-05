@@ -552,7 +552,11 @@ We proofread the paper carefully. All of them have been corrected.
 \item \textsf{At equation (3.4) (and continuing below) the space $\mathbb P_{k-2}(T;\mathbb K)\boldsymbol{x}$ is considered. Is this standard notation? At first I thought $\boldsymbol{x}$ was a predefined point (e.g. the centre of $T$) and the space $\mathbb P_{k-2}(T;\mathbb K)\boldsymbol{x}$ was the set of functions that could be written as a polynomial valued anti-symmetric tensor times the predefined point $\boldsymbol{x}$. However, I think what is actually meant is $\mathbb P_{k-2}(T;\mathbb K)\boldsymbol{x}=\{f:T\to\mathbb R^d: f(\boldsymbol{x})=\boldsymbol{P}_{k-2}(\boldsymbol{x})\boldsymbol{x},\quad \forall\boldsymbol{x}\in T, \boldsymbol{P}_{k-2}\in \mathbb P_{k-2}(T;\mathbb K)\}$. The authors should clarify here.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+Yes, the notation $\mathbb P_{k-2}(T;\mathbb K)\boldsymbol{x}$ means
+$$
+\mathbb P_{k-2}(T;\mathbb K)\boldsymbol{x}:=\{\boldsymbol{\tau}\boldsymbol{x}: \boldsymbol{\tau}\in \mathbb P_{k-2}(T;\mathbb K)\},
+$$
+where $\boldsymbol{\tau}\boldsymbol{x}$ is the product of the matrix $\boldsymbol{\tau}$ and the independent variable $\boldsymbol{x}\in T$. Similar notations are used in \cite{ChenHuang2021divdiv,Chen;Huang:2020Finite}.
 
 \medskip
 
@@ -563,7 +567,16 @@ It is not clear to me how the conclusion that $\boldsymbol{w} = \boldsymbol{0}$ 
 should precise their reasoning.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+The fact “$(I +\boldsymbol{x}\cdot\nabla)\boldsymbol{w} = \boldsymbol{0}$, which implies $\boldsymbol{w} = \boldsymbol{0}$” follows from \cite[(35)]{Chen;Huang:2020Finite}
+%Recall (35) in \cite{Chen;Huang:2020Finite} that
+\begin{equation}\label{eq:20230205}
+\mathbb P_{k}(T)\cap\ker(I+\boldsymbol{x}\cdot\nabla)=\{0\}.
+\end{equation}
+Indeed, \eqref{eq:20230205} is a direct result of the Euler's formula \cite[(2.1)]{ChenHuang2021divdiv}
+$$
+\boldsymbol{x}\cdot\nabla q=kq\quad\forall~q\in \mathbb H_k(T),
+$$
+where $\mathbb H_k(T)$ is the space of homogeneous polynomials of degree $k$.
 
 \medskip
 
@@ -641,7 +654,9 @@ Then apply the Young's inequality to acquire
 \item \textsf{When introducing the nonconforming virtual element method in Section 4, the authors should give some references for NCVEM. In particular, I don’t think the space $V_k(K)$ is the classical NCVEM space (e.g. that defined in \cite{AyusodeDiosLipnikovManzini2016}). The authors should give reference to where this space is first introduced.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+Thanks for this suggestion. We have revised the statement as follows:
+Several $H^1$-nonconforming virtual elements are developed in \cite{AyusodeDiosLipnikovManzini2016,CangianiManziniSutton2017,ChenHuang2020ncvem,Huang2020}.
+In this paper we adopt those in \cite{CangianiManziniSutton2017,ChenHuang2020ncvem}.
 
 \medskip
 
@@ -658,11 +673,23 @@ $$
 where $V_k(K)$ is the non-conforming space defined at line 378 (or in Section 5 the authors consider the conforming space defined at line 544). This result is stated in Lemma 4.4 and its proof relies on the norm equivalence (3.32) and the set of uni-solvent DOFs (3.29)-(3.31). However, upon reading Section 3.2 for the first time, it is difficult to grasp what it is the authors are actually trying to achieve. Are all of the spaces, definitions and lemmas in Section 3.2 really necessary to prove Lemma 4.4? If so, the authors should state the main result of Lemma 4.4 in an earlier section, and leave much of the details of Section 3.2 and the proof of Lemma 4.4 to a later section so that readers can understand what the authors are trying to achieve.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+Thanks for this nice suggestion. We add the following paragraph in the beginning of Section 3.
+
+In this section we will construct an $H(\div)$-conforming macro finite element space $\mathbb{V}_{k-1}^{\rm div}(K)$ and the corresponding degrees of freedoms in arbitrary dimension, and establish the $L^2$ norm equivalence for $\boldsymbol{\phi}\in\mathbb{V}_{k-1}^{\rm div}(K)$
+\begin{equation*}%\label{eq:Vkm1divnormequiv}
+\|\boldsymbol{\phi}\|_{0,K}\eqsim h_K\|\div\boldsymbol{\phi}\|_{0,K} + \sup_{\boldsymbol{\psi}\in\div\mathring{\boldsymbol{V}}_{k}^{d-2}(K)}\frac{(\boldsymbol{\phi}, \boldsymbol{\psi})_K}{\|\boldsymbol{\psi}\|_{0,K}} +\sum_{F\in\mathcal F(K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}.
+\end{equation*}
+The space $\mathbb{V}_{k-1}^{\rm div}(K)$ and its $L^2$ norm equivalence will be used to prove
+the norm equivalence for the virtual element space
+\begin{equation*}%\label{intro:gradVknormequiv} 
+\|Q_{K,k-1}^{\div}\nabla v\|_{0,K}\eqsim \|\nabla v\|_{0,K} \quad \forall~v\in V_k(K),
+\end{equation*}
+where $V_k(K)$ is the nonconforming virtual element space in Section 4, and the conforming virtual element space in Section 5. Here $Q_{K,k-1}^{\div}$ is the computable $L^2$ projector onto the space $\mathbb{V}_{k-1}^{\rm div}(K)$.
+
 
 \medskip
 
-\item \textsf{In Section 4, the authors design a stabilization free NCVEM for a reaction-diffusion problem, and in section 5 a stabilization free VEM. This seems an odd choice as one does not require a Poincar\'e inequality for the coercivity of the continuous blinear form. Indeed, if
+\item \textsf{In Section 4, the authors design a stabilization free NCVEM for a reaction-diffusion problem, and in section 5 a stabilization free VEM. This seems an odd choice as one does not require a Poincar\'e inequality for the coercivity of the continuous bilinear form. Indeed, if
 $$
 a(u, v)=(\nabla u, \nabla v)_{\Omega}+\alpha (u, v)_{\Omega}
 $$
@@ -673,8 +700,26 @@ $$
 While things mightn't be so simple at the discrete level, it would seem more
 appropriate to consider a Poisson problem.}
 
-\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.} 
+In this paper, we consider the reaction-diffusion problem with the homogeneous Dirichlet boundary condition. The Poincar\'e inequality is required for the coercivity of the bilinear form. In the continuous level, by the Poincar\'e inequality, we have the coercivity
+\[
+\|u\|_{1,\Omega}^2\lesssim |u|_{1,\Omega}^2\leq a(u,u)\quad \forall~u\in H_0^1(\Omega).
+\]
+
+The discrete bilinear form in this paper is defined as 
+\[
+a_h(u_h, v_h):=(Q_{h,k-1}^{\div}\nabla_h u_h, Q_{h,k-1}^{\div}\nabla_h v_h)+\alpha(Q_hu_h, Q_hv_h).
+\]
+The discrete Poincar\'e inequality established in \cite{Brenner2003} works for the virtual element space $V_h$
+\[
+\|v_h\|_0\lesssim |v_h|_{1,h}\quad\forall~v_h\in V_h.
+\]
+This means that $|\cdot|_{1,h}$ is indeed a norm for space $V_h$. Hence, to show the coercivity of the discrete bilinear form $a_h(\cdot, \cdot)$, it suffices to prove
+\begin{equation}\label{eq:11}    
+|v_h|_{1,h}^2\lesssim a_h(v_h, v_h)\quad\forall~v_h\in V_h.
+\end{equation}
+The coercivity \eqref{eq:11} is (4.19) for the nonconforming virtual element method, and~(5.8) for the conforming virtual element method.
+
 
 \medskip
 

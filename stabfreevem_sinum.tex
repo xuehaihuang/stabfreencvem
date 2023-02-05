@@ -178,10 +178,10 @@ Denote by $Q_k^{K}$ the $L^2$-orthogonal projector onto $\mathbb P_k(K)$ or $\ma
 For tensor $\boldsymbol{\tau}$, let $\skw\boldsymbol{\tau}:=(\boldsymbol{\tau}-\boldsymbol{\tau}^{\intercal})/2$ be the antisymmetric part of $\boldsymbol{\tau}$.
 Denote by $\#S$ the number of elements in a finite set $S$.
 
-For $d$-dimensional polytope $K$, let $\mathcal{F}(K)$ and $\mathcal{E}(K)$ be the set of all $(d-1)$-dimensional faces and $(d-2)$-dimensional faces of $K$ respectively. For $F\in\mathcal{F}(K)$, denote by $\boldsymbol{n}_{K,F}$ be the unit outward normal vector to $\partial K$, which will be abbreviate as $\boldsymbol{n}_F$ or $\boldsymbol{n}$ if not causing any confusion.
+For a $d$-dimensional polytope $K$, let $\mathcal{F}(K)$ and $\mathcal{E}(K)$ be the set of all $(d-1)$-dimensional faces and $(d-2)$-dimensional faces of $K$ respectively. For $F\in\mathcal{F}(K)$, denote by $\boldsymbol{n}_{K,F}$ be the unit outward normal vector to $\partial K$, which will be abbreviate as $\boldsymbol{n}_F$ or $\boldsymbol{n}$ if not causing any confusion.
 
-For $d$-dimensional simplex $T$,
-let $F_i\in\mathcal F(T)$ be the $(d-1)$-dimensional face opposite to vertex $\texttt{v}_i$, $\boldsymbol n_i$ be the unit outward normal to the face $F_i$, and $\lambda_i$ be the barycentric coordinate of $\boldsymbol x$ corresponding to vertex $\texttt{v}_i$, for $i=0, 1, \cdots, d$.
+For a $d$-dimensional simplex $T$,
+let $F_i\in\mathcal F(T)$ be the $(d-1)$-dimensional face opposite to vertex $\texttt{v}_i$, $\boldsymbol n_i$ be the unit outward normal to the face $F_i$, and $\lambda_i$ be the barycentric coordinate of the point $\boldsymbol x$ corresponding to the vertex $\texttt{v}_i$, for $i=0, 1, \cdots, d$.
 Clearly $\{ \boldsymbol n_1, \boldsymbol n_2, \cdots, \boldsymbol n_d \}$ spans $\mathbb R^d$, and $\{\skw({\boldsymbol n_i\boldsymbol n_j^{\intercal}})\}_{1\leq i<j\leq d}$ spans the antisymmetric space $\mathbb K$. 
 For $F\in\mathcal F(T)$, let $\mathcal{E}(F):=\{e\in\mathcal{E}(T): e\subset\partial F\}$.
 For $e\in \mathcal E(F)$, denote by $\boldsymbol{n}_{F,e}$ be the unit vector outward normal to $\partial F$ but parallel to $F$.
@@ -234,8 +234,18 @@ Hereafter we use $T$ to represent a simplex, and $K$ to denote a general polytop
 
 
 \section{$H(\div)$-Conforming Macro Finite Elements}\label{sec:divmacrofem}
+\XH{
+In this section we will construct an $H(\div)$-conforming macro finite element space $\mathbb{V}_{k-1}^{\rm div}(K)$ and the corresponding degrees of freedoms in arbitrary dimension, and establish the $L^2$ norm equivalence for $\boldsymbol{\phi}\in\mathbb{V}_{k-1}^{\rm div}(K)$
+\begin{equation*}%\label{eq:Vkm1divnormequiv}
+\|\boldsymbol{\phi}\|_{0,K}\eqsim h_K\|\div\boldsymbol{\phi}\|_{0,K} + \sup_{\boldsymbol{\psi}\in\div\mathring{\boldsymbol{V}}_{k}^{d-2}(K)}\frac{(\boldsymbol{\phi}, \boldsymbol{\psi})_K}{\|\boldsymbol{\psi}\|_{0,K}} +\sum_{F\in\mathcal F(K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}.
+\end{equation*}
+The space $\mathbb{V}_{k-1}^{\rm div}(K)$ and its $L^2$ norm equivalence will be used to prove
+the norm equivalence for the virtual element space
+\begin{equation*}%\label{intro:gradVknormequiv} 
+\|Q_{K,k-1}^{\div}\nabla v\|_{0,K}\eqsim \|\nabla v\|_{0,K} \quad \forall~v\in V_k(K),
+\end{equation*}
+where $V_k(K)$ is the nonconforming virtual element space in Section \ref{sec:stabfreencfmvem}, and the conforming virtual element space in Section \ref{sec:stabfreecfmvem}. Here $Q_{K,k-1}^{\div}$ is the computable $L^2$ projector onto the space $\mathbb{V}_{k-1}^{\rm div}(K)$.}
 
-In this section we will construct $H(\div)$-conforming macro finite elements in arbitrary dimension.
 \subsection{$H(\div)$-conforming finite elements}
 For $d$-dimensional polytope $K\in \mathcal T_h$ and $k\geq2$, let 
 \[
@@ -267,10 +277,20 @@ Define $\mathring{\boldsymbol{V}}^{\mathrm{RT}}(K):=\boldsymbol{V}^{\mathrm{RT}}
 \subsection{Finite element for differential $(d-2)$-form}
 Now recall the finite element for differential $(d-2)$-form, i.e. $H\Lambda^{d-2}$-conforming finite element in \cite{ArnoldFalkWinther2006,Arnold2018}. We will present the finite element for differential $(d-2)$-form using the proxy of the differential form rather than the differential form itself as in \cite{ArnoldFalkWinther2006,Arnold2018}. 
 
-By Lemma 3.12 in \cite{ChenHuang2021divdiv}, we have the decomposition
+By (3.5) in \cite{ChenHuang2021divdiv}, we have the direct decomposition
 \begin{equation}\label{eq:Pkvectordecomp}  
-\mathbb P_{k-1}(T;\mathbb R^{d})=\nabla\mathbb P_k(T)\oplus\mathbb P_{k-2}(T;\mathbb K)\boldsymbol{x}.
+\mathbb P_{k-1}(T;\mathbb R^{d})=\nabla\mathbb P_k(T)\oplus\mathbb P_{k-2}(T;\mathbb K)\boldsymbol{x},
 \end{equation}
+\XH{where $\mathbb P_{k-2}(T;\mathbb K)\boldsymbol{x}:=\{\boldsymbol{\tau}\boldsymbol{x}: \boldsymbol{\tau}\in \mathbb P_{k-2}(T;\mathbb K)\}$ with $\boldsymbol{x}\in T$ being the independent variable.}
+\XH{Recall (35) in \cite{Chen;Huang:2020Finite} that
+\begin{equation}\label{eq:20230205}
+\mathbb P_{k}(T)\cap\ker(I+\boldsymbol{x}\cdot\nabla)=\{0\}.
+\end{equation}
+Indeed, \eqref{eq:20230205} follows from the Euler's formula \cite[(2.1)]{ChenHuang2021divdiv}
+$$
+\boldsymbol{x}\cdot\nabla q=kq\quad\forall~q\in \mathbb H_k(T),
+$$
+where $\mathbb H_k(T)$ is the space of homogeneous polynomials of degree $k$.}
 
 \begin{lemma}\label{lem:skwgrad}
 For $\boldsymbol{w}\in\mathbb P_{k-2}(T;\mathbb K)\boldsymbol{x}$ satisfying $(\skw\nabla\boldsymbol{w})\boldsymbol{x}=\boldsymbol{0}$, it holds $\boldsymbol{w}=\boldsymbol{0}$.
@@ -280,7 +300,7 @@ Since
 \begin{equation*}%\label{eq:20220224}  
 (\skw\nabla\boldsymbol{w})\boldsymbol{x}=\frac{1}{2}(\nabla\boldsymbol{w})\boldsymbol{x}-\frac{1}{2}(\nabla\boldsymbol{w})^{\intercal}\boldsymbol{x}=\frac{1}{2}\nabla(\boldsymbol{w}\cdot\boldsymbol{x})-\frac{1}{2}(I+\boldsymbol{x}\cdot\nabla)\boldsymbol{w},
 \end{equation*}
-we acquire from $\boldsymbol{w}\cdot\boldsymbol{x}=0$ that $(I+\boldsymbol{x}\cdot\nabla)\boldsymbol{w}=\boldsymbol{0}$, which implies $\boldsymbol{w}=\boldsymbol{0}$.
+we acquire from $\boldsymbol{w}\cdot\boldsymbol{x}=0$ that $(I+\boldsymbol{x}\cdot\nabla)\boldsymbol{w}=\boldsymbol{0}$, which \XH{together with \eqref{eq:20230205}} implies $\boldsymbol{w}=\boldsymbol{0}$.
 \end{proof}
 
 \begin{lemma}
@@ -756,8 +776,8 @@ where the bilinear form $a(u, v):=(\nabla_h u, \nabla_h v)+\alpha(u,v)$ with $\n
 
 
 \subsection{$H^1$-nonconforming virtual element}
-
-Recall the $H^1$-nonconforming virtual element in \cite{ChenHuang2020ncvem,Huang2020,AyusodeDiosLipnikovManzini2016}.
+\XH{Several $H^1$-nonconforming virtual elements are developed in \cite{AyusodeDiosLipnikovManzini2016,CangianiManziniSutton2017,ChenHuang2020ncvem,Huang2020}.
+In this paper we adopt those in \cite{CangianiManziniSutton2017,ChenHuang2020ncvem}.}
 The degrees of freedom are given by
 \XH{
 \begin{align}
@@ -944,6 +964,7 @@ We have the discrete Poincar\'e inequality \XH{\cite{Brenner2003}}%(cf. \cite[(4
 \begin{equation}\label{eq:vempoincareineqlty}
 \|v_h\|_0\lesssim |v_h|_{1,h} \quad\forall~v_h\in V_h.
 \end{equation}
+\XH{Hence $|\cdot|_{1,h}$ is indeed a norm for $V_h$.}
 % Introduce discrete spaces
 % \begin{align*}
 % \mathbb{V}_{h,k-1}^{\rm div}&:=\{\boldsymbol{\phi}_h\in \boldsymbol{L}^2(\Omega;\mathbb R^d): \boldsymbol{\phi}_h|_K\in \mathbb{V}_{k-1}^{\rm div}(K) \textrm{ for each } K\in\mathcal T_h\}, \\
@@ -1092,7 +1113,7 @@ where $\{\phi_i^e\}_{i=1}^{k-1}$ is a basis of $\mathbb P_{k-2}(e)$, and $\{\phi
 And the space of shape functions is
 \begin{align*}
 V_k(K)&:=\big\{ v\in H^1(K): \Delta v\in \mathbb P_{k}(K),  v|_{\partial K}\in H^1(\partial K),  v|_e\in \mathbb P_{k}(e)\;\;\forall~e\in\mathcal E(K),\\    
-&\qquad\qquad\qquad\qquad\qquad\;\; \textrm{and } (v-\Pi_k^Kv, q)_K=0\quad\forall~q\in\mathbb P_{k}(K)/\mathbb P_{k-2}(K)\},
+&\qquad\qquad\qquad\qquad\qquad\qquad\quad\;\;\; \textrm{and } (v-\Pi_k^Kv, q)_K=0\quad\forall~q\in\XH{\mathbb P_{k-2}^{\perp}(K)}\},
 \end{align*}
 where $\Pi_k^K$ is defined by \eqref{eq:projlocal2d1}-\eqref{eq:projlocal2d2}.
 It holds $\mathbb P_k(K)\subseteq V_k(K)$.
