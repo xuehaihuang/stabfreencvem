@@ -75,7 +75,9 @@ Special stabilization terms are designed for a nonlinear elasto-plastic deformat
 
 Recently a stabilization-free linear VEM, based on a higher order polynomial projection of the gradient of virtual element functions, is devised for the Poisson equation in two dimensions in \cite{BerroneBorioMarcon2021}, where the degree of polynomial used in projection depends on the number of vertices of the polygon \XH{and generally the geometry of the polygon}. 
 \XH{Numerical examples in \cite{BerroneBorioMarcon2022} show that the stabilization-free VEM in \cite{BerroneBorioMarcon2021} outperforms the standard VEM in \cite{BeiraodaVeigaBrezziMariniRusso2016} for anisotropic elliptic problems on general convex polygonal meshes.}
-The stabilization-free VEM in \cite{BerroneBorioMarcon2021} is then applied to solve the Laplacian eigenvalue problem \cite{MengWangBuMei2022}. Along this line, similar stabilization-free virtual element methods are devised for plane elasticity problem in~\cite{DAltriMirandaPatrunoSacco2021,ChenSukumar2022,ChenSukumar2023}.
+The stabilization-free VEM in \cite{BerroneBorioMarcon2021} is then applied to solve the Laplacian eigenvalue problem \cite{MengWangBuMei2022}. Along this line, similar stabilization-free virtual element methods are devised for a plane elasticity problem in~\cite{DAltriMirandaPatrunoSacco2021,ChenSukumar2022,ChenSukumar2023}. \XH{By the way, we refer to \cite{CicuttinErnLemaire2019} for a stabilization-free hybrid high-order method, and 
+\cite{YeZhang2020,AlTaweelWang2020,AlTaweelWang2020a,YeZhang2021,YeZhang2021a,AlTaweelWangYeZhang2021} for stabilization-free weak Galerkin finite element methods.}
+
 The idea in \cite{BerroneBorioMarcon2021} is difficult to be extended to construct stabilization-free virtual element methods in higher dimensions, and
 the analysis is rather elaborate. 
 \XH{
@@ -991,6 +993,22 @@ By introducing $\boldsymbol{\phi}_h=Q_{h,k-1}^{\div}\nabla_h u_h$, the virtual e
 \end{aligned}
 \end{equation*}
 \end{remark}
+\XH{
+\begin{remark}\rm
+The stabilization-free mixed-order HHO method for the Poisson equation in~\cite{CicuttinErnLemaire2019} is equivalent to find $u_h\in W_h$ such that
+\begin{equation}\label{eq:2023111}    
+(\nabla_h u_h, \nabla_h v_h)=\sum_{K\in\mathcal T_h}(f, Q_{k-2}^Kv_h)_K\quad\forall~v_h\in W_h,
+\end{equation}
+where
+\begin{align*}
+W_h&:=\{v_h\in L^2(\Omega): v_h|_K\in W_k(K) \textrm{ for each } K\in\mathcal T_h, \textrm{  } \\
+&\qquad\; \textrm{DoFs \eqref{eq:vemdof1} are single-valued for $F\in\mathcal F_h$, and vanish for $F\in \mathcal F_h^{\partial}$}\}
+\end{align*}  
+with $W_k(K):=\{v\in H^1(K) : \Delta v\in\mathbb P_{k-2}(K),\, \partial_nv|_F\in\mathbb P_{k-1}(F)\textrm{ for }F\in\mathcal F(K)\}$.
+However, $(\nabla_h u_h, \nabla_h v_h)$ is not computable, % based on the degrees of freedom \eqref{eq:vemdof1}-\eqref{eq:vemdof2}, 
+and the method \eqref{eq:2023111} is not the standard nonconforming VEM in \cite{AyusodeDiosLipnikovManzini2016}. For the practical computation, a basis of $W_k(K)$ has to be solved approximately as shown in \cite[Remark 4.1]{CicuttinErnLemaire2019}, then the approximation of the space $W_h$ is no more a virtual element space. 
+\end{remark}
+}
 
 It follows from the discrete Poincar\'e inequality \eqref{eq:vempoincareineqlty} that 
 \begin{equation}\label{eq:ahbounedness}

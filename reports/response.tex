@@ -110,7 +110,7 @@ The authors greatly appreciate the questions and concerns the reviewers have rai
 \item \textsf{An important question is whether you have in mind specific occasions where stabilization free virtual elements are superior to stabilized ones. More precisely, your procedure is sensibly more expensive and complicated than that of the standard VEM: you need a simplicial tessellation of each element; you project on BDM-type polynomial spaces; the theoretical setting itself is rather involved. If there are no apparent advantages in some specific occasion, the stabilization-free approach seems to be rather lame.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-The stabilization term in virtual element methods (VEM) brings about some problems. 
+The stabilization term in virtual element methods (VEM) brings about some problems, which motivate us to develop stabilization-free VEMs. 
 \begin{enumerate}
 \item 
 The local stabilization term $S_K(\cdot, \cdot)$ has to satisfy 
@@ -542,10 +542,69 @@ We proofread the paper carefully. All of them have been corrected.
 %\smallskip \noindent {\bf Response to Reviewer 2}.
 
 \begin{enumerate}[1.]
-\item \textsf{A significantly more thorough review of the literature is required. Indeed, very little mention of other stabilization free methods are given. It is difficult to gauge how this work compares to the existing literature and where the true novelty of the work lies. For example, in the reference \cite{CicuttinErnLemaire2019} a stabilisation free method is designed by considering a HHO space of unknowns and a recon- struction in a VEM space. See \cite[Remark 5.1]{CicuttinErnLemaire2019}. How does the current article compare to this work? Moreover, the authors do not make it clear what the benefit of a “stabilization-free” VEM is.}
+\item \textsf{A significantly more thorough review of the literature is required. Indeed, very little mention of other stabilization free methods are given. It is difficult to gauge how this work compares to the existing literature and where the true novelty of the work lies. For example, in the reference \cite{CicuttinErnLemaire2019} a stabilisation free method is designed by considering a HHO space of unknowns and a reconstruction in a VEM space. See \cite[Remark 5.1]{CicuttinErnLemaire2019}. How does the current article compare to this work?}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-...
+\begin{itemize}
+    \item In addition to stabilization-free VEMs in \cite{BerroneBorioMarcon2021,BerroneBorioMarcon2022,DAltriMirandaPatrunoSacco2021,ChenSukumar2022,ChenSukumar2023,MengWangBuMei2022}, we add the reference \cite{CicuttinErnLemaire2019} for a stabilization-free hybrid high-order method, and the references
+\cite{YeZhang2020,AlTaweelWang2020,AlTaweelWang2020a,YeZhang2021,YeZhang2021a,AlTaweelWangYeZhang2021} for stabilization-free weak Galerkin finite element methods.
+    \item Next we compare the mixed-order HHO method in \cite{CicuttinErnLemaire2019} and the virtual element method. 
+
+Recall the nonconforming virtual element in \cite{AyusodeDiosLipnikovManzini2016}.
+The local virtual element space is
+\[
+W_k(K):=\{v\in H^1(K) : \Delta v\in\mathbb P_{k-2}(K),\, \partial_nv|_F\in\mathbb P_{k-1}(F)\textrm{ for }F\in\mathcal F(K)\}.
+\]
+The degrees of freedom are given by
+\begin{align}
+\frac{1}{|F|}(v, \phi_i^F)_F, & \quad i=1,\ldots, \dim\mathbb P_{k-1}(F), F\in\mathcal F(K), \label{eq:vemdof1}\\
+\frac{1}{|K|}(v, \phi_i^K)_K, & \quad i=1,\ldots, \dim\mathbb P_{k-2}(K), \label{eq:vemdof2}
+\end{align}
+where $\{\phi_i^F\}_{i=1}^{\dim\mathbb P_{k-1}(F)}$ is a basis of $\mathbb P_{k-1}(F)$, and $\{\phi_i^K\}_{i=1}^{\dim\mathbb P_{k-2}(K)}$ a basis of $\mathbb P_{k-2}(K)$.
+Then define the global virtual element space  
+\begin{align*}
+W_h&:=\{v_h\in L^2(\Omega): v_h|_K\in W_k(K) \textrm{ for each } K\in\mathcal T_h, \textrm{  } \\
+&\qquad\; \textrm{DoFs \eqref{eq:vemdof1} are single-valued for $F\in\mathcal F_h$, and vanish for $F\in \mathcal F_h^{\partial}$}\}.
+\end{align*}
+By Remark 5.4 in \cite{CicuttinErnLemaire2019}, the mixed-order HHO method for the Poisson equation in~\cite{CicuttinErnLemaire2019} is equivalent to find $u_h\in W_h$ such that
+\begin{equation}\label{eq:2023111}    
+\sum_{K\in\mathcal T_h}(\nabla u_h, \nabla v_h)_K=\sum_{K\in\mathcal T_h}(f, Q_{k-2}^Kv_h)_K\quad\forall~v_h\in W_h.
+\end{equation}
+In Remark 5.1 in \cite{CicuttinErnLemaire2019}, the authors claim that the stabilization is no longer needed for the mixed-order HHO method, i.e. the method \eqref{eq:2023111}.
+However, $(\nabla_h u_h, \nabla_h v_h)$ is not computable, % based on the degrees of freedom \eqref{eq:vemdof1}-\eqref{eq:vemdof2}, 
+and the method \eqref{eq:2023111} is not the standard nonconforming VEM in \cite{AyusodeDiosLipnikovManzini2016}. 
+% For the practical computation, a basis of $W_k(K)$ has to be solved approximately as shown in \cite[Remark 4.1]{CicuttinErnLemaire2019}. 
+% The method \eqref{eq:2023111} is not the standard nonconforming virtual element method in \cite{AyusodeDiosLipnikovManzini2016}.
+% However, the bilinear form $\displaystyle\sum_{K\in\mathcal T_h}(\nabla u_h, \nabla v_h)_K$ is not computable based on the degrees of freedom \eqref{eq:vemdof1}-\eqref{eq:vemdof2}, since some non-polynomial functions are included in the space $W_k(K)$.
+For the practical computation, a basis of $W_k(K)$ has to be solved approximately as shown in 
+Remark 4.1 in \cite{CicuttinErnLemaire2019}, which will always produce errors. 
+When a basis of $W_k(K)$ is solved approximately (can't be solved exactly), the approximation of the space $W_h$ is no more a virtual element space, and the method \eqref{eq:2023111} is no more a virtual element method. See Remark 4.6.
+\end{itemize}
+
+
+\medskip
+
+\item \textsf{Moreover, the authors do not make it clear what the benefit of a “stabilization-free” VEM is.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+The stabilization term in virtual element methods (VEM) brings about some problems, which motivate us to develop stabilization-free VEMs. 
+\begin{enumerate}
+\item 
+The local stabilization term $S_K(\cdot, \cdot)$ has to satisfy 
+$$
+c_{*} |v|_{1,K}^2\leq S_K(v,v)\leq c^{*} |v|_{1,K}^2 
+$$
+for $v$ belongs to the non-polynomial subspace of the virtual element space, which influences the condition number of the stiffness matrix and brings in the pollution factor $\frac{\max\{1, c^*\}}{\min\{1, c_*\}}$ in the error estimates \cite{DassiMascotto2018,BeiraodaVeigaDassiRusso2017,Mascotto2018}.  
+\item 
+The stabilization term appears in both side of the a posteriori error estimates when bounding the error by the residual error estimators \cite{CangianiGeorgoulisPryerSutton2017}.
+\item 
+For the a posteriori error analysis on anisotropic polygonal meshes in \cite{AntoniettiBerroneBorioDAuriaEtAl2022}, the stabilization dominates the error estimator, which makes the anisotropic a posteriori error estimator suboptimal. 
+\item The stabilization term significantly affects the performance of the VEM for the Poisson eigenvalue problem \cite{BoffiGardiniGastaldi2020},
+and improper choices of the stabilization term will produce useless results.
+\item 
+Special stabilization terms are designed for a nonlinear elasto-plastic deformation problem \cite{HudobivnikAldakheelWriggers2019} and an electromagnetic interface problem in three dimensions \cite{CaoChenGuo2023}, which are not easy to be extended to other problems.
+\item Numerical examples in \cite{BerroneBorioMarcon2022} show that the stabilization-free VEM in \cite{BerroneBorioMarcon2021} outperforms the standard VEM in \cite{BeiraodaVeigaBrezziMariniRusso2016} for anisotropic elliptic problems on general convex polygonal meshes.
+\end{enumerate}
 
 \medskip
 
