@@ -110,7 +110,7 @@ space $\mathbb P_{k}(K)$.  While only
 \|Q_{k-1}^{K}\nabla v\|_{0,K}\lesssim \|\nabla v\|_{0,K}, \quad \|\nabla\Pi_k^{K}v\|_{0,K}\lesssim \|\nabla v\|_{0,K}
 \]
 hold
-rather than the norm equivalence \eqref{intro:gradVknormequiv}, then the additional stabilization term is usually necessary to ensure the coercivity of the discrete bilinear form.
+rather than the norm equivalence \eqref{intro:gradVknormequiv}, then the additional stabilization term is usually required to ensure the coercivity of the discrete bilinear form.
 To remove the additional stabilization term, $\mathbb{V}(K)$ is taken as $\mathbb P_{l}(K; \mathbb{R}^d)$ with large enough $l$ even for the lowest order case $k=1$ in \cite{BerroneBorioMarcon2021,BerroneBorioMarcon2022,DAltriMirandaPatrunoSacco2021}, and the virtual element space $V_k(K)$ has to be modified accordingly to make $Q_{l}^{K}\nabla v$ computable.
 Instead, \XH{based on a regular simplicial tessellation of polytope $K$}, we employ $k$-th order or $(k-1)$-th order $H(\div)$-conforming macro finite elements as $\mathbb{V}(K)$ in this paper, and keep the virtual element space $V_k(K)$ as the usual ones.
 
@@ -167,7 +167,7 @@ polytope. Given a bounded domain $K\subset\mathbb{R}^{d}$ and a
 non-negative integer $m$, let $H^m(K)$ be the usual Sobolev space of functions
 on $K$.
 The corresponding norm and semi-norm are denoted respectively by
-$\Vert\cdot\Vert_{m,K}$ and $|\cdot|_{m,K}$. By convention, let $L^2(K)=H^0(K)$. Denote by $L_0^2(K)$ the space of all functions in $L^2(K)$ with zero integral.
+$\Vert\cdot\Vert_{m,K}$ and $|\cdot|_{m,K}$. By convention, let $L^2(K)=H^0(K)$. 
 Let $(\cdot, \cdot)_K$ be the standard inner product on $L^2(K)$. If $K$ is $\Omega$, we abbreviate
 $\Vert\cdot\Vert_{m,K}$, $|\cdot|_{m,K}$ and $(\cdot, \cdot)_K$ by $\Vert\cdot\Vert_{m}$, $|\cdot|_{m}$ and $(\cdot, \cdot)$,
 respectively. Let $H_0^m(K)$ be the closure of $\mathcal C_{0}^{\infty}(K)$ with
@@ -284,15 +284,16 @@ By (3.5) in \cite{ChenHuang2021divdiv}, we have the direct decomposition
 \mathbb P_{k-1}(T;\mathbb R^{d})=\nabla\mathbb P_k(T)\oplus\mathbb P_{k-2}(T;\mathbb K)\boldsymbol{x},
 \end{equation}
 \XH{where $\mathbb P_{k-2}(T;\mathbb K)\boldsymbol{x}:=\{\boldsymbol{\tau}\boldsymbol{x}: \boldsymbol{\tau}\in \mathbb P_{k-2}(T;\mathbb K)\}$ with $\boldsymbol{x}\in T$ being the independent variable.}
-\XH{Recall (35) in \cite{Chen;Huang:2020Finite} that
+\XH{Recall that \cite[(35)]{Chen;Huang:2020Finite}
 \begin{equation}\label{eq:20230205}
 \mathbb P_{k}(T)\cap\ker(I+\boldsymbol{x}\cdot\nabla)=\{0\}.
 \end{equation}
-Indeed, \eqref{eq:20230205} follows from the Euler's formula \cite[(2.1)]{ChenHuang2021divdiv}
-$$
-\boldsymbol{x}\cdot\nabla q=kq\quad\forall~q\in \mathbb H_k(T),
-$$
-where $\mathbb H_k(T)$ is the space of homogeneous polynomials of degree $k$.}
+% Indeed, \eqref{eq:20230205} follows from the Euler's formula \cite[(2.1)]{ChenHuang2021divdiv}
+% $$
+% \boldsymbol{x}\cdot\nabla q=kq\quad\forall~q\in \mathbb H_k(T),
+% $$
+% where $\mathbb H_k(T)$ is the space of homogeneous polynomials of degree $k$.
+}
 
 \begin{lemma}\label{lem:skwgrad}
 For $\boldsymbol{w}\in\mathbb P_{k-2}(T;\mathbb K)\boldsymbol{x}$ satisfying $(\skw\nabla\boldsymbol{w})\boldsymbol{x}=\boldsymbol{0}$, it holds $\boldsymbol{w}=\boldsymbol{0}$.
@@ -1360,7 +1361,7 @@ u = \sin(\pi x)\sin(\pi y), \quad f = (2\pi^2+2)\sin(\pi x)\sin(\pi y).
 The rectangular domain $\Omega$ is partitioned by the convex polygon mesh
 $\mathcal T_0$ and non-convex polygon mesh $\mathcal T_1$, respectively, 
 In both virtual element methods \eqref{eq:vem} and \eqref{eq:cfmvem}, we choose $k = 1, 2, 5$.
-The numerical results of the nonconforming virtual element method \eqref{eq:vem} on meshes $\mathcal T_0$ and $\mathcal T_1$ mesh are shown in Figure \ref{fig:rate1}. We can see that $\|u - Q_h u_h\|_0=O(h^{k+1})$ and $\|\nabla u - Q_{h, k-1}^{\div}\nabla_h u_h\|_0=O(h^{k})$, which coincide with Theorem~\ref{thm:errorestimateH1}.
+The numerical results of the nonconforming virtual element method \eqref{eq:vem} on meshes $\mathcal T_0$ and $\mathcal T_1$ are shown in Figure \ref{fig:rate1}. We can see that $\|u - Q_h u_h\|_0=O(h^{k+1})$ and $\|\nabla u - Q_{h, k-1}^{\div}\nabla_h u_h\|_0=O(h^{k})$, which coincide with Theorem~\ref{thm:errorestimateH1}.
 And the numerical results of the conforming virtual element method \eqref{eq:cfmvem} are presented in Figure \ref{fig:rate2}. Again $\|u - Q_h u_h\|_0=O(h^{k+1})$ and $\|\nabla u - Q_{h, k}^{\div}\nabla u_h\|_0=O(h^{k})$, which confirm the
 theoretical convergence rate in Theorem~\ref{thm:cfmerrorestimateH1}.
 \begin{figure}[htbp]
