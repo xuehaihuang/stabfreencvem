@@ -146,7 +146,7 @@ And the dimension of $\mathcal{P}_l^{\textrm{ker}}(E)$ generally depends on the 
 $$
 \dim\mathcal{P}_l^{\textrm{ker}}(E)\leq l(l+1)
 $$
-in \cite[Theorem 2]{BerroneBorioMarcon2021}. This means a sufficient condition for $l$ is 
+in \cite[Theorem 2]{BerroneBorioMarcon2021}. This means that a sufficient condition for $l$ is 
 $$
 l\geq \frac{1}{2}(N_E^V-3).
 $$
@@ -207,7 +207,7 @@ $(\boldsymbol{\phi}\cdot\boldsymbol{n})|_F$ & piecewise polynomial & piecewise p
 We can see that both $(\div\boldsymbol{\phi})|_K$ and $(\boldsymbol{\phi}\cdot\boldsymbol{n})|_F$ are polynomials for $\boldsymbol{\phi}\in\mathbb{V}_{k-1}^{\rm div}(K)$.
 
 To ensure the $L^2$ projection
-$Q_{K,k}^{\div}\nabla v$ onto space $\mathbb{V}_{k}^{\rm div}(K)$ is computable
+$Q_{K,k}^{\div}\nabla v$ onto the space $\mathbb{V}_{k}^{\rm div}(K)$ is computable
 for virtual element function $v\in V_k(K)$, we only require
 $(\boldsymbol{\phi}\cdot\boldsymbol{n})|_F$ to be a polynomial for each $(d-1)$-dimensional face $F$ of $K$. But $(\boldsymbol{\phi}\cdot\boldsymbol{n})|_F$ can be a piecewise polynomial for interior face $F$ of the simplicial tessellation of $K$.
 
@@ -377,7 +377,8 @@ Now we use $\mathbb P_{k-2}^{\perp}(K)$ to denote the orthogonal complement spac
 \item \textsf{You may wish to shorten up or even remove the proof of Lemma 4.1, which is standard in the virtual element literature.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-One reviewer has questions on the proof of Lemma 4.1. Thus we modify the proof and keep it.
+One reviewer has questions on the proof of Lemma 4.1, and the proof of Lemma 4.1 is also helpful for the proof of Lemma 4.3. Thus we modify the proof and keep it.
+
 
 \medskip
 
@@ -484,6 +485,7 @@ where $\{\phi_i^e\}_{i=1}^{k-1}$ is a basis of $\mathbb P_{k-2}(e)$, and $\{\phi
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
 Thanks for this suggestion. We have removed the proof of Theorem 5.3.
+We combine Section 5.2 and Section 5.3 in the revised manuscript.
 
 \medskip
 
@@ -674,6 +676,7 @@ $$
 Again, this is a discrete trace inequality, and it is not specified why it is valid on the virtual space $V_k(K)$. The same goes for the arguments used in the proof of Lemma 4.3.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+% One reviewer suggests removing the proof of Lemma 4.1, as it is standard in the virtual element literature. We agree with his suggestion, so we remove the proof of Lemma 4.1 in the revised manuscript. But we explain this comment in detail, and provide a complete proof of Lemma 4.1 here. 
 \begin{itemize}
     \item 
 For virtual function $v\in V_k(K)$, apply (A.3) in \cite{ChenHuang2020ncvem} to get
@@ -701,11 +704,33 @@ we get
 |v|_{1,K}&\lesssim h_K^{-1}\|v\|_{0,K}+h_K^{-1}\|v\|_{0,K}^{1/2}(\|v\|_{0,K}^{1/2}+h_K^{1/2}|v|_{1,K}^{1/2}) \\
 &\lesssim h_K^{-1}\|v\|_{0,K}+h_K^{-1/2}\|v\|_{0,K}^{1/2}|v|_{1,K}^{1/2}.
 \end{align*}
-Then apply the Young's inequality to acquire
-\[
-|v|_{1,K}\lesssim h_K^{-1}\|v\|_{0,K}.
-\]
+Then apply the Young's inequality to acquire the inverse inequality
+\begin{equation*}%\label{eq:veminverse}
+|v|_{1,K}\lesssim h_K^{-1}\|v\|_{0,K}\quad\forall~v\in V_k(K).  
+\end{equation*}
 \end{itemize}
+
+% \vskip0.2cm
+% \noindent\textcolor{cyan}{The complete proof of the inverse inequality \eqref{eq:veminverse} (i.e. Lemma 4.1) is given as follows.}
+% \vskip0.2cm
+
+% By (A.4) with $m=j=1$ in \cite{ChenHuang2020ncvem}, it follows that
+% \[
+% h_K^{1/2}\|\partial_nv\|_{0,\partial K}\lesssim |v|_{1,K}+h_K\|\Delta v\|_{0,K}.
+% \]
+% Then apply (A.3) in \cite{ChenHuang2020ncvem} to get
+% \[
+% h_K\|\Delta v\|_{0,K}+h_K^{1/2}\|\partial_nv\|_{0,\partial K}\lesssim |v|_{1,K}+h_K\|\Delta v\|_{0,K}\lesssim |v|_{1,K}.
+% \]
+% Employing the integration by parts and the Cauchy-Schwarz inequality, we have
+% \[
+% |v|_{1,K}^2=-(\Delta v,v)_K+(\partial_nv,v)_{\partial K}\leq\|\Delta v\|_{0,K}\|v\|_{0,K}+\|\partial_nv\|_{0,\partial K}\|v\|_{0,\partial K}.
+% \]
+% Combining the last two inequalities gives
+% \[
+% |v|_{1,K}\lesssim h_K^{-1}\|v\|_{0,K}+h_K^{-1/2}\|v\|_{0,\partial K},
+% \]
+% which together with the multiplicative trace inequality and the Young's inequality yields the inverse inequality \eqref{eq:veminverse}.
 
 
 \medskip

@@ -288,12 +288,13 @@ By (3.5) in \cite{ChenHuang2021divdiv}, we have the direct decomposition
 \begin{equation}\label{eq:20230205}
 \mathbb P_{k}(T)\cap\ker(I+\boldsymbol{x}\cdot\nabla)=\{0\}.
 \end{equation}
+}
 % Indeed, \eqref{eq:20230205} follows from the Euler's formula \cite[(2.1)]{ChenHuang2021divdiv}
 % $$
 % \boldsymbol{x}\cdot\nabla q=kq\quad\forall~q\in \mathbb H_k(T),
 % $$
 % where $\mathbb H_k(T)$ is the space of homogeneous polynomials of degree $k$.
-}
+
 
 \begin{lemma}\label{lem:skwgrad}
 For $\boldsymbol{w}\in\mathbb P_{k-2}(T;\mathbb K)\boldsymbol{x}$ satisfying $(\skw\nabla\boldsymbol{w})\boldsymbol{x}=\boldsymbol{0}$, it holds $\boldsymbol{w}=\boldsymbol{0}$.
@@ -1239,19 +1240,20 @@ where the discrete bilinear form
 \[
 a_h(u_h, v_h):=(Q_{h,k}^{\div}\nabla u_h, Q_{h,k}^{\div}\nabla v_h)+\alpha(Q_hu_h, Q_hv_h).
 \]
+The stabilization-free virtual element method \eqref{eq:cfmvem} is uni-solvent.
 
-It is obvious that 
-\begin{equation}\label{eq:cfmahbounedness}
-a_h(u, v)\lesssim |u|_1|v|_1\quad\forall~u,v\in H_0^1(\Omega).
-\end{equation}   
-And the norm equivalence \eqref{eq:cfmgradVknormequivalence} implies
-the coercivity
-\begin{equation}\label{eq:cfmahcoercivity}
-|v_h|_1^2\lesssim a_h(v_h, v_h)\quad\forall~v_h\in V_h.
-\end{equation}  
-Therefore the stabilization-free virtual element method \eqref{eq:cfmvem} is uni-solvent.
+% It is obvious that 
+% \begin{equation}\label{eq:cfmahbounedness}
+% a_h(u, v)\lesssim |u|_1|v|_1\quad\forall~u,v\in H_0^1(\Omega).
+% \end{equation}   
+% And the norm equivalence \eqref{eq:cfmgradVknormequivalence} implies
+% the coercivity
+% \begin{equation}\label{eq:cfmahcoercivity}
+% |v_h|_1^2\lesssim a_h(v_h, v_h)\quad\forall~v_h\in V_h.
+% \end{equation}  
+% Therefore the stabilization-free virtual element method \eqref{eq:cfmvem} is uni-solvent.
 
-\begin{remark}\rm
+% \begin{remark}\rm
 By introducing $\boldsymbol{\phi}_h=Q_{h,k}^{\div}\nabla u_h$, the virtual element method \eqref{eq:cfmvem} can be rewritten as the following primal mixed virtual element method: find $\boldsymbol{\phi}_h\in\mathbb{V}_{h,k}^{\rm div}$ and $u_h\in V_h$ such that
 \begin{equation*}
 \begin{aligned}
@@ -1259,7 +1261,7 @@ By introducing $\boldsymbol{\phi}_h=Q_{h,k}^{\div}\nabla u_h$, the virtual eleme
 (\boldsymbol{\phi}_h, \nabla v_h)+\alpha(Q_hu_h, Q_hv_h)&=(f, Q_hv_h)\quad\forall~v_h\in V_h.
 \end{aligned} 
 \end{equation*} 
-\end{remark}
+% \end{remark}
 
 
 % \begin{lemma}
@@ -1283,7 +1285,7 @@ By introducing $\boldsymbol{\phi}_h=Q_{h,k}^{\div}\nabla u_h$, the virtual eleme
 % Thanks to the boundedness \eqref{eq:cfmahbounedness} and the coercivity \eqref{eq:cfmahcoercivity}, we conclude the result from the Lax-Milgram lemma \cite{LaxMilgram1954}.
 % \end{proof}
 
-\subsection{Error analysis}
+% \subsection{Error analysis}
 Applying the standard error analysis for VEMs, we have the following error estimate for the VEM \eqref{eq:cfmvem}.
 \begin{theorem}\label{thm:cfmerrorestimateH1}
 Let $u\in H_0^1(\Omega)$ be the solution of problem \eqref{eq:ellipitc2ndproblem}, and $u_h\in V_h$ be the solution of the VEM \eqref{eq:cfmvem}. Assume $u\in H^{k+1}(\Omega)$ and $f\in H^{k-1}(\Omega)$. Then
@@ -1361,8 +1363,8 @@ u = \sin(\pi x)\sin(\pi y), \quad f = (2\pi^2+2)\sin(\pi x)\sin(\pi y).
 The rectangular domain $\Omega$ is partitioned by the convex polygon mesh
 $\mathcal T_0$ and non-convex polygon mesh $\mathcal T_1$, respectively, 
 In both virtual element methods \eqref{eq:vem} and \eqref{eq:cfmvem}, we choose $k = 1, 2, 5$.
-The numerical results of the nonconforming virtual element method \eqref{eq:vem} on meshes $\mathcal T_0$ and $\mathcal T_1$ are shown in Figure \ref{fig:rate1}. We can see that $\|u - Q_h u_h\|_0=O(h^{k+1})$ and $\|\nabla u - Q_{h, k-1}^{\div}\nabla_h u_h\|_0=O(h^{k})$, which coincide with Theorem~\ref{thm:errorestimateH1}.
-And the numerical results of the conforming virtual element method \eqref{eq:cfmvem} are presented in Figure \ref{fig:rate2}. Again $\|u - Q_h u_h\|_0=O(h^{k+1})$ and $\|\nabla u - Q_{h, k}^{\div}\nabla u_h\|_0=O(h^{k})$, which confirm the
+The numerical results of the nonconforming virtual element method \eqref{eq:vem} on meshes $\mathcal T_0$ and $\mathcal T_1$ are shown in Fig.~\ref{fig:rate1}. We can see that $\|u - Q_h u_h\|_0=O(h^{k+1})$ and $\|\nabla u - Q_{h, k-1}^{\div}\nabla_h u_h\|_0=O(h^{k})$, which coincide with Theorem~\ref{thm:errorestimateH1}.
+And the numerical results of the conforming virtual element method \eqref{eq:cfmvem} are presented in Fig.~\ref{fig:rate2}. Again $\|u - Q_h u_h\|_0=O(h^{k+1})$ and $\|\nabla u - Q_{h, k}^{\div}\nabla u_h\|_0=O(h^{k})$, which confirm the
 theoretical convergence rate in Theorem~\ref{thm:cfmerrorestimateH1}.
 \begin{figure}[htbp]
 \centering
