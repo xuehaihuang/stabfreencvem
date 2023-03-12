@@ -1325,35 +1325,39 @@ Let $u\in H_0^1(\Omega)$ be the solution of problem \eqref{eq:ellipitc2ndproblem
 % At last, \eqref{eq:cfmerrorestimateH1} follows from the last inequality, the error estimates of $Q_h^{k-1}$ and $Q_h$, and the approximation of $V_h$ \cite{Huang2021,ChenHuang2018,BrennerSung2018,BeiraodaVeigaLovadinaRusso2017}.
 % \end{proof}
 
-\begin{figure}[htbp]
-\centering
-\begin{minipage}[t]{0.49\linewidth}
-\centering
-\includegraphics[width=5cm]{./figures/convex.pdf}
-%\caption{Numberical result of example with $\mathcal T_0$.}
-\end{minipage}%
-\begin{minipage}[t]{0.49\linewidth}
-\centering
-\includegraphics[width=5cm]{./figures/nonconvex.pdf}
-%\caption{[Numberical result of example with $\mathcal T_1$].}
-\end{minipage}%
-\centering
-\caption{Convex polygon mesh $\mathcal T_0$(left) and non-convex polygon mesh 
-$\mathcal T_1$(right).}
-\label{fig:mesh}
-\end{figure}
-
+% \begin{figure}[htbp]
+% \centering
+% \begin{minipage}[t]{0.49\linewidth}
+% \centering
+% \includegraphics[width=5cm]{./figures/convex.pdf}
+% %\caption{Numberical result of example with $\mathcal T_0$.}
+% \end{minipage}%
+% \begin{minipage}[t]{0.49\linewidth}
+% \centering
+% \includegraphics[width=5cm]{./figures/nonconvex.pdf}
+% %\caption{[Numberical result of example with $\mathcal T_1$].}
+% \end{minipage}%
+% \centering
+% \caption{Convex polygon mesh $\mathcal T_0$(left) and non-convex polygon mesh 
+% $\mathcal T_1$(right).}
+% \label{fig:mesh}
+% \end{figure}
 
 
 
 \section{Numerical results}\label{sec:numericalexamps}
-In this section, we will numerically verify the convergence of the nonconforming virtual element method \eqref{eq:vem} and the conforming
-virtual element method \eqref{eq:cfmvem}.
-The numerical example is implemented by using the FEALPy package \cite{fealpy}
+In this section, we will numerically test the stabilization-free nonconforming virtual element method \eqref{eq:vem} and the stabilization-free conforming
+virtual element method \eqref{eq:cfmvem}, which are abbreviated as SFNCVEM and SFCVEM respectively.
+For the convenience of narration, we also abbreviate the standard conforming virtual element
+method in \cite{BeiraoBrezziCangianiManziniEtAl2013} and non-conforming virtual element method  in \cite{CangianiManziniSutton2017} as CVEM and NCVEM respectively. 
+We implement all the experiments by using the FEALPy package \cite{fealpy} on a PC with AMD Ryzen
+5 3500U CPU and 64-bit Ubuntu 22.04 operating system.
+Set the rectangular domain $\Omega = (0, 1)\times(0, 1)$. 
 
+
+\subsection{Verification of convergence}
 % \begin{example}\label{ex}
-Consider the second order elliptic problem \eqref{eq:ellipitc2ndproblem} with $\alpha = 2$
-on rectangular domain $\Omega = (0, 1)\times(0, 1)$. 
+Consider the second order elliptic problem \eqref{eq:ellipitc2ndproblem} with $\alpha = 2$.
 The exact solution and source term are given by
 \[
 u = \sin(\pi x)\sin(\pi y), \quad f = (2\pi^2+2)\sin(\pi x)\sin(\pi y).
@@ -1361,21 +1365,37 @@ u = \sin(\pi x)\sin(\pi y), \quad f = (2\pi^2+2)\sin(\pi x)\sin(\pi y).
 % \end{example}
 
 The rectangular domain $\Omega$ is partitioned by the convex polygon mesh
-$\mathcal T_0$ and non-convex polygon mesh $\mathcal T_1$, respectively, 
-In both virtual element methods \eqref{eq:vem} and \eqref{eq:cfmvem}, we choose $k = 1, 2, 5$.
-The numerical results of the nonconforming virtual element method \eqref{eq:vem} on meshes $\mathcal T_0$ and $\mathcal T_1$ are shown in Fig.~\ref{fig:rate1}. We can see that $\|u - Q_h u_h\|_0=O(h^{k+1})$ and $\|\nabla u - Q_{h, k-1}^{\div}\nabla_h u_h\|_0=O(h^{k})$, which coincide with Theorem~\ref{thm:errorestimateH1}.
-And the numerical results of the conforming virtual element method \eqref{eq:cfmvem} are presented in Fig.~\ref{fig:rate2}. Again $\|u - Q_h u_h\|_0=O(h^{k+1})$ and $\|\nabla u - Q_{h, k}^{\div}\nabla u_h\|_0=O(h^{k})$, which confirm the
+$\mathcal T_0$ and non-convex polygon mesh $\mathcal T_1$ in Fig. \ref{fig:mesh}, respectively. 
+In both SFNCVEM and SFCVEM, we choose $k = 1, 2, 5$.
+The numerical results of the SFNCVEM on meshes $\mathcal T_0$ and $\mathcal T_1$ are shown in Fig.~\ref{fig:rate1}. We can see that $\|u - Q_h u_h\|_0=O(h^{k+1})$ and $\|\nabla u - Q_{h, k-1}^{\div}\nabla_h u_h\|_0=O(h^{k})$, which coincide with Theorem~\ref{thm:errorestimateH1}.
+And the numerical results of the SFCVEM are presented in Fig.~\ref{fig:rate2}. Again $\|u - Q_h u_h\|_0=O(h^{k+1})$ and $\|\nabla u - Q_{h, k}^{\div}\nabla u_h\|_0=O(h^{k})$, which confirm the
 theoretical convergence rate in Theorem~\ref{thm:cfmerrorestimateH1}.
+\begin{figure}[htbp]
+\subfigure[Convex polygon mesh $\mathcal T_0$.]{
+\begin{minipage}[t]{0.425\linewidth}
+\centering
+\includegraphics*[width=4.7cm]{./figures/convex.pdf}
+\end{minipage}}%% 
+\quad \quad
+\subfigure[Non-convex polygon mesh 
+$\mathcal T_1$.]
+{\begin{minipage}[t]{0.425\linewidth}
+\centering
+\includegraphics*[width=4.7cm]{./figures/nonconvex.pdf}
+\end{minipage}}
+\caption{Convex polygon mesh and non-convex polygon mesh.}
+\label{fig:mesh}
+\end{figure}
 \begin{figure}[htbp]
 \centering
 \begin{minipage}[t]{0.49\linewidth}
 \centering
-\includegraphics[width=6cm]{./figures/ncvem_convex.pdf}
+\includegraphics[width=5.5cm]{./figures/ncvem_convex.pdf}
 %\caption{Numberical result of example with $\mathcal T_0$.}
 \end{minipage}%
 \begin{minipage}[t]{0.49\linewidth}
 \centering
-\includegraphics[width=6cm]{./figures/ncvem_nonconvex.pdf}
+\includegraphics[width=5.5cm]{./figures/ncvem_nonconvex.pdf}
 %\caption{[Numberical result of example with $\mathcal T_1$].}
 \end{minipage}%
 \centering
@@ -1389,12 +1409,12 @@ $\mathcal T_0$(left) and $\mathcal T_1$(right) with $k=1, 2, 5$.}
 \centering
 \begin{minipage}[t]{0.49\linewidth}
 \centering
-\includegraphics[width=6cm]{./figures/cvem_convex.pdf}
+\includegraphics[width=5.5cm]{./figures/cvem_convex.pdf}
 %\caption{Numberical result of example with $\mathcal T_0$.}
 \end{minipage}%
 \begin{minipage}[t]{0.49\linewidth}
 \centering
-\includegraphics[width=6cm]{./figures/cvem_nonconvex.pdf}
+\includegraphics[width=5.5cm]{./figures/cvem_nonconvex.pdf}
 %\caption{[Numberical result of example with $\mathcal T_1$].}
 \end{minipage}%
 \centering
@@ -1403,6 +1423,239 @@ of conforming virtual element method \eqref{eq:cfmvem} on $\mathcal T_0$(left) a
 $\mathcal T_1$(right) with $k=1, 2, 5$.}
 \label{fig:rate2}
 \end{figure}
+
+
+\subsection{The invertibility of the local stiffness matrices}
+
+We construct three different hexagons shown in Fig. \ref{fig:hexagon}, and calculate the eigenvalues of local stiffness matrices with $k=3$ for four virtual element methods. Our numerical results show that, on each different hexagon, both SFNCVEM and SFCVEM have only one zero eigenvalue. In Tables \ref{tab:comparison0}-\ref{tab:comparison2}, we also present the minimum non-zero eigenvalue, the maximum eigenvalue and the condition number for the local stiffness matrix on different hexagons in Fig. \ref{fig:hexagon}, by which we can see that these quantities are comparable for four virtual element methods.
+% \begin{figure}[htbp]
+% \centering
+% \subfigure{\includegraphics[width=1.4in]{./figures/hexagon0.pdf}}
+%     % \caption{Type I:5 tetrahedra}
+% %%
+% \subfigure{\includegraphics[width=1.4in]{./figures/hexagon1.pdf}}
+%      %\caption{Type II: 24 tetrahedra}
+% %%
+% \subfigure{\includegraphics[width=1.2in]{./figures/hexagon2.pdf}}
+%      %\caption{Trirectangular tetrahedron}
+% %%
+% \caption{The regular hexagon(Left), the quasi-regular hexagon generated by regular
+%     hexagon with a small perturbation (Middle), 
+% and the square with two hanging nodes (Right)}
+%   \label{fig:hexagon0} %% label for entire figure
+% \end{figure}
+\begin{figure}[htbp]
+\subfigure[Regular hexagon.]{
+\begin{minipage}[t]{0.3\linewidth}
+\centering
+\includegraphics*[width=1in]{./figures/hexagon0.pdf}
+\end{minipage}}%% 
+\;\;% \quad
+\subfigure[Quasi-regular hexagon generated by regular
+    hexagon with a small perturbation.]
+{\begin{minipage}[t]{0.3\linewidth}
+\centering
+\includegraphics*[width=1in]{./figures/hexagon1.pdf}
+\end{minipage}}
+\;\;% \quad
+\subfigure[Square with two hanging nodes.]
+{\begin{minipage}[t]{0.35\linewidth}
+\centering
+\includegraphics*[width=0.9in]{./figures/hexagon2.pdf}
+\end{minipage}}
+\caption{The regular hexagon(Left), the quasi-regular hexagon generated by regular
+    hexagon with a small perturbation (Middle), 
+and the square with two hanging nodes (Right).}
+\label{fig:hexagon}
+\end{figure}
+\begin{table}[htbp]
+\centering
+\caption{Comparison of eigenvalues and condition numbers on the regular hexagon.}
+\label{tab:comparison0}
+\begin{tabular}{c|p{3cm}<{\centering}p{3.5cm}<{\centering}p{3cm}<{\centering}}
+\hline
+\textbf{Method} & \textbf{Maximum eigenvalue} & \textbf{Minimum nonzero
+eigenvalue} & \textbf{Condition number} \\ \hline
+NCVEM & 975.5693189 & 0.309674737 & 3150.303211 \\ \hline
+CVEM & 1012.488116 & 0.297206358 & 3406.683909 \\ \hline
+SFNCVEM & 992.5956147 & 0.318932029 & 3112.248147 \\ \hline
+SFCVEM & 1011.173331 & 0.298509692 & 3387.405362 \\
+\hline
+\end{tabular}
+\end{table}
+\begin{table}[htbp]
+\centering
+\caption{Comparison of eigenvalues and condition numbers on the quasi-regular hexagon}
+\label{tab:comparison1}
+\begin{tabular}{c|p{3cm}<{\centering}p{3.5cm}<{\centering}p{3cm}<{\centering}}
+\hline
+\textbf{Method} & \textbf{Maximum eigenvalue} & \textbf{Minimum nonzero
+eigenvalue} & \textbf{Condition number} \\ \hline
+NCVEM   & 935.2883848 & 0.279027715 & 3351.955143 \\ \hline
+CVEM    & 1014.672395 & 0.257370621 & 3942.456177 \\ \hline
+SFNCVEM & 997.4831245 & 0.282126359 & 3535.589964 \\ \hline
+SFCVEM  & 1047.876056 & 0.258970708 &
+4046.311124 \\
+\hline
+\end{tabular}
+\end{table}
+\begin{table}[htbp]
+\centering
+\caption{Comparison of eigenvalues and condition numbers on the quasi-regular hexagon}
+\label{tab:comparison2}
+\begin{tabular}{c|p{3cm}<{\centering}p{3.5cm}<{\centering}p{3cm}<{\centering}}
+\hline
+\textbf{Method} & \textbf{Maximum eigenvalue} & \textbf{Minimum nonzero
+eigenvalue} & \textbf{Condition number} \\ \hline
+ NCVEM   & 941.8571938&	0.21069027	&4470.340249 \\ \hline
+ CVEM    & 1046.755495&	0.200435123	&5222.4155 \\ \hline
+ SFNCVEM & 986.5963357&	0.212761106	&4637.108513 \\ \hline
+ SFCVEM  & 1061.651989&	0.202074633	&5253.761808 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Comparison of assembling time}
+The only difference between the standard VEMs and the stabilization-free VEMs is the
+stiffness matrix, so we compare the time consumed in assembling the stiffness matrix of
+four different VEMs in detail by varying the degree $k$ and the mesh size $h$
+respectively. We use the mesh in Fig.~\ref{fig:mesh}(a) for this experiment.
+The results presented in Tables
+\ref{tab:ptime} and \ref{tab:ttime} show that NCVEM, CVEM and SFNCVEM have similar assembling time. 
+However, SFCVEM requires more time due to the projection onto the one-order higher polynomial space.
+\begin{table}[htbp]
+\caption{Time consumed in assembling stiffness matrix of four VEMs with
+ $h=0.2$ and different $k$.}
+\label{tab:ptime}
+\centering
+\begin{tabular}{c|cccc}
+\hline
+$k$ & 2 & 4 & 8 & 10 \\
+\hline
+SFCVEM & 0.053684235 & 0.144996881 & 1.468627453 & 2.603836536 \\
+SFNCVEM & 0.022516727 & 0.065697193 & 0.806378841 & 1.554260015 \\
+CVEM & 0.021185875 & 0.059809923 & 0.600241184 & 1.160929918 \\
+NCVEM & 0.0213027 & 0.061014891 & 0.596506596 & 1.129639149 \\
+\hline
+\end{tabular}
+\end{table}
+\begin{table}[htbp]
+\caption{Time consumed in assembling stiffness matrix of four VEMs with $k = 5$ and different $h$.}
+\label{tab:ttime}
+\centering
+\begin{tabular}{c|cccc}
+\hline
+$h$ &    1	& 0.25 & 0.0625 & 0.03125\\
+\hline
+SFCVEM & 0.039689541 & 0.199015379	& 1.74412179	& 4.75462532\\
+SFNCVEM & 0.018287182 & 0.100006819	& 0.81251812	& 2.465409517\\
+CVEM & 0.018686771 & 0.087426662	& 0.781031132	& 1.983617783\\
+NCVEM & 0.018309593 & 0.096345425	& 0.767129898	& 2.159288645\\
+\hline
+\end{tabular}
+\end{table}
+
+\subsection{Condition number of the stiffness
+matrix}
+\begin{figure}[htbp]
+\centering
+\subfigure{\includegraphics[width=1in]{./figures/hexagon0.pdf}}
+    % \caption{Type I:5 tetrahedra}
+%%
+\subfigure{\includegraphics[width=1in]{./figures/hexagon3.pdf}}
+     %\caption{Type II: 24 tetrahedra}
+%%
+\subfigure{\includegraphics[width=1in]{./figures/hexagon4.pdf}}
+     %\caption{Trirectangular tetrahedron}
+%%
+\caption{The hexagons $H_0, H_1, H_2$.}
+  \label{fig:collapsehexagon} %% label for entire figure
+\end{figure} 
+We design two experiments to check the condition number of the stiffness
+matrices of the four VEMs. 
+
+Firstly, we refer to the ``collapsing polygons'' experiment in
+\cite{Mascotto2018} and consider a sequence of hexagons
+$\{H_i\}_{i=0}^{\infty}$, where the vertices of $H_i$ are given by
+$A_i = (1, 0)$, $B_i = (0.5, a_i)$, $C_i = (-0.5, a)$, $D_i=(-1, 0)$, 
+$E_i = (-0.5, -a_i)$, and $F_i = (0.5, -a_i)$,
+where $a_i = \frac{\sqrt{3}}{2^{i+1}}$. The hexagons $H_0$, $H_1$ and $H_2$ are drawn
+in Fig.~\ref{fig:collapsehexagon}. 
+% We construct the virtual element space on $H_i$ and calculate the condition number
+% of the stiffness matrix of four methods. 
+As shown in Fig.~\ref{fig:collapsehexagon_conditionnumber}, the condition numbers of stiffness
+matrices of the stabilization-free methods are smaller than those of the standard methods when $i$ is large.
+
+\begin{figure}[htbp]
+\subfigure[$k = 8$]{
+\begin{minipage}[t]{0.45\linewidth}
+\centering
+\includegraphics*[width=2in]{./figures/collapsing_condition_number_8.pdf}
+\end{minipage}}%% 
+\quad \quad
+\subfigure[$k = 10$]
+{\begin{minipage}[t]{0.45\linewidth}
+\centering
+\includegraphics*[width=2in]{./figures/collapsing_condition_number_10.pdf}
+\end{minipage}}
+\caption{The condition number of stiffness matrix of four VEMs on
+$\{H_i\}_{i=0}^{12}$.}
+\label{fig:collapsehexagon_conditionnumber}
+\end{figure}
+
+% \begin{figure}[htbp]
+% \centering
+% \subfigure{\includegraphics[width=2.2in]{./figures/collapsing_condition_number_8.pdf}}
+% \subfigure{\includegraphics[width=2.2in]{./figures/collapsing_condition_number_10.pdf}}
+% \caption{The condition number of stiffness matrix of four VEMs on
+% $\{H_i\}_{i=0}^{12}$, Left : $k = 8$, Right : $k = 10$.}
+%   \label{fig:collapsehexagon_conditionnumber0} %% label for entire figure
+% \end{figure}
+
+Secondly, we do the patch test for the Laplace equation, i.e. problem \eqref{eq:ellipitc2ndproblem} with $\alpha = 0$ and $f=0$, but the Dirichlet boundary condition is nonhomogeneous. Take the exact solution $u=1+x+y$. %We adopt meshes in Fig. \ref{fig:polymesh}.
+% $$
+% \left\{\begin{aligned}
+% -\Delta u & = 0 \quad x \in \Omega\\
+% u & = g \quad x \in \partial \Omega
+% \end{aligned}\right.
+% $$
+% where $\Omega = (0, 1)^2, \ u = g = 1+x+y$. 
+Let $h_x$ and $h_y$ be mesh size in the $x$-direction and
+$y$-direction respectively.
+We examine the behavior of error $\|u - u_h\|_0$ of the four VEMs in the
+following three cases:
+\begin{enumerate}[(1)]
+\item Mesh in Fig.~\ref{fig:mesh}(a): Fix $h_x=h_y=0.2$ but vary $k= 1, 2, \ldots, 10$;
+\item Mesh in Fig.~\ref{fig:mesh}(a): Fix $k=3$ but vary $h_x=h_y=2^{-i}$ for $i=1,\ldots, 5$;
+\item Mesh in Fig.~\ref{fig:polymesh}: Fix $k=3$ and $h_x=0.2$, but vary $h_y=2^{-i}$ for $i=1,\ldots, 8$.
+\end{enumerate}
+\begin{figure}[htbp]
+\centering
+% \subfigure{\includegraphics[width=2in]{./figures/poly_mesh.pdf}}
+\subfigure{\includegraphics[width=2in]{./figures/mesh_hy.pdf}}
+\caption{The mesh of domain $(0, 1)\times(0, 1)$ with
+$h_x=0.2, h_y = 0.03125$.}
+% \caption{The meshes of domain $(0, 1)\times(0, 1)$. Left: $h = 0.1$. Right:
+% $h_x=0.2, h_y = 0.03125$.}
+  \label{fig:polymesh} %% label for entire figure
+\end{figure}
+The errors of four methods shown in Fig. \ref{fig:patchtest} are similar. 
+Since the error in the patch test
+grows as the condition number of the stiffness matrix grows, 
+the condition numbers of the stiffness matrix obtained by
+four methods are similar.
+\begin{figure}[htbp]
+\centering
+\subfigure{\includegraphics[width=1.8in]{./figures/patch_test_p.pdf}}
+%%
+\subfigure{\includegraphics[width=1.8in]{./figures/patch_test_h.pdf}}
+%%
+\subfigure{\includegraphics[width=1.8in]{./figures/patch_test_hy.pdf}}
+  \label{fig:patchtest} %% label for entire figure
+\caption{The $L^2$ error of patch test.}
+\end{figure}
+
+
 
 
 % \section*{Acknowledgments}
