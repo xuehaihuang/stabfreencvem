@@ -84,10 +84,9 @@
 
 \maketitle
 
-The authors greatly appreciate the questions and concerns the reviewers have raised in the report, as well as the careful reading that has fixed our grammatical errors. Other than some single word typos, important changes are highlighted in colored texts in this revision. 
-
-
-
+The authors greatly appreciate the questions and concerns the reviewers have raised in the reports, as well as the careful reading. 
+We have revised our manuscript in terms of your suggestions and polished the writing throughout. 
+Other than some single word typos, important changes are highlighted in colored texts in this revision. 
 
 
 
@@ -121,7 +120,7 @@ c_{*} |v|_{1,K}^2\leq S_K(v,v)\leq c^{*} |v|_{1,K}^2
 $$
 for $v$ belongs to the non-polynomial subspace of the virtual element space, which influences the condition number of the stiffness matrix and brings in the pollution factor $\frac{\max\{1, c^*\}}{\min\{1, c_*\}}$ in the error estimates \cite{DassiMascotto2018,BeiraodaVeigaDassiRusso2017,Mascotto2018}.  
 \item 
-The stabilization term appears in both side of the a posteriori error estimates when bounding the error by the residual error estimators \cite{CangianiGeorgoulisPryerSutton2017}.
+The stabilization term appears in both sides of the a posteriori error estimates when bounding the error by the residual error estimators \cite{CangianiGeorgoulisPryerSutton2017}.
 \item 
 For the a posteriori error analysis on anisotropic polygonal meshes in \cite{AntoniettiBerroneBorioDAuriaEtAl2022}, the stabilization dominates the error estimator, which makes the anisotropic a posteriori error estimator suboptimal. 
 \item The stabilization term significantly affects the performance of the VEM for the Poisson eigenvalue problem \cite{BoffiGardiniGastaldi2020},
@@ -180,7 +179,7 @@ Thanks for this suggestion. We have mentioned it.
 \item \textsf{Lines 50-51; when you define the function $\phi$, are you sure that the normal component of the trace is a polynomial only on the faces of $K$? Don't you also need this property to be valid on the faces of the simplicial tessellation of $K$?}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-Base on $d$-dimensional polytope $K\in \mathcal T_h$ and its simplicial partition $\mathcal T_K$ of $K$, we define the following $H(\div)$-conforming finite element spaces in this paper:
+Base on a $d$-dimensional polytope $K\in \mathcal T_h$ and its simplicial partition $\mathcal T_K$ of $K$, we define the following $H(\div)$-conforming finite element spaces in this paper:
 % For $d$-dimensional polytope $K\in \mathcal T_h$ and $k\geq2$, let 
 \begin{align*}    
 \boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K)&=\{\boldsymbol{\phi}\in\boldsymbol{H}(\div, K): \boldsymbol{\phi}|_{T}\in \mathbb P_{k-1}(T;\mathbb R^d) \textrm{ for each } T\in\mathcal T_K\}\textrm{ for } k\geq2, \\
@@ -487,7 +486,7 @@ where $\{\phi_i^e\}_{i=1}^{k-1}$ is a basis of $\mathbb P_{k-2}(e)$, and $\{\phi
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
 Thanks for this suggestion. We have removed the proof of Theorem 5.3.
-We combine Section 5.2 and Section 5.3 in the revised manuscript.
+We merge Section 5.2 and Section 5.3 into one section in the revised manuscript.
 
 \medskip
 
@@ -496,14 +495,14 @@ However, the convergence does not automatically guarantee the invertibility of t
 For instance, pick three different hexagonal elements with a fixed degree of accuracy, e.g., k = 3: the first being a regular hexagon; the second being a quasi-regular hexagon (small perturbation of the previous element); the third being a square with an edge containing two hanging nodes. Check whether the stiffness matrix always has only one zero eigenvalue, i.e., the method is indeed stabilization free.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-For the convenience of narration, we abbreviate the standard conforming virtual emelemt
-method, the standard non-conforming virtual emelemt method, 
+For the convenience of narration, we abbreviate the standard conforming virtual element
+method, the standard non-conforming virtual element method, 
 the stabilization-free conforming virtual element method,
 and the stabilization-free non-conforming virtual element method as CVEM, NCVEM, SFCVEM, and SFNCVEM, respectively. 
 We implement all the experiments on a PC with AMD Ryzen
 5 3500U CPU and 64-bit Ubuntu 22.04 operating system.
 
-We construct three different hexagons shown in Fig. \ref{fig:hexagon}, and calculate the eigenvalues of local stiffness matrices with $k=3$ for four virtual element methods. Our numerical results show that, on each different hexagon, both SFNCVEM and SFCVEM have only one zero eigenvalue. In Tables \ref{tab:comparison0}-\ref{tab:comparison2}, we also present the minimum non-zero eigenvalue, the maximum eigenvalue and the condition number for the local stiffness matrix on different hexagons in Fig. \ref{fig:hexagon}, by which we can see that these quantities are comparable for four virtual element methods.
+We construct three different hexagons shown in Fig. \ref{fig:hexagon}, and calculate the eigenvalues of local stiffness matrices with $k=3$ for four virtual element methods. Our numerical results show that, on all the three hexagons, both SFNCVEM and SFCVEM have only one zero eigenvalue. In Tables \ref{tab:comparison0}-\ref{tab:comparison2}, we also present the minimum non-zero eigenvalue, the maximum eigenvalue and the condition number for the local stiffness matrix on different hexagons in Fig. \ref{fig:hexagon}, from which we can see that these quantities are comparable for four virtual element methods.
 \begin{figure}[htbp]
 \subfigure[Regular hexagon.]{
 \begin{minipage}[t]{0.3\linewidth}
@@ -545,7 +544,7 @@ SFCVEM & 1011.173331 & 0.298509692 & 3387.405362 \\
 \end{table}
 \begin{table}[htbp]
 \centering
-\caption{Comparison of eigenvalues and condition numbers on the quasi-regular hexagon}
+\caption{Comparison of eigenvalues and condition numbers on the quasi-regular hexagon.}
 \label{tab:comparison1}
 \begin{tabular}{c|p{3cm}<{\centering}p{3.5cm}<{\centering}p{3cm}<{\centering}}
 \hline
@@ -561,7 +560,7 @@ SFCVEM  & 1047.876056 & 0.258970708 &
 \end{table}
 \begin{table}[htbp]
 \centering
-\caption{Comparison of eigenvalues and condition numbers on the quasi-regular hexagon}
+\caption{Comparison of eigenvalues and condition numbers on the square with two hanging nodes.}
 \label{tab:comparison2}
 \begin{tabular}{c|p{3cm}<{\centering}p{3.5cm}<{\centering}p{3cm}<{\centering}}
 \hline
@@ -656,7 +655,7 @@ where $a_i = \frac{\sqrt{3}}{2^{i+1}}$. The hexagons $H_0$, $H_1$ and $H_2$ are 
 in Fig.~\ref{fig:collapsehexagon}. 
 % We construct the virtual element space on $H_i$ and calculate the condition number
 % of the stiffness matrix of four methods. 
-As shown in Fig.~\ref{fig:collapsehexagon_conditionnumber}, the condition numbers of stiffness
+As shown in Fig.~\ref{fig:collapsehexagon_conditionnumber} for $k=8$ and $k=10$, the condition numbers of stiffness
 matrices of the stabilization-free methods are smaller than those of the standard methods when $i$ is large.
 
 \begin{figure}[htbp]
@@ -685,7 +684,7 @@ $\{H_i\}_{i=0}^{12}$.}
 %   \label{fig:collapsehexagon_conditionnumber0} %% label for entire figure
 % \end{figure}
 
-Secondly, we do the patch test for the Laplace equation, i.e. problem \eqref{eq:ellipitc2ndproblem} with $\alpha = 0$ and $f=0$, but the Dirichlet boundary condition is nonhomogeneous. Take the exact solution $u=1+x+y$. %We adopt meshes in Fig. \ref{fig:polymesh}.
+Secondly, we do the patch test for the Laplace equation with a nonhomogeneous Dirichlet boundary condition. Take the exact solution $u=1+x+y$. %We adopt meshes in Fig. \ref{fig:polymesh}.
 % $$
 % \left\{\begin{aligned}
 % -\Delta u & = 0 \quad x \in \Omega\\
@@ -712,11 +711,11 @@ $h_x=0.2, h_y = 0.03125$.}
 % $h_x=0.2, h_y = 0.03125$.}
   \label{fig:polymesh} %% label for entire figure
 \end{figure}
-The errors of four methods shown in Fig. \ref{fig:patchtest} are similar. 
+The errors of the four methods shown in Fig.~\ref{fig:patchtest} are similar. 
 Since the error in the patch test
 grows as the condition number of the stiffness matrix grows, 
 the condition numbers of the stiffness matrix obtained by
-four methods are similar.
+four methods are comparable.
 \begin{figure}[htbp]
 \centering
 \subfigure{\includegraphics[width=1.7in]{../figures/patch_test_p.pdf}}
@@ -724,8 +723,8 @@ four methods are similar.
 \subfigure{\includegraphics[width=1.7in]{../figures/patch_test_h.pdf}}
 %%
 \subfigure{\includegraphics[width=1.7in]{../figures/patch_test_hy.pdf}}
-  \label{fig:patchtest} %% label for entire figure
 \caption{The $L^2$ error of patch test.}
+  \label{fig:patchtest} %% label for entire figure
 \end{figure}
 
 \medskip
@@ -835,7 +834,7 @@ Yes, the notation $\mathbb P_{k-2}(T;\mathbb K)\boldsymbol{x}$ means
 $$
 \mathbb P_{k-2}(T;\mathbb K)\boldsymbol{x}:=\{\boldsymbol{\tau}\boldsymbol{x}: \boldsymbol{\tau}\in \mathbb P_{k-2}(T;\mathbb K)\},
 $$
-where $\boldsymbol{\tau}\boldsymbol{x}$ is the product of the matrix $\boldsymbol{\tau}$ and the independent variable $\boldsymbol{x}\in T$. Similar notations are used in \cite{ChenHuang2021divdiv,Chen;Huang:2020Finite}.
+where $\boldsymbol{\tau}\boldsymbol{x}$ is the product of the matrix $\boldsymbol{\tau}$ and the independent variable $\boldsymbol{x}\in T$. Similar notations are used in \cite{ChenHuang2021divdiv,Chen;Huang:2020Finite}. In the revised manuscript, we define the notation $\mathbb P_{k-3}(T;\mathbb K)\boldsymbol{x}$ below DoFs (3.1)-(3.3).
 
 \medskip
 
@@ -1008,7 +1007,7 @@ In this paper, we consider the reaction-diffusion problem with the homogeneous D
 \|u\|_{1,\Omega}^2\lesssim |u|_{1,\Omega}^2\leq a(u,u)\quad \forall~u\in H_0^1(\Omega).
 \]
 
-The discrete bilinear form in this paper is defined as 
+The discrete bilinear form of the stabilization-free NCVEM in this paper is defined as 
 \[
 a_h(u_h, v_h):=(Q_{h,k-1}^{\div}\nabla_h u_h, Q_{h,k-1}^{\div}\nabla_h v_h)+\alpha(Q_hu_h, Q_hv_h).
 \]
@@ -1020,7 +1019,8 @@ This means that $|\cdot|_{1,h}$ is indeed a norm for space $V_h$. Hence, to show
 \begin{equation}\label{eq:11}    
 |v_h|_{1,h}^2\lesssim a_h(v_h, v_h)\quad\forall~v_h\in V_h.
 \end{equation}
-The coercivity \eqref{eq:11} is (4.19) for the nonconforming virtual element method, and~(5.8) for the conforming virtual element method.
+The coercivity \eqref{eq:11} is (4.20) for the nonconforming virtual element method.
+%, and~(5.8) for the conforming virtual element method.
 
 
 \medskip
@@ -1051,7 +1051,7 @@ We try our best to proofread the manuscript carefully.
 The only modification I require is a more in-depth comparison with the classical stabilized version with respect to the computational cost, in the two- and three-dimensional case, by making explicit examples in cases of interest.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-In the revised manuscript, we have provided many numerical experiments to compare our virtual element methods to the classical stabilized VEMs in two dimensions. The comparison in three dimensions will be provided in future work.
+In the revised manuscript, we have provided many numerical experiments to compare our virtual element methods to the classical stabilized VEMs in two dimensions. The comparison in three dimensions will be presented in future work.
 
 
 
