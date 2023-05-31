@@ -60,7 +60,7 @@ virtual element, stabilization-free, macro finite element, norm equivalence, err
 \end{MSCcodes}
 
 \section{Introduction}
-\XH{A stabilization term is usually required in the virtual element methods (VEMs) to ensure the coercivity of the discrete bilinear form \cite{BeiraoBrezziCangianiManziniEtAl2013,BeiraoBrezziMariniRusso2014}, while the stabilization term also brings about some problems. The local stabilization term $S_K(\cdot, \cdot)$ has to satisfy 
+A stabilization term is usually required in the virtual element methods (VEMs) to ensure the coercivity of the discrete bilinear form \cite{BeiraoBrezziCangianiManziniEtAl2013,BeiraoBrezziMariniRusso2014}, while the stabilization term also brings about some problems. The local stabilization term $S_K(\cdot, \cdot)$ has to satisfy 
 $$
 c_{*} |v|_{1,K}^2\leq S_K(v,v)\leq c^{*} |v|_{1,K}^2 
 $$
@@ -70,20 +70,17 @@ For the a posteriori error analysis on anisotropic polygonal meshes in \cite{Ant
 The stabilization term significantly affects the performance of the VEM for the Poisson eigenvalue problem \cite{BoffiGardiniGastaldi2020},
 and improper choices of the stabilization term will produce useless results.
 Special stabilization terms are designed for a nonlinear elasto-plastic deformation problem \cite{HudobivnikAldakheelWriggers2019} and an electromagnetic interface problem in three dimensions \cite{CaoChenGuo2023}, which are not easy to be extended to other problems. 
-}
 
 
-Recently a stabilization-free linear VEM, based on a higher order polynomial projection of the gradient of virtual element functions, is devised for the Poisson equation in two dimensions in \cite{BerroneBorioMarcon2021}, where the degree of polynomial used in the projection depends on the number of vertices of the polygon \XH{and generally the geometry of the polygon}. 
-\XH{Numerical examples in \cite{BerroneBorioMarcon2022} show that the stabilization-free VEM in \cite{BerroneBorioMarcon2021} outperforms the standard VEM in \cite{BeiraodaVeigaBrezziMariniRusso2016} for anisotropic elliptic problems on general convex polygonal meshes.}
-The stabilization-free VEM in \cite{BerroneBorioMarcon2021} is then applied to solve the Laplacian eigenvalue problem \cite{MengWangBuMei2022}. Along this line, similar stabilization-free virtual element methods are devised for a plane elasticity problem in~\cite{DAltriMirandaPatrunoSacco2021,ChenSukumar2022,ChenSukumar2023}. \XH{By the way, we refer to \cite{CicuttinErnLemaire2019} for a stabilization-free hybrid high-order method, and 
-\cite{YeZhang2020,AlTaweelWang2020,AlTaweelWang2020a,YeZhang2021,YeZhang2021a,AlTaweelWangYeZhang2021} for stabilization-free weak Galerkin finite element methods.}
+Recently a stabilization-free linear VEM, based on a higher order polynomial projection of the gradient of virtual element functions, is devised for the Poisson equation in two dimensions in \cite{BerroneBorioMarcon2021}, where the degree of polynomial used in the projection depends on the number of vertices of the polygon and generally the geometry of the polygon. 
+Numerical examples in \cite{BerroneBorioMarcon2022} show that the stabilization-free VEM in \cite{BerroneBorioMarcon2021} outperforms the standard VEM in \cite{BeiraodaVeigaBrezziMariniRusso2016} for anisotropic elliptic problems on general convex polygonal meshes.
+The stabilization-free VEM in \cite{BerroneBorioMarcon2021} is then applied to solve the Laplacian eigenvalue problem \cite{MengWangBuMei2022}. Along this line, similar stabilization-free virtual element methods are devised for a plane elasticity problem in~\cite{DAltriMirandaPatrunoSacco2021,ChenSukumar2022,ChenSukumar2023}. By the way, we refer to \cite{CicuttinErnLemaire2019} for a stabilization-free hybrid high-order method, and 
+\cite{YeZhang2020,AlTaweelWang2020,AlTaweelWang2020a,YeZhang2021,YeZhang2021a,AlTaweelWangYeZhang2021} for stabilization-free weak Galerkin finite element methods.
 
 The idea in \cite{BerroneBorioMarcon2021} is difficult to be extended to construct stabilization-free virtual element methods in higher dimensions, and
 the analysis is rather elaborate. 
-\XH{
 % This motivates us to construct a nonconforming VEM in arbitrary dimension and a conforming VEM in two dimensions in arbitrary degree of polynomial  in a unified way.
 This motivates us to construct stabilization-free VEMs in arbitrary degree of polynomial, including a nonconforming VEM in arbitrary dimension and a conforming VEM in two dimensions,  in a unified way.
-}
 
 The key to construct stabilization-free VEMs is to find a finite-dimensional space $\mathbb{V}(K)$ for polytope $K$ and a projector $Q_K$ onto the space $\mathbb{V}(K)$ such that
 \begin{enumerate}[(C1)]
@@ -94,7 +91,7 @@ The key to construct stabilization-free VEMs is to find a finite-dimensional spa
 on shape function space $V_k(K)$ of virtual elements;
 \item The projection $Q_{K}\nabla v$ is computable based on the degrees of freedom (DoFs) of virtual elements for $v\in V_k(K)$.
 \end{enumerate}
-\XH{The hidden constants in \eqref{intro:gradVknormequiv} are independent of the size of $K$, but depend on the degree of polynomials, and the chunkiness parameter and the geometric dimension of $K$; see Section~\ref{sec:meshcondition} for details.}
+The hidden constants in \eqref{intro:gradVknormequiv} are independent of the size of $K$, but depend on the degree of polynomials, and the chunkiness parameter and the geometric dimension of $K$; see Section~\ref{sec:meshcondition} for details.
 We can choose $Q_{K}$ as the $L^2$-orthogonal projector with respect to the
 inner product $(\cdot, \cdot)_K$. The norm equivalence
 \eqref{intro:gradVknormequiv} implies that the space $\mathbb{V}(K)$ should be
@@ -112,7 +109,7 @@ space $\mathbb P_{k}(K)$.  While only
 hold
 rather than the norm equivalence \eqref{intro:gradVknormequiv}, then the additional stabilization term is usually required to ensure the coercivity of the discrete bilinear form.
 To remove the additional stabilization term, $\mathbb{V}(K)$ is taken as $\mathbb P_{l}(K; \mathbb{R}^d)$ with large enough $l$ even for the lowest order case $k=1$ in \cite{BerroneBorioMarcon2021,BerroneBorioMarcon2022,DAltriMirandaPatrunoSacco2021}, and the virtual element space $V_k(K)$ has to be modified accordingly to make $Q_{l}^{K}\nabla v$ computable.
-Instead, \XH{based on a regular simplicial tessellation of polytope $K$}, we employ $k$-th order or $(k-1)$-th order $H(\div)$-conforming macro finite elements as $\mathbb{V}(K)$ in this paper, and keep the virtual element space $V_k(K)$ as the usual ones.
+Instead, based on a regular simplicial tessellation of polytope $K$, we employ $k$-th order or $(k-1)$-th order $H(\div)$-conforming macro finite elements as $\mathbb{V}(K)$ in this paper, and keep the virtual element space $V_k(K)$ as the usual ones.
 
 
 We first construct $H(\div)$-conforming macro finite elements based on a
@@ -236,7 +233,6 @@ Hereafter we use $T$ to represent a simplex, and $K$ to denote a general polytop
 
 
 \section{$H(\div)$-Conforming Macro Finite Elements}\label{sec:divmacrofem}
-\XH{
 In this section we will construct an $H(\div)$-conforming macro finite element space $\mathbb{V}_{k-1}^{\rm div}(K)$ and the corresponding degrees of freedoms in arbitrary dimension, and establish the $L^2$ norm equivalence for $\boldsymbol{\phi}\in\mathbb{V}_{k-1}^{\rm div}(K)$
 \begin{equation*}%\label{eq:Vkm1divnormequiv}
 \|\boldsymbol{\phi}\|_{0,K}\eqsim h_K\|\div\boldsymbol{\phi}\|_{0,K} + \sup_{\boldsymbol{\psi}\in\div\mathring{\boldsymbol{V}}_{k}^{d-2}(K)}\frac{(\boldsymbol{\phi}, \boldsymbol{\psi})_K}{\|\boldsymbol{\psi}\|_{0,K}} +\sum_{F\in\mathcal F(K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}.
@@ -246,7 +242,7 @@ the norm equivalence for the virtual element space
 \begin{equation*}%\label{intro:gradVknormequiv} 
 \|Q_{K,k-1}^{\div}\nabla v\|_{0,K}\eqsim \|\nabla v\|_{0,K} \quad \forall~v\in V_k(K),
 \end{equation*}
-where $V_k(K)$ is the nonconforming virtual element space in Section \ref{sec:stabfreencfmvem}, and the conforming virtual element space in Section \ref{sec:stabfreecfmvem}. Here $Q_{K,k-1}^{\div}$ is the computable $L^2$ projector onto the space $\mathbb{V}_{k-1}^{\rm div}(K)$.}
+where $V_k(K)$ is the nonconforming virtual element space in Section \ref{sec:stabfreencfmvem}, and the conforming virtual element space in Section \ref{sec:stabfreecfmvem}. Here $Q_{K,k-1}^{\div}$ is the computable $L^2$ projector onto the space $\mathbb{V}_{k-1}^{\rm div}(K)$.
 
 \subsection{$H(\div)$-conforming finite elements}
 For a $d$-dimensional polytope $K\in \mathcal T_h$ and $k\geq2$, let 
@@ -259,18 +255,18 @@ be the local Brezzi-Douglas-Marini (BDM) element space~\cite{BrezziDouglasMarini
 (\div\boldsymbol{v}, q)_T, & \quad q\in \mathbb P_{k-2}(T)/\mathbb R, \label{BDMdof2} \\
 (\boldsymbol{v}, \boldsymbol{q})_T, & \quad \boldsymbol{q}\in \mathbb P_{k-3}(T;\mathbb K)\boldsymbol{x} \label{BDMdof3}
 \end{align}
-for $T\in\mathcal T_K$. Here $\mathbb P_{k-2}(T)/\mathbb R:=\mathbb P_{k-2}(T)\cap L_0^2(T)$, \XH{and $\mathbb P_{k-3}(T;\mathbb K)\boldsymbol{x}:=\{\boldsymbol{\tau}\boldsymbol{x}: \boldsymbol{\tau}\in \mathbb P_{k-3}(T;\mathbb K)\}$ with $\boldsymbol{x}\in T$ being the independent variable}.
+for $T\in\mathcal T_K$. Here $\mathbb P_{k-2}(T)/\mathbb R:=\mathbb P_{k-2}(T)\cap L_0^2(T)$, and $\mathbb P_{k-3}(T;\mathbb K)\boldsymbol{x}:=\{\boldsymbol{\tau}\boldsymbol{x}: \boldsymbol{\tau}\in \mathbb P_{k-3}(T;\mathbb K)\}$ with $\boldsymbol{x}\in T$ being the independent variable.
 Define $\mathring{\boldsymbol{V}}_{k-1}^{\mathrm{BDM}}(K):=\boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K)\cap \boldsymbol{H}_0(\div, K)$.
 
 We also need the lowest order Raviart-Thomas (RT) element space~\cite{RaviartThomas1977,Nedelec1980}
 \[
 \boldsymbol{V}^{\mathrm{RT}}(K):=\{\boldsymbol{\phi}\in\boldsymbol{H}(\div, K): \boldsymbol{\phi}|_{T}\in \mathbb P_{0}(T;\mathbb R^d)+\boldsymbol{x}\mathbb P_{0}(T) \textrm{ for each } T\in\mathcal T_K\}.
 \]
-\XH{The DoFs are given by
+The DoFs are given by
 \[
 (\boldsymbol{v}\cdot\boldsymbol{n}, q)_F,  \quad q\in \mathbb P_{0}(F), F\in\mathcal F(T)
 \]
-for $T\in\mathcal T_K$.}
+for $T\in\mathcal T_K$.
 Define $\mathring{\boldsymbol{V}}^{\mathrm{RT}}(K):=\boldsymbol{V}^{\mathrm{RT}}(K)\cap \boldsymbol{H}_0(\div, K)$.
 
 
@@ -284,11 +280,10 @@ By (3.5) in \cite{ChenHuang2021divdiv}, we have the direct decomposition
 \mathbb P_{k-1}(T;\mathbb R^{d})=\nabla\mathbb P_k(T)\oplus\mathbb P_{k-2}(T;\mathbb K)\boldsymbol{x}.
 \end{equation}
 % \XH{where $\mathbb P_{k-2}(T;\mathbb K)\boldsymbol{x}:=\{\boldsymbol{\tau}\boldsymbol{x}: \boldsymbol{\tau}\in \mathbb P_{k-2}(T;\mathbb K)\}$ with $\boldsymbol{x}\in T$ being the independent variable.}
-\XH{Recall that \cite[(35)]{Chen;Huang:2020Finite}
+Recall that \cite[(35)]{Chen;Huang:2020Finite}
 \begin{equation}\label{eq:20230205}
 \mathbb P_{k}(T)\cap\ker(I+\boldsymbol{x}\cdot\nabla)=\{0\}.
 \end{equation}
-}
 % Indeed, \eqref{eq:20230205} follows from the Euler's formula \cite[(2.1)]{ChenHuang2021divdiv}
 % $$
 % \boldsymbol{x}\cdot\nabla q=kq\quad\forall~q\in \mathbb H_k(T),
@@ -304,7 +299,7 @@ Since
 \begin{equation*}%\label{eq:20220224}  
 (\skw\nabla\boldsymbol{w})\boldsymbol{x}=\frac{1}{2}(\nabla\boldsymbol{w})\boldsymbol{x}-\frac{1}{2}(\nabla\boldsymbol{w})^{\intercal}\boldsymbol{x}=\frac{1}{2}\nabla(\boldsymbol{w}\cdot\boldsymbol{x})-\frac{1}{2}(I+\boldsymbol{x}\cdot\nabla)\boldsymbol{w},
 \end{equation*}
-we acquire from $\boldsymbol{w}\cdot\boldsymbol{x}=0$ that $(I+\boldsymbol{x}\cdot\nabla)\boldsymbol{w}=\boldsymbol{0}$, which \XH{together with \eqref{eq:20230205}} implies $\boldsymbol{w}=\boldsymbol{0}$.
+we acquire from $\boldsymbol{w}\cdot\boldsymbol{x}=0$ that $(I+\boldsymbol{x}\cdot\nabla)\boldsymbol{w}=\boldsymbol{0}$, which together with \eqref{eq:20230205} implies $\boldsymbol{w}=\boldsymbol{0}$.
 \end{proof}
 
 \begin{lemma}
@@ -636,7 +631,7 @@ For $\boldsymbol{\phi}\in\boldsymbol{V}_{k-1}^{\rm div}(K)$, it holds the norm e
 \end{equation}
 \end{lemma}
 \begin{proof}
-\XH{By the inverse inequality \cite{Ciarlet1978,Verfuerth2013} (see also \cite[Lemma 10]{Huang2020}),
+By the inverse inequality \cite{Ciarlet1978,Verfuerth2013} (see also \cite[Lemma 10]{Huang2020}),
 $$
 h_K\|\div\boldsymbol{\phi}\|_{0,K}\lesssim  \|\div\boldsymbol{\phi}\|_{-1,K},
 $$ 
@@ -660,14 +655,13 @@ Combining \eqref{eq:20230201}, the Cauchy-Schwarz inequality and the last inequa
 $$
 h_K\|\div\boldsymbol{\phi}\|_{0,K}+\sup_{\boldsymbol{\psi}\in\div\mathring{\boldsymbol{V}}_{k}^{d-2}(K)}\frac{(\boldsymbol{\phi}, \boldsymbol{\psi})_K}{\|\boldsymbol{\psi}\|_{0,K}} +\sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}\lesssim \|\boldsymbol{\phi}\|_{0,K}.
 $$
-}
 % \begin{align*}
 % &\quad h_K\|\div\boldsymbol{\phi}\|_{0,K}+\sup_{\boldsymbol{\psi}\in\div\mathring{\boldsymbol{V}}_{k}^{d-2}(K)}\frac{(\boldsymbol{\phi}, \boldsymbol{\psi})_K}{\|\boldsymbol{\psi}\|_{0,K}} +\sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}\\
 % &\lesssim \|\div\boldsymbol{\phi}\|_{-1,K} + \|\boldsymbol{\phi}\|_{0,K} \lesssim \|\boldsymbol{\phi}\|_{0,K}.    
 % \end{align*}
 
-Next we focus on the proof of the \XH{lower bound}. Again we only prove the case $k\geq2$, whose argument can be applied to case $k=1$. Take $\boldsymbol{\phi}_1\in\boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K)$ such that $(\boldsymbol{\phi}_1\cdot\boldsymbol{n})|_{\partial K}=(\boldsymbol{\phi}\cdot\boldsymbol{n})|_{\partial K}$, and \XH{all the DoFs \eqref{BDMdof1}-\eqref{BDMdof3} of $\boldsymbol{\phi}_1$ interior to $K$ equal to zero}. 
-\XH{By the norm equivalence on each simplex $T$ and the vanishing DoFs \eqref{BDMdof2}-\eqref{BDMdof3}, we get
+Next we focus on the proof of the lower bound. Again we only prove the case $k\geq2$, whose argument can be applied to case $k=1$. Take $\boldsymbol{\phi}_1\in\boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K)$ such that $(\boldsymbol{\phi}_1\cdot\boldsymbol{n})|_{\partial K}=(\boldsymbol{\phi}\cdot\boldsymbol{n})|_{\partial K}$, and all the DoFs \eqref{BDMdof1}-\eqref{BDMdof3} of $\boldsymbol{\phi}_1$ interior to $K$ equal to zero. 
+By the norm equivalence on each simplex $T$ and the vanishing DoFs \eqref{BDMdof2}-\eqref{BDMdof3}, we get
 \begin{align}\label{eq:20220324-5}
 \|\boldsymbol{\phi}_1\|_{0,K}^2 = \sum_{T\in\mathcal T_K}\|\boldsymbol{\phi}_1\|_{0,T}^2 \eqsim \sum_{T\in\mathcal T_K}\sum_{F\in\mathcal F(T)}h_F\|\boldsymbol{\phi}_1\cdot\boldsymbol{n}\|_{0,F}^2 =\sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}^2.
 \end{align}
@@ -681,7 +675,6 @@ Then apply the integration by parts and the Cauchy-Schwarz inequality to acquire
 \|\div\boldsymbol{\phi}_1\|_{0,T}^2=\|Q_0^T(\div\boldsymbol{\phi}_1)\|_{0,T}^2
 \leq\frac{1}{|T|}\sum_{F\in\mathcal F(T)\cap\mathcal F^{\partial}(\mathcal T_K)}|F|\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}^2\;\;\forall~T\in\mathcal T_K.
 \end{equation}
-}
 % for $T\in\mathcal T_K$.
 Now let $w\in H^1(K)\cap L_0^2(K)$ be the solution of 
 \[
@@ -694,11 +687,11 @@ The weak formulation is
 \[
 (\nabla w, \nabla v)_K=(\div(\boldsymbol{\phi}-\boldsymbol{\phi}_1), v)_K\quad\forall~v\in H^1(K)\cap L_0^2(K).
 \]
-Obviously \XH{we obtain from \eqref{eq:202302011} that}
+Obviously we obtain from \eqref{eq:202302011} that
 \begin{equation}\label{eq:202302031}  
 \|\nabla w\|_{0,K}\lesssim h_K\|\div(\boldsymbol{\phi}-\boldsymbol{\phi}_1)\|_{0,K}\lesssim h_K\|\div\boldsymbol{\phi}\|_{0,K} +\sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}.
 \end{equation}
-\XH{Let $I_K^{\div}: \boldsymbol{H}_0(\div,K)\to\mathring{\boldsymbol{V}}_{k-1}^{\mathrm{BDM}}(K)$ be the local $L^2$-bounded commuting projection operator in \cite{ArnoldGuzman2021,FalkWinther2014}, then
+Let $I_K^{\div}: \boldsymbol{H}_0(\div,K)\to\mathring{\boldsymbol{V}}_{k-1}^{\mathrm{BDM}}(K)$ be the local $L^2$-bounded commuting projection operator in \cite{ArnoldGuzman2021,FalkWinther2014}, then
 \begin{equation}\label{eq:20230203}  
 \|I_K^{\div}\boldsymbol{\psi}\|_{0,K} \lesssim \|\boldsymbol{\psi}\|_{0,K}\quad\forall~\boldsymbol{\psi}\in \boldsymbol{H}_0(\div,K),
 \end{equation}
@@ -707,15 +700,14 @@ Obviously \XH{we obtain from \eqref{eq:202302011} that}
 \]
 Recall $
 V_{k-2}^{L^2}(K)=\{v\in L^2(K): v|_{T}\in \mathbb P_{k-2}(T) \textrm{ for } T\in\mathcal T_K\}
-$.
-} Set $\boldsymbol{\phi}_2=-I_K^{\div}(\nabla w)\in\mathring{\boldsymbol{V}}_{k-1}^{\mathrm{BDM}}(K)$. \XH{We have
+$. Set $\boldsymbol{\phi}_2=-I_K^{\div}(\nabla w)\in\mathring{\boldsymbol{V}}_{k-1}^{\mathrm{BDM}}(K)$. We have
 \begin{equation}\label{eq:20220324-6}
 \div\boldsymbol{\phi}_2=-\div(I_K^{\div}(\nabla w))=-\Delta w=\div(\boldsymbol{\phi}-\boldsymbol{\phi}_1).
 \end{equation}
 It follows from \eqref{eq:20230203} and \eqref{eq:202302031} that
 \begin{equation}\label{eq:20220324-7}
 \|\boldsymbol{\phi}_2\|_{0,K}=\|I_K^{\div}(\nabla w)\|_{0,K}\lesssim \|\nabla w\|_{0,K}\lesssim h_K\|\div\boldsymbol{\phi}\|_{0,K} +\sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}.
-\end{equation}}
+\end{equation}
 By \eqref{eq:20220324-6}, $\boldsymbol{\phi}-\boldsymbol{\phi}_1-\boldsymbol{\phi}_2\in\mathring{\boldsymbol{V}}_{k-1}^{\mathrm{BDM}}(K)\cap\ker(\div)$, which together the exactness of complex \eqref{eq:localBDMfemderhamcomplex0} indicates $\boldsymbol{\phi}-\boldsymbol{\phi}_1-\boldsymbol{\phi}_2\in\div\mathring{\boldsymbol{V}}_{k}^{d-2}(K)$. Hence
 \begin{align*}  
 \|\boldsymbol{\phi}\|_{0,K}&\lesssim \|\boldsymbol{\phi}_1\|_{0,K}+\|\boldsymbol{\phi}_2\|_{0,K}+\|\boldsymbol{\phi}-\boldsymbol{\phi}_1-\boldsymbol{\phi}_2\|_{0,K} \\
@@ -730,7 +722,7 @@ Let
 \[
 \mathbb{V}_{k-1}^{\rm div}(K):=\{\boldsymbol{\phi}\in\boldsymbol{V}_{k-1}^{\rm div}(K): (\boldsymbol{\phi}\cdot\boldsymbol{n})|_F\in\mathbb P_{k-1}(F) \quad\forall~F\in\mathcal F(K)\}.
 \]
-\XH{On each face $F\in\mathcal F(K)$, $(\boldsymbol{\phi}\cdot\boldsymbol{n})|_F$ is a polynomial for $\boldsymbol{\phi}\in\mathbb{V}_{k-1}^{\rm div}(K)$ but $(\boldsymbol{\phi}\cdot\boldsymbol{n})|_F$ is a piecewise polynomial for $\boldsymbol{\phi}\in\boldsymbol{V}_{k-1}^{\rm div}(K)$.}
+On each face $F\in\mathcal F(K)$, $(\boldsymbol{\phi}\cdot\boldsymbol{n})|_F$ is a polynomial for $\boldsymbol{\phi}\in\mathbb{V}_{k-1}^{\rm div}(K)$ but $(\boldsymbol{\phi}\cdot\boldsymbol{n})|_F$ is a piecewise polynomial for $\boldsymbol{\phi}\in\boldsymbol{V}_{k-1}^{\rm div}(K)$.
 Due to DoFs \eqref{Vdivdof1}-\eqref{Vdivdof3} for $\boldsymbol{V}_{k-1}^{\rm div}(K)$, a set of unisolvent DoFs for $\mathbb{V}_{k-1}^{\rm div}(K)$ is 
 \begin{align}
     (\boldsymbol{\phi}\cdot\boldsymbol{n}, q)_F & \quad\forall~q\in\mathbb P_{k-1}(F) \textrm{ on each }  F\in\mathcal F(K), \label{Vpdivdof1}\\
@@ -780,15 +772,14 @@ where the bilinear form $a(u, v):=(\nabla_h u, \nabla_h v)+\alpha(u,v)$ with $\n
 
 
 \subsection{$H^1$-nonconforming virtual element}
-\XH{Several $H^1$-nonconforming virtual elements have been developed in \cite{AyusodeDiosLipnikovManzini2016,CangianiManziniSutton2017,ChenHuang2020ncvem,Huang2020}.
-In this paper we adopt those in \cite{CangianiManziniSutton2017,ChenHuang2020ncvem}.}
+Several $H^1$-nonconforming virtual elements have been developed in \cite{AyusodeDiosLipnikovManzini2016,CangianiManziniSutton2017,ChenHuang2020ncvem,Huang2020}.
+In this paper we adopt those in \cite{CangianiManziniSutton2017,ChenHuang2020ncvem}.
 The degrees of freedom are given by
-\XH{
 \begin{align}
 \frac{1}{|F|}(v, \phi_i^F)_F, & \quad i=1,\ldots, \dim\mathbb P_{k-1}(F), F\in\mathcal F(K), \label{eq:vemdof1}\\
 \frac{1}{|K|}(v, \phi_i^K)_K, & \quad i=1,\ldots, \dim\mathbb P_{k-2}(K), \label{eq:vemdof2}
 \end{align}
-where $\{\phi_i^F\}_{i=1}^{\dim\mathbb P_{k-1}(F)}$ is a basis of $\mathbb P_{k-1}(F)$, and $\{\phi_i^K\}_{i=1}^{\dim\mathbb P_{k-2}(K)}$ a basis of $\mathbb P_{k-2}(K)$.}
+where $\{\phi_i^F\}_{i=1}^{\dim\mathbb P_{k-1}(F)}$ is a basis of $\mathbb P_{k-1}(F)$, and $\{\phi_i^K\}_{i=1}^{\dim\mathbb P_{k-2}(K)}$ a basis of $\mathbb P_{k-2}(K)$.
 
 To define the space of shape functions, we need a local $H^1$ projection operator $\Pi_k^K: H^1(K)\to\mathbb P_k(K)$: given $v\in H^1(K)$, let $\Pi_k^Kv\in\mathbb P_k(K)$ be the solution of the problem %\mnote{ define $Q_0^F$}
 \begin{align}
@@ -807,7 +798,7 @@ V_k(K):=\{v\in H^1(K) &: \Delta v\in\mathbb P_{k}(K),\, \partial_nv|_F\in\mathbb
 &\qquad\qquad\qquad\quad\;\, \textrm{and } (v-\Pi_k^Kv, q)_K=0\quad\forall~q\in \mathbb P_{k-2}^{\perp}(K)\},
 \end{align*}
 where %$\mathbb P_{k}(K)/\mathbb P_{k-2}(K)$ 
-\XH{$\mathbb P_{k-2}^{\perp}(K)$}
+$\mathbb P_{k-2}^{\perp}(K)$
 means the orthogonal complement space of $\mathbb P_{k-2}(K)$ in $\mathbb P_{k}(K)$ with respect to the inner product $(\cdot, \cdot)_K$.
 Due to \eqref{eq:localproj2dprop1}, it holds $\mathbb P_k(K)\subseteq V_k(K)$.
 DoFs~\eqref{eq:vemdof1}-\eqref{eq:vemdof2} are uni-solvent for the shape function space $V_k(K)$.
@@ -826,7 +817,6 @@ It holds the inverse inequality
 \end{equation}
 \end{lemma}
 \begin{proof}
-\XH{
 By (A.4) with $m=j=1$ in \cite{ChenHuang2020ncvem}, it follows that
 \[
 h_K^{1/2}\|\partial_nv\|_{0,\partial K}\lesssim |v|_{1,K}+h_K\|\Delta v\|_{0,K}.
@@ -844,7 +834,7 @@ Combining the last two inequalities gives
 \[
 |v|_{1,K}\lesssim h_K^{-1}\|v\|_{0,K}+h_K^{-1/2}\|v\|_{0,\partial K},
 \]
-which together with the multiplicative trace inequality and the Young's inequality yields \eqref{eq:veminverse}.}
+which together with the multiplicative trace inequality and the Young's inequality yields \eqref{eq:veminverse}.
 \end{proof}
 
 \begin{lemma}
@@ -861,11 +851,11 @@ We get from \eqref{eq:projlocal2d1} and the integration by parts that
 &=-(Q_{k-2}^Kv, \Delta\Pi_k^Kv)_K+\sum_{F\in\mathcal F(K)}(Q_{k-1}^Fv, \partial_n(\Pi_k^Kv))_{F} \\
 &\leq\|Q_{k-2}^Kv\|_{0,K}\|\Delta\Pi_k^Kv\|_{0,K}+\sum_{F\in\mathcal F(K)}\|Q_{k-1}^Fv\|_{0,F}\|\partial_n(\Pi_k^Kv)\|_{0,F},
 \end{align*}
-which combined with \XH{both $H^1$-$L^2$ and $L^2$ boundary-$L^2$ bulk inverse inequalities} for polynomials implies
+which combined with both $H^1$-$L^2$ and $L^2$ boundary-$L^2$ bulk inverse inequalities for polynomials implies
 \[%\label{eq:VEMnormequivalencePiK}
 h_K^2|\Pi_k^Kv|_{1,K}^2\lesssim \|Q_{k-2}^Kv\|_{0,K}^2+\sum_{F\in\mathcal F(K)}h_F\|Q_{k-1}^Fv\|_{0,F}^2. 
 \]
-Thanks to the Poincar\'e-Friedrichs inequality \XH{\cite{Necas1967}} %\cite[(2.15)]{BrennerSung2018} 
+Thanks to the Poincar\'e-Friedrichs inequality \cite{Necas1967} %\cite[(2.15)]{BrennerSung2018} 
 and \eqref{eq:projlocal2d2},
 \begin{align*}  
 \|\Pi_k^Kv\|_{0,K}^2&\lesssim h_K|\Pi_k^Kv|_{1,K}^2+h_K^{2-d}\left|\int_{\partial K}v\,{\rm d}s\right|^2 \\
@@ -924,7 +914,7 @@ Based on DoFs \eqref{Vpdivdof1}-\eqref{Vpdivdof3}, take $\boldsymbol{\phi}\in\ma
 (\div\boldsymbol{\phi}, q)_K&=-h_K^{-2}(v, q)_K  \quad\forall~q\in\mathbb P_{\max\{k-2,0\}}(K)/\mathbb R, \\
 (\boldsymbol{\phi}, \boldsymbol{q})_K&=0  \qquad\qquad\qquad\forall~\boldsymbol{q}\in \div\skw\mathring{\boldsymbol{V}}_{k}^{d-2}(K). 
 \end{align*}
-Then $(\boldsymbol{\phi}\cdot\boldsymbol{n})|_{F}=h_K^{-1}Q_{k-1}^Fv$ for $F\in\mathcal F(K)$. Since $\div\boldsymbol{\phi}\in \mathbb P_{\max\{k-2,0\}}(K)$, we have $\div\boldsymbol{\phi}-Q_{0}^K(\div\boldsymbol{\phi})=-h_K^{-2}Q_{k-2}^Kv$. Apply the integration by parts \XH{and the fact $v=v-Q_{0}^Kv\in L_0^2(K)$} to get
+Then $(\boldsymbol{\phi}\cdot\boldsymbol{n})|_{F}=h_K^{-1}Q_{k-1}^Fv$ for $F\in\mathcal F(K)$. Since $\div\boldsymbol{\phi}\in \mathbb P_{\max\{k-2,0\}}(K)$, we have $\div\boldsymbol{\phi}-Q_{0}^K(\div\boldsymbol{\phi})=-h_K^{-2}Q_{k-2}^Kv$. Apply the integration by parts and the fact $v=v-Q_{0}^Kv\in L_0^2(K)$ to get
 \begin{align*}
 (\boldsymbol{\phi}, \nabla v)_K&=-(\div\boldsymbol{\phi}, v)_K + (\boldsymbol{\phi}\cdot\boldsymbol{n}, v)_{\partial K} \\
 &=-(\div\boldsymbol{\phi}-Q_{0}^K(\div\boldsymbol{\phi}), v)_K+\sum_{F\in\mathcal F(K)}(\boldsymbol{\phi}\cdot\boldsymbol{n}, Q_{k-1}^Fv)_{F} \\
@@ -946,10 +936,10 @@ we acquire
 \|\boldsymbol{\phi}\|_{0,K}&\eqsim h_K\|\div\boldsymbol{\phi}\|_{0,K} +\sum_{F\in\mathcal F(K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F} \\
 &\lesssim h_K\|\div\boldsymbol{\phi}-Q_0^K(\div\boldsymbol{\phi})\|_{0,K} +\sum_{F\in\mathcal F(K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}.
 \end{align*}
-\XH{Noting that $\div\boldsymbol{\phi}-Q_{0}^K(\div\boldsymbol{\phi})=-h_K^{-2}Q_{k-2}^Kv$ and $(\boldsymbol{\phi}\cdot\boldsymbol{n})|_{F}=h_K^{-1}Q_{k-1}^Fv$ for $F\in\mathcal F(K)$, we have
+Noting that $\div\boldsymbol{\phi}-Q_{0}^K(\div\boldsymbol{\phi})=-h_K^{-2}Q_{k-2}^Kv$ and $(\boldsymbol{\phi}\cdot\boldsymbol{n})|_{F}=h_K^{-1}Q_{k-1}^Fv$ for $F\in\mathcal F(K)$, we have
 \[
 \|\boldsymbol{\phi}\|_{0,K}\lesssim h_K^{-1}\|Q_{k-2}^Kv\|_{0,K} +\sum_{F\in\mathcal F(K)}h_F^{-1/2}\|Q_{k-1}^Fv\|_{0,F}.
-\]}
+\]
 Then we obtain from the norm equivalence \eqref{eq:Vknormequivalence} and the Poincar\'e-Friedrichs  inequality \cite[(2.14)]{BrennerSung2018} that
 \[
 \|\boldsymbol{\phi}\|_{0,K}\lesssim h_K^{-1}\|v\|_{0,K}\lesssim \|\nabla v\|_{0,K}.    
@@ -964,11 +954,11 @@ Define the global nonconforming virtual element space
 V_h&:=\{v_h\in L^2(\Omega): v_h|_K\in V_k(K) \textrm{ for each } K\in\mathcal T_h, \textrm{  } \\
 &\qquad\; \textrm{DoFs \eqref{eq:vemdof1} are single-valued for $F\in\mathcal F_h$, and vanish for $F\in \mathcal F_h^{\partial}$}\}.
 \end{align*}
-We have the discrete Poincar\'e inequality \XH{\cite{Brenner2003}}%(cf. \cite[(4.16)]{ChenHuang2020ncvem})
+We have the discrete Poincar\'e inequality \cite{Brenner2003}%(cf. \cite[(4.16)]{ChenHuang2020ncvem})
 \begin{equation}\label{eq:vempoincareineqlty}
 \|v_h\|_0\lesssim |v_h|_{1,h} \quad\forall~v_h\in V_h.
 \end{equation}
-\XH{Hence $|\cdot|_{1,h}$ is indeed a norm for $V_h$.}
+Hence $|\cdot|_{1,h}$ is indeed a norm for $V_h$.
 % Introduce discrete spaces
 % \begin{align*}
 % \mathbb{V}_{h,k-1}^{\rm div}&:=\{\boldsymbol{\phi}_h\in \boldsymbol{L}^2(\Omega;\mathbb R^d): \boldsymbol{\phi}_h|_K\in \mathbb{V}_{k-1}^{\rm div}(K) \textrm{ for each } K\in\mathcal T_h\}, \\
@@ -995,7 +985,7 @@ By introducing $\boldsymbol{\phi}_h=Q_{h,k-1}^{\div}\nabla_h u_h$, the VEM \eqre
 \end{aligned}
 \end{equation*}
 \end{remark}
-\XH{
+
 \begin{remark}\rm
 The stabilization-free mixed-order HHO method for the Poisson equation in~\cite{CicuttinErnLemaire2019} is equivalent to find $u_h\in W_h$ such that
 \begin{equation}\label{eq:2023111}    
@@ -1010,7 +1000,7 @@ with $W_k(K):=\{v\in H^1(K) : \Delta v\in\mathbb P_{k-2}(K),\, \partial_nv|_F\in
 However, $(\nabla_h u_h, \nabla_h v_h)$ is not computable, % based on the degrees of freedom \eqref{eq:vemdof1}-\eqref{eq:vemdof2}, 
 and the method \eqref{eq:2023111} is not the standard nonconforming VEM in \cite{AyusodeDiosLipnikovManzini2016}. For the practical computation, a basis of $W_k(K)$ has to be solved approximately as shown in \cite[Remark 4.1]{CicuttinErnLemaire2019}, then the approximation of the space $W_h$ is no more a virtual element space. 
 \end{remark}
-}
+
 
 It follows from the discrete Poincar\'e inequality \eqref{eq:vempoincareineqlty} that 
 \begin{equation}\label{eq:ahbounedness}
@@ -1025,13 +1015,13 @@ It holds the coercivity
 \begin{proof}
 Due to \eqref{eq:gradVknormequivalence}, we have
 \[
-\sum_{K\in\mathcal T_h}\|\nabla_h v_h\|_{0,K}^2\XH{\eqsim} \sum_{K\in\mathcal T_h}\|Q_{K,k-1}^{\div}\nabla v_h\|_{0,K}^2\leq a_h(v_h, v_h)\quad\forall~v_h\in V_h,
+\sum_{K\in\mathcal T_h}\|\nabla_h v_h\|_{0,K}^2\eqsim \sum_{K\in\mathcal T_h}\|Q_{K,k-1}^{\div}\nabla v_h\|_{0,K}^2\leq a_h(v_h, v_h)\quad\forall~v_h\in V_h,
 \]
 which implies the coercivity \eqref{eq:ahcoercivity}.
 \end{proof}
 
 \begin{theorem}
-The stabilization-free VEM \eqref{eq:vem} is \XH{well-posed}.
+The stabilization-free VEM \eqref{eq:vem} is well-posed.
 \end{theorem}
 \begin{proof}
 Thanks to the boundedness \eqref{eq:ahbounedness} and the coercivity \eqref{eq:ahcoercivity}, we conclude the result from the Lax-Milgram lemma \cite{LaxMilgram1954}.
@@ -1124,16 +1114,16 @@ For polygon $K\subset\mathbb R^2$, let $\mathcal{V}(K)$ be the set of all vertic
 
 Recall the $H^1$-conforming virtual element in \cite{ChenHuangWei2022,AhmadAlsaediBrezziMariniEtAl2013,BeiraoBrezziCangianiManziniEtAl2013,BeiraoBrezziMariniRusso2014}.
 The degrees of freedom are given by
-\XH{\begin{align}
+\begin{align}
 v(\delta), & \quad \delta\in\mathcal V(K), \label{eq:cfmvemdof1}\\
 \frac{1}{|e|}(v, \phi_i^e)_e, & \quad i=1,\ldots, k-1, e\in\mathcal E(K), \label{eq:cfmvemdof2}\\
 \frac{1}{|K|}(v, \phi_i^K)_K, & \quad i=1,\ldots, \dim\mathbb P_{k-2}(K), \label{eq:cfmvemdof3}
 \end{align}
-where $\{\phi_i^e\}_{i=1}^{k-1}$ is a basis of $\mathbb P_{k-2}(e)$, and $\{\phi_i^K\}_{i=1}^{\dim\mathbb P_{k-2}(K)}$ a basis of $\mathbb P_{k-2}(K)$.}
+where $\{\phi_i^e\}_{i=1}^{k-1}$ is a basis of $\mathbb P_{k-2}(e)$, and $\{\phi_i^K\}_{i=1}^{\dim\mathbb P_{k-2}(K)}$ a basis of $\mathbb P_{k-2}(K)$.
 And the space of shape functions is
 \begin{align*}
 V_k(K)&:=\big\{ v\in H^1(K): \Delta v\in \mathbb P_{k}(K),  v|_{\partial K}\in H^1(\partial K),  v|_e\in \mathbb P_{k}(e)\;\;\forall~e\in\mathcal E(K),\\    
-&\qquad\qquad\qquad\qquad\qquad\qquad\quad\;\;\; \textrm{and } (v-\Pi_k^Kv, q)_K=0\quad\forall~q\in\XH{\mathbb P_{k-2}^{\perp}(K)}\},
+&\qquad\qquad\qquad\qquad\qquad\qquad\quad\;\;\; \textrm{and } (v-\Pi_k^Kv, q)_K=0\quad\forall~q\in\mathbb P_{k-2}^{\perp}(K)\},
 \end{align*}
 where $\Pi_k^K$ is defined by \eqref{eq:projlocal2d1}-\eqref{eq:projlocal2d2}.
 It holds $\mathbb P_k(K)\subseteq V_k(K)$.
@@ -1346,13 +1336,13 @@ Let $u\in H_0^1(\Omega)$ be the solution of problem \eqref{eq:ellipitc2ndproblem
 
 
 \section{Numerical results}\label{sec:numericalexamps}
-\XH{In this section, we will numerically test the stabilization-free nonconforming virtual element method \eqref{eq:vem} and the stabilization-free conforming
+In this section, we will numerically test the stabilization-free nonconforming virtual element method \eqref{eq:vem} and the stabilization-free conforming
 virtual element method \eqref{eq:cfmvem}, which are abbreviated as SFNCVEM and SFCVEM respectively.
 For the convenience of narration, we also abbreviate the standard conforming virtual element
 method in \cite{BeiraoBrezziCangianiManziniEtAl2013} and non-conforming virtual element method  in \cite{CangianiManziniSutton2017} as CVEM and NCVEM respectively. 
 We implement all the experiments by using the FEALPy package \cite{fealpy} on a PC with AMD Ryzen
 5 3500U CPU and 64-bit Ubuntu 22.04 operating system.
-Set the rectangular domain $\Omega = (0, 1)\times(0, 1)$. }
+Set the rectangular domain $\Omega = (0, 1)\times(0, 1)$.
 
 
 \subsection{Verification of convergence}
@@ -1427,7 +1417,7 @@ $\mathcal T_1$(right) with $k=1, 2, 5$.}
 
 \subsection{The invertibility of the local stiffness matrices}
 
-\XH{We construct three different hexagons shown in Fig. \ref{fig:hexagon}, and calculate the eigenvalues of local stiffness matrices with $k=3$ for four virtual element methods. Our numerical results show that, on all the three hexagons, both SFNCVEM and SFCVEM have only one zero eigenvalue. In Tables \ref{tab:comparison0}-\ref{tab:comparison2}, we also present the minimum non-zero eigenvalue, the maximum eigenvalue and the condition number for the local stiffness matrix on different hexagons in Fig. \ref{fig:hexagon}, from which we can see that these quantities are comparable for four virtual element methods.
+We construct three different hexagons shown in Fig. \ref{fig:hexagon}, and calculate the eigenvalues of local stiffness matrices with $k=3$ for four virtual element methods. Our numerical results show that, on all the three hexagons, both SFNCVEM and SFCVEM have only one zero eigenvalue. In Tables \ref{tab:comparison0}-\ref{tab:comparison2}, we also present the minimum non-zero eigenvalue, the maximum eigenvalue and the condition number for the local stiffness matrix on different hexagons in Fig. \ref{fig:hexagon}, from which we can see that these quantities are comparable for four virtual element methods.
 % \begin{figure}[htbp]
 % \centering
 % \subfigure{\includegraphics[width=1.4in]{./figures/hexagon0.pdf}}
@@ -1513,10 +1503,10 @@ eigenvalue} & \textbf{Condition number} \\ \hline
  SFCVEM  & 1061.651989&	0.202074633	&5253.761808 \\
 \hline
 \end{tabular}
-\end{table}}
+\end{table}
 
 \subsection{Comparison of assembling time}
-\XH{The only difference between the standard VEMs and the stabilization-free VEMs is the
+The only difference between the standard VEMs and the stabilization-free VEMs is the
 stiffness matrix, so we compare the time consumed in assembling the stiffness matrix of
 four different VEMs in detail by varying the degree $k$ and the mesh size $h$
 respectively. We use the mesh in Fig.~\ref{fig:mesh}(a) for this experiment.
@@ -1553,11 +1543,11 @@ CVEM & 0.018686771 & 0.087426662	& 0.781031132	& 1.983617783\\
 NCVEM & 0.018309593 & 0.096345425	& 0.767129898	& 2.159288645\\
 \hline
 \end{tabular}
-\end{table}}
+\end{table}
 
 \subsection{Condition number of the stiffness
 matrix}
-\XH{\begin{figure}[htbp]
+\begin{figure}[htbp]
 \centering
 \subfigure{\includegraphics[width=1in]{./figures/hexagon0.pdf}}
     % \caption{Type I:5 tetrahedra}
@@ -1573,9 +1563,7 @@ matrix}
 \end{figure} 
 We design two experiments to check the condition number of the stiffness
 matrices of the four VEMs. 
-}
 
-\XH{
 Firstly, we refer to the ``collapsing polygons'' experiment in
 \cite{Mascotto2018} and consider a sequence of hexagons
 $\{H_i\}_{i=0}^{\infty}$, where the vertices of $H_i$ are given by
@@ -1603,7 +1591,6 @@ matrices of the stabilization-free methods are smaller than those of the standar
 $\{H_i\}_{i=0}^{12}$.}
 \label{fig:collapsehexagon_conditionnumber}
 \end{figure}
-}
 
 % \begin{figure}[htbp]
 % \centering
@@ -1614,7 +1601,7 @@ $\{H_i\}_{i=0}^{12}$.}
 %   \label{fig:collapsehexagon_conditionnumber0} %% label for entire figure
 % \end{figure}
 
-\XH{Secondly, we do the patch test for the Laplace equation, i.e. problem \eqref{eq:ellipitc2ndproblem} with $\alpha = 0$ and $f=0$, but the Dirichlet boundary condition is nonhomogeneous. Take the exact solution $u=1+x+y$. %We adopt meshes in Fig. \ref{fig:polymesh}.
+Secondly, we do the patch test for the Laplace equation, i.e. problem \eqref{eq:ellipitc2ndproblem} with $\alpha = 0$ and $f=0$, but the Dirichlet boundary condition is nonhomogeneous. Take the exact solution $u=1+x+y$. %We adopt meshes in Fig. \ref{fig:polymesh}.
 % $$
 % \left\{\begin{aligned}
 % -\Delta u & = 0 \quad x \in \Omega\\
@@ -1656,7 +1643,6 @@ four methods are comparable.
 \caption{The $L^2$ error of patch test.}
 \label{fig:patchtest} %% label for entire figure
 \end{figure}
-}
 
 
 \section*{Acknowledgement}
