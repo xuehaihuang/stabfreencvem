@@ -1,0 +1,216 @@
+% ----------------------------------------------------------------
+% AMS-LaTeX Paper ************************************************
+% **** -----------------------------------------------------------
+\documentclass[10pt]{amsart}
+%\textwidth 14.5cm
+%\textheight 22cm
+%\hoffset -1.5cm
+%\voffset -2.2cm
+\usepackage{graphicx}
+\usepackage{latexsym}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{enumerate}
+\usepackage{color}
+\usepackage{stmaryrd}
+\usepackage{chemarrow}
+\usepackage[all]{xy}
+\usepackage[pdftex,bookmarksnumbered,bookmarksopen,colorlinks,linkcolor=blue,anchorcolor=black,citecolor=blue,urlcolor=blue]{hyperref}
+\usepackage{booktabs}
+\usepackage{subfigure}
+\usepackage{makecell}
+
+%\usepackage{mathabx}
+% ----------------------------------------------------------------
+\vfuzz2pt % Don't report over-full v-boxes if over-edge is small
+\hfuzz2pt % Don't report over-full h-boxes if over-edge is small
+% THEOREMS -------------------------------------------------------
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{cor}[thm]{Corollary}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{prop}[thm]{Proposition}
+\theoremstyle{definition}
+\newtheorem{defn}[thm]{Definition}
+\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}
+%\numberwithin{equation}{section}
+% MATH -----------------------------------------------------------
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+\newcommand{\abs}[1]{\left\vert#1\right\vert}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\Real}{\mathbb R}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\To}{\longrightarrow}
+\newcommand{\BX}{\mathbf{B}(X)}
+\newcommand{\A}{\mathcal{A}}
+
+\newcommand{\dx}{\,{\rm d}x}
+\newcommand{\dd}{\,{\rm d}}
+\newcommand{\bs}{\boldsymbol}
+\newcommand{\mcal}{\mathcal}
+
+\DeclareMathOperator*{\img}{img}
+%\DeclareMathOperator*{\span}{span}
+\newcommand{\sign}{\operatorname{sign}}
+\newcommand{\curl}{\operatorname{curl}}
+\renewcommand{\div}{\operatorname{div}}
+%\renewcommand{\grad}{\operatorname{grad}}
+\newcommand{\grad}{\operatorname{grad}}
+\newcommand{\tr}{\operatorname{tr}}
+% \DeclareMathOperator*{\tr}{tr}
+\DeclareMathOperator*{\rot}{rot}
+\DeclareMathOperator*{\var}{Var}
+\newcommand{\dev}{\operatorname{dev}}
+\newcommand{\sym}{\operatorname{sym}}
+\newcommand{\skw}{\operatorname{skw}}
+\newcommand{\spn}{\operatorname{spn}}
+\newcommand{\mspn}{\operatorname{mspn}}
+\newcommand{\mskw}{\operatorname{mskw}}
+\newcommand{\vskw}{\operatorname{vskw}}
+\newcommand{\vspn}{\operatorname{vspn}}
+\newcommand{\defm}{\operatorname{def}}
+\newcommand{\hess}{\operatorname{hess}}
+% ----------------------------------------------------------------
+\begin{document}
+
+\title{\large Detailed Response to Referees}%
+
+\date{}%
+%\dedicatory{}%
+%\commby{}%
+% ----------------------------------------------------------------
+
+\maketitle
+
+The authors greatly appreciate the questions and concerns the reviewers have raised in the reports, as well as the careful reading. 
+We have revised our manuscript in terms of your suggestions and polished the writing throughout. 
+Other than some single word typos, important changes are highlighted in colored texts in this revision. 
+
+
+
+\tableofcontents
+
+%We thank the Referee for the valuable comments that helped us to improve the manuscript. In
+%the revised version of the manuscript, all non-minor modifications are highlighted in red colour.
+%Below, we address the points raised in the report.
+
+\vskip0.5cm
+\section{Response to Reviewer 1}
+\begin{enumerate}[1.]
+
+\item \textsf{I still disagree with the nomenclature ``stabilization free''. I agree that you pass from bilinear forms
+\begin{equation}\label{eq1}
+a_h^K(u_h, v_h):= a^K(\Pi^{\nabla}u_h, \Pi^{\nabla}v_h) + S^K((I-\Pi^{\nabla})u_h, (I-\Pi^{\nabla})v_h)
+\end{equation}
+to discrete bilinear forms
+$$
+a_h^K(u_h, v_h):= a^K(\Pi^{?}u_h, \Pi^{?}v_h),
+$$
+where $\Pi^{?}$ is a projection operator into polynomial-type spaces. \vskip0.1cm
+\noindent However, the dimension of the space onto which you project is (correctly) much larger than the dimension of the standard polynomial space that guarantees consistency.  \vskip0.1cm
+\noindent 
+Furthermore, $\Pi^{?}$ is computed using the degrees of freedom of the space. To me, this means that you found a new (and clever) stabilization of the method and analysed it. But the method is not stabilization free.  \vskip0.1cm
+\noindent 
+In fact, my strong opinion is that also the methods in [14, 15, 25] are not really stabilization free (in these references, $\Pi^{?}$ is a projection operator onto the space of polynomials of very high polynomial degree).
+}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+We try our best to proofread the manuscript carefully.
+
+
+\medskip
+
+\item \textsf{along the same lines, you pinpoint in the introduction several reasons why the stabilization term in \eqref{eq1} is bad. Let me comment on some of them:
+\begin{itemize}
+\item \textbf{condition number}: I agree that it depends on the choice of $S^K(\cdot, \cdot)$, but it equally depends on the $\Pi^{?}$ you employ, which in turns depends on the tessellations of the elements;
+\item \textbf{eigenvalue problems}: I am aware of reference [17], I am not sure whether your approach solves all the issues therein discussed; at least, this is not so apparent from the numerical and theoretical results;
+\item \textbf{a posteriori error estimates}: I totally agree that, e.g., for residual error estimators, the reliability and efficiency bounds depend on the stability constants $\alpha_*$ and $\alpha^*$ in
+$$
+\alpha_*|v_h|^2\leq S^K(v_h,v_h)\leq \alpha^*|v_h|^2.
+$$
+I also agree on the fact that this is kind of hideous (the dependence on the degree of accuracy or bad geometries may results in bad behaviours of such constants). However, with your approach you do not solve this issue. In fact, you still have inf-sup type constants that I expect to appear in all a posteriori bounds. I equally expect the need of using polynomial inverse estimates on tessellations, which means again dependence on $\Pi^{?}$.
+\end{itemize}
+What I am trying to convince you is that:
+\begin{itemize}
+\item I like your way of stabilizing the method as it gives a practical ``recipe'', which on simple benchmarks appears competitive with respect to other existing approaches;
+\item I also think you may convince the engineering community to use your approach (as engineers are often scared of choosing parameters and so on);
+\item however, the critiques you mention in the introduction about the standard VEM take place also in your framework!
+\end{itemize}
+.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+
+
+
+
+
+
+
+\medskip
+
+\item \textsf{in the introduction, lines 29-30, you mention paper [15] claiming that it ``outperforms the standard method [14]''. This is clear, as the standard ``dofi-dofi'' stabilization cannot work well for anisotropic diffusion problems (and I am pretty sure that other simple variants would work very well). So, the claim is wrong and should be replaced by ``outperforms the standard VEM with a specific choice of the stabilization that is not designed for anisotropic diffusion'' or something like that.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+
+
+\medskip
+
+\item \textsf{lines 425-426. I still disagree with the choice of the enhancing constraint. Your definition is most likely not correct. You do not have to impose that constraint for polynomials orthogonal to $\mathbb P_{p-2}(K)$ but rather any completion of that space into $\mathbb P_p(K)$. In fact, I would simply take the scaled monomial completion. And I can put my fingers on the fact that this is what you implement.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+
+
+
+\medskip
+
+\item \textsf{eq. (4.13). As the inf-sup constant plays the role of the ``stability constants'' you should underline its dependence on the polynomial degree, and the regularity of the mesh and the corresponding subtriangulation.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+
+
+\medskip
+
+\item \textsf{I would also state Theorem 4.9 with explicit constants in eq. (4.21). Notably, I would make it explicit the dependence of the inf-sup constant. In other words, write Theorem 4.9 as a standard Strang-type result and then show the convergence estimates.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+
+
+
+\medskip
+
+\item \textsf{I appreciate the numerical results and I now think that they are very convincing of one fact: your approach is not worse than the standard VEM approach. At the same time, you are not that better either. So, I would mitigate a bit your philosophical message in the introduction, saying that more benefits of your approach will be the study of future works. I think your paper is good. You should not (and need not) to oversell what you did.}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+
+
+
+\end{enumerate}
+
+
+
+
+
+\section{Response to Reviewer 3}
+%\smallskip \noindent {\bf Response to Reviewer 2}.
+
+\begin{enumerate}[1.]
+\item \textsf{The authors cite the unpublished paper [15] (S. Berrone, A. Borio, and F. Marcon. Lowest order stabilization free virtual element method for the Poisson equation. arXiv preprint arXiv:2103.16896, 2021) as another way to achieve a stabilization-free VEM; in response 3 to reviewer 1 the paper [15] is further commented. Unfortunately even the updated version is wrong, since estimate (45) giving a bound for the dimension of $P_l^\text{ker}(E)$ is false (there is a counterexample); this is the reason why [15] is still unpublished. Hence there is actually no proof at all that the method of [15] will produce a non-singular stiffness matrix. These considerations have no effects on the present paper, but nevertheless these facts must be reported in an appropriate way. \vskip0.1cm
+\noindent 
+I take the opportunity to encourage the authors NOT to cite unpublished results as they were true; the peer review process should still play a role in the scientific world!}
+
+\smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+
+
+
+
+\end{enumerate}
+
+
+\bibliographystyle{abbrv}
+\bibliography{../paper}
+
+% ----------------------------------------------------------------
+\end{document}
+% ----------------------------------------------------------------
