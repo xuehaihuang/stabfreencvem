@@ -46,12 +46,12 @@
 
 % REQUIRED
 \begin{abstract}
-Stabilization-free virtual element methods (VEMs) in arbitrary degree of polynomial are developed for second order elliptic problems, including a nonconforming VEM in arbitrary dimension and a conforming VEM in two dimensions. The key is to construct local $H(\div)$-conforming macro finite element spaces such that the associated $L^2$ projection of the gradient of virtual element functions is computable, and the $L^2$ projector has a uniform lower bound on the gradient of virtual element function spaces in $L^2$ norm. Optimal error estimates are derived for these stabilization-free VEMs. Numerical experiments are provided to test the stabilization-free VEMs.
+Virtual element methods (VEMs) \XH{without extrinsic stabilization} in arbitrary degree of polynomial are developed for second order elliptic problems, including a nonconforming VEM in arbitrary dimension and a conforming VEM in two dimensions. The key is to construct local $H(\div)$-conforming macro finite element spaces such that the associated $L^2$ projection of the gradient of virtual element functions is computable, and the $L^2$ projector has a uniform lower bound on the gradient of virtual element function spaces in $L^2$ norm. Optimal error estimates are derived for these VEMs. Numerical experiments are provided to test the VEMs \XH{without extrinsic stabilization}.
 \end{abstract}
 
 % REQUIRED
 \begin{keywords}
-virtual element, stabilization-free, macro finite element, norm equivalence, error analysis
+virtual element, stabilization, macro finite element, norm equivalence, error analysis
 \end{keywords}
 
 % REQUIRED
@@ -60,29 +60,32 @@ virtual element, stabilization-free, macro finite element, norm equivalence, err
 \end{MSCcodes}
 
 \section{Introduction}
-A stabilization term is usually required in the virtual element methods (VEMs) to ensure the coercivity of the discrete bilinear form \cite{BeiraoBrezziCangianiManziniEtAl2013,BeiraoBrezziMariniRusso2014}, while the stabilization term also brings about some problems. The local stabilization term $S_K(\cdot, \cdot)$ has to satisfy 
+An additional stabilization term is usually required in the virtual element methods (VEMs) to ensure the coercivity of the discrete bilinear form~\cite{BeiraoBrezziCangianiManziniEtAl2013,BeiraoBrezziMariniRusso2014}.
+% , while the stabilization term also brings about some problems. 
+The local stabilization term $S_K(\cdot, \cdot)$ has to satisfy 
 $$
 c_{*} |v|_{1,K}^2\leq S_K(v,v)\leq c^{*} |v|_{1,K}^2 
 $$
 for $v$ belongs to the non-polynomial subspace of the virtual element space, which influences the condition number of the stiffness matrix and brings in the pollution factor $\frac{\max\{1, c^*\}}{\min\{1, c_*\}}$ in the error estimates \cite{DassiMascotto2018,BeiraodaVeigaDassiRusso2017,Mascotto2018}.  
-The stabilization term appears in both sides of the a posteriori error estimates when bounding the error by the residual error estimators \cite{CangianiGeorgoulisPryerSutton2017}.
-For the a posteriori error analysis on anisotropic polygonal meshes in \cite{AntoniettiBerroneBorioDAuriaEtAl2022}, the stabilization dominates the error estimator, which makes the anisotropic a posteriori error estimator suboptimal. 
+% The stabilization term appears in both sides of the a posteriori error estimates when bounding the error by the residual error estimators \cite{CangianiGeorgoulisPryerSutton2017}.
+For the a posteriori error analysis on anisotropic polygonal meshes in \cite{AntoniettiBerroneBorioDAuriaEtAl2022}, the stabilization term dominates the error estimator, which makes the anisotropic a posteriori error estimator suboptimal. 
 The stabilization term significantly affects the performance of the VEM for the Poisson eigenvalue problem \cite{BoffiGardiniGastaldi2020},
 and improper choices of the stabilization term will produce useless results.
 Special stabilization terms are designed for a nonlinear elasto-plastic deformation problem \cite{HudobivnikAldakheelWriggers2019} and an electromagnetic interface problem in three dimensions \cite{CaoChenGuo2023}, which are not easy to be extended to other problems. 
+\XH{
+In short, the stabilization term has to be chosen carefully for different partial differential equations to make the VEM work well, which is arduous and reduces its practicality.}
 
 
-Recently a stabilization-free linear VEM, based on a higher order polynomial projection of the gradient of virtual element functions, is devised for the Poisson equation in two dimensions in \cite{BerroneBorioMarcon2021}, where the degree of polynomial used in the projection depends on the number of vertices of the polygon and generally the geometry of the polygon. 
-Numerical examples in \cite{BerroneBorioMarcon2022} show that the stabilization-free VEM in \cite{BerroneBorioMarcon2021} outperforms the standard VEM in \cite{BeiraodaVeigaBrezziMariniRusso2016} for anisotropic elliptic problems on general convex polygonal meshes.
-The stabilization-free VEM in \cite{BerroneBorioMarcon2021} is then applied to solve the Laplacian eigenvalue problem \cite{MengWangBuMei2022}. Along this line, similar stabilization-free virtual element methods are devised for a plane elasticity problem in~\cite{DAltriMirandaPatrunoSacco2021,ChenSukumar2022,ChenSukumar2023}. By the way, we refer to \cite{CicuttinErnLemaire2019} for a stabilization-free hybrid high-order method, and 
-\cite{YeZhang2020,AlTaweelWang2020,AlTaweelWang2020a,YeZhang2021,YeZhang2021a,AlTaweelWangYeZhang2021} for stabilization-free weak Galerkin finite element methods.
+% Recently a stabilization-free linear VEM, based on a higher order polynomial projection of the gradient of virtual element functions, is devised for the Poisson equation in two dimensions in \cite{BerroneBorioMarcon2021}, where the degree of polynomial used in the projection depends on the number of vertices of the polygon and generally the geometry of the polygon. 
+% Numerical examples in \cite{BerroneBorioMarcon2022} show that the stabilization-free VEM in \cite{BerroneBorioMarcon2021} outperforms the standard VEM in \cite{BeiraodaVeigaBrezziMariniRusso2016} for anisotropic elliptic problems on general convex polygonal meshes.
+% The stabilization-free VEM in \cite{BerroneBorioMarcon2021} is then applied to solve the Laplacian eigenvalue problem \cite{MengWangBuMei2022}. Along this line, similar stabilization-free virtual element methods are devised for a plane elasticity problem in~\cite{DAltriMirandaPatrunoSacco2021,ChenSukumar2022,ChenSukumar2023}. 
 
-The idea in \cite{BerroneBorioMarcon2021} is difficult to be extended to construct stabilization-free virtual element methods in higher dimensions, and
-the analysis is rather elaborate. 
+
+% The idea in \cite{BerroneBorioMarcon2021} is difficult to be extended to construct stabilization-free virtual element methods in higher dimensions, and
+% the analysis is rather elaborate. 
 % This motivates us to construct a nonconforming VEM in arbitrary dimension and a conforming VEM in two dimensions in arbitrary degree of polynomial  in a unified way.
-This motivates us to construct stabilization-free VEMs in arbitrary degree of polynomial, including a nonconforming VEM in arbitrary dimension and a conforming VEM in two dimensions,  in a unified way.
-
-The key to construct stabilization-free VEMs is to find a finite-dimensional space $\mathbb{V}(K)$ for polytope $K$ and a projector $Q_K$ onto the space $\mathbb{V}(K)$ such that
+We intend to construct VEMs \XH{without extrinsic stabilization} in arbitrary degree of polynomial, including a nonconforming VEM in arbitrary dimension and a conforming VEM in two dimensions,  in a unified way.
+The key to construct VEMs \XH{without extrinsic stabilization} is to find a finite-dimensional space $\mathbb{V}(K)$ for polytope $K$ and a projector $Q_K$ onto the space $\mathbb{V}(K)$ such that
 \begin{enumerate}[(C1)]
 \item It holds the norm equivalence 
 \begin{equation}\label{intro:gradVknormequiv} 
@@ -108,8 +111,9 @@ space $\mathbb P_{k}(K)$.  While only
 \]
 hold
 rather than the norm equivalence \eqref{intro:gradVknormequiv}, then the additional stabilization term is usually required to ensure the coercivity of the discrete bilinear form.
-To remove the additional stabilization term, $\mathbb{V}(K)$ is taken as $\mathbb P_{l}(K; \mathbb{R}^d)$ with large enough $l$ even for the lowest order case $k=1$ in \cite{BerroneBorioMarcon2021,BerroneBorioMarcon2022,DAltriMirandaPatrunoSacco2021}, and the virtual element space $V_k(K)$ has to be modified accordingly to make $Q_{l}^{K}\nabla v$ computable.
-Instead, based on a regular simplicial tessellation of polytope $K$, we employ $k$-th order or $(k-1)$-th order $H(\div)$-conforming macro finite elements as $\mathbb{V}(K)$ in this paper, and keep the virtual element space $V_k(K)$ as the usual ones.
+\XH{To remove the additional stabilization term, based on a regular simplicial tessellation of polytope $K$, we employ $k$-th order or $(k-1)$-th order $H(\div)$-conforming macro finite elements as $\mathbb{V}(K)$ in this paper, and keep the virtual element space $V_k(K)$ as the usual ones.}
+% $\mathbb{V}(K)$ is taken as $\mathbb P_{l}(K; \mathbb{R}^d)$ with large enough $l$ even for the lowest order case $k=1$ in \cite{BerroneBorioMarcon2021,BerroneBorioMarcon2022,DAltriMirandaPatrunoSacco2021}, and the virtual element space $V_k(K)$ has to be modified accordingly to make $Q_{l}^{K}\nabla v$ computable.
+% Instead, based on a regular simplicial tessellation of polytope $K$, we employ $k$-th order or $(k-1)$-th order $H(\div)$-conforming macro finite elements as $\mathbb{V}(K)$ in this paper, and keep the virtual element space $V_k(K)$ as the usual ones.
 
 
 We first construct $H(\div)$-conforming macro finite elements based on a
@@ -142,17 +146,24 @@ a conforming finite element for differential $(d-2)$-form in
 
 
 
-By the aid of the projector $Q_{K,k}^{\div}$, we advance a stabilization-free nonconforming VEM in arbitrary dimension and a stabilization-free conforming VEM in two dimensions  for second order elliptic problems.
-Indeed, these stabilization-free VEMs can be equivalently recast as
+By the aid of the projector $Q_{K,k}^{\div}$, we advance a nonconforming VEM \XH{without extrinsic stabilization} in arbitrary dimension and a conforming VEM \XH{without extrinsic stabilization} in two dimensions  for second order elliptic problems.
+Indeed, these VEMs can be equivalently recast as
 primal mixed VEMs.
-We prove the norm equivalence \eqref{intro:gradVknormequiv} and the well-posedness of these stabilization-free VEMs, and derive the optimal error estimates. Numerical experiments are provided to test these VEMs.
+We prove the norm equivalence~\eqref{intro:gradVknormequiv} and the well-posedness of the VEMs \XH{without extrinsic stabilization}, and derive the optimal error estimates. 
 
-The idea on constructing stabilization-free VEMs in this paper is simple,
+\XH{Numerical experiments are provided to test the convergence rate, the invertibility of the local stiffness matrices, the assembling time and the condition number of stiffness
+matrix for the VEMs without extrinsic stabilization, which appear competitive with respect to other existing VEMs.}
+
+The idea on constructing VEMs \XH{without extrinsic stabilization} in this paper is simple,
 and can be extended to more VEMs and more partial differential equations.
+\XH{Since there is no additional stabilization term, these VEMs will be preferred in the engineering community. More benefits of the VEMs without extrinsic stabilization will be the study of future works.}
+By the way, we refer to \cite{CicuttinErnLemaire2019} for a hybrid high-order method, and 
+\cite{YeZhang2020,AlTaweelWang2020,AlTaweelWang2020a,YeZhang2021,YeZhang2021a,AlTaweelWangYeZhang2021} for weak Galerkin finite element methods \XH{without extrinsic stabilization}.
+
 
 
 The rest of this paper is organized as follows. Notation and mesh conditions are presented in Section~\ref{sec:prelim}. 
-In Section~\ref{sec:divmacrofem}, $H(\div)$-conforming macro finite elements in arbitrary dimension are constructed. A stabilization-free nonconforming VEM in arbitrary dimension is developed in Section \ref{sec:stabfreencfmvem}, and a stabilization-free conforming VEM in two dimensions is devised in Section \ref{sec:stabfreecfmvem}.
+In Section~\ref{sec:divmacrofem}, $H(\div)$-conforming macro finite elements in arbitrary dimension are constructed. A nonconforming VEM \XH{without extrinsic stabilization} in arbitrary dimension is developed in Section \ref{sec:stabfreencfmvem}, and a conforming VEM \XH{without extrinsic stabilization} in two dimensions is devised in Section \ref{sec:stabfreecfmvem}.
 Some numerical results are shown in Section \ref{sec:numericalexamps}.
 
 
@@ -751,12 +762,12 @@ For $\boldsymbol{\phi}\in\boldsymbol{L}^2(\Omega;\mathbb R^d)$, let $Q_{h,k-1}^{
 
 
 
-\section{Stabilization-free nonconforming virtual element method}\label{sec:stabfreencfmvem}
+\section{Nonconforming virtual element method \XH{without extrinsic stabilization}}\label{sec:stabfreencfmvem}
 
 % In this section we will develop a stabilization-free nonconforming virtual element method for the second order elliptic 
 % problem \eqref{eq:ellipitc2ndproblem}.
 
-In this section we will develop a stabilization-free nonconforming VEM for the second order elliptic problem in arbitrary dimension
+In this section we will develop a nonconforming VEM \XH{without extrinsic stabilization} for the second order elliptic problem in arbitrary dimension
 \begin{equation}\label{eq:ellipitc2ndproblem}
 \begin{cases}
 -\Delta u + \alpha u=f & \textrm{ in } \Omega,\\
@@ -893,13 +904,14 @@ The other side $\|Q_{k-2}^Kv\|_{0,K}^2+\sum\limits_{F\in\mathcal F(K)}h_F\|Q_{k-
 
    
 \subsection{Local inf-sup condition and norm equivalence}
-With the help of the macro element space $\mathbb{V}_{k-1}^{\rm div}(K)$, we will present a norm equivalence for space $\nabla V_k(K)$, which is vitally important to design stabilization-free virtual element methods. 
+With the help of the macro element space $\mathbb{V}_{k-1}^{\rm div}(K)$, we will present a norm equivalence for space $\nabla V_k(K)$, which is vitally important to design virtual element methods \XH{without extrinsic stabilization}. 
 % Let $Q_K^{\div}$ be the $L^2$-orthogonal projection operator onto $\mathbb{V}_{k-1}^{\rm div}(K)$ with respect to the inner product $(\cdot, \cdot)_K$.
 \begin{lemma}\label{lem:gradVknormequivalence}
 It holds the inf-sup condition
 \begin{equation}\label{eq:localdiscreteinfsup}    
-\|\nabla v\|_{0,K}\lesssim \sup_{\boldsymbol{\phi}\in\mathbb{V}_{k-1}^{\rm div}(K)}\frac{(\boldsymbol{\phi}, \nabla v)_K}{\|\boldsymbol{\phi}\|_{0,K}} \quad \forall~v\in V_k(K).
+\|\nabla v\|_{0,K}\XH{\leq C_e}\sup_{\boldsymbol{\phi}\in\mathbb{V}_{k-1}^{\rm div}(K)}\frac{(\boldsymbol{\phi}, \nabla v)_K}{\|\boldsymbol{\phi}\|_{0,K}} \quad \forall~v\in V_k(K),
 \end{equation}
+\XH{where the constant $C_e\geq1$ is independent of the mesh size $h_K$, but depends on the chunkiness parameter of the polytope, the degree of polynomials $k$, the dimension of space $d$, and the shape regularity and quasi-uniform constants of the virtual triangulation $\mathcal T^*_h$.}
 Consequently,
 \begin{equation}\label{eq:gradVknormequivalence}  
 \|Q_{K,k-1}^{\div}\nabla v\|_{0,K}\eqsim \|\nabla v\|_{0,K} \quad \forall~v\in V_k(K).
@@ -956,8 +968,9 @@ V_h&:=\{v_h\in L^2(\Omega): v_h|_K\in V_k(K) \textrm{ for each } K\in\mathcal T_
 \end{align*}
 We have the discrete Poincar\'e inequality \cite{Brenner2003}%(cf. \cite[(4.16)]{ChenHuang2020ncvem})
 \begin{equation}\label{eq:vempoincareineqlty}
-\|v_h\|_0\lesssim |v_h|_{1,h} \quad\forall~v_h\in V_h.
+\|v_h\|_0\XH{\leq C_p} |v_h|_{1,h} \quad\forall~v_h\in V_h,
 \end{equation}
+\XH{where the constant $C_p$ is independent of the mesh size.}
 Hence $|\cdot|_{1,h}$ is indeed a norm for $V_h$.
 % Introduce discrete spaces
 % \begin{align*}
@@ -967,7 +980,7 @@ Hence $|\cdot|_{1,h}$ is indeed a norm for $V_h$.
 % with non-negative integer $l$.
 % For $\boldsymbol{\phi}\in\boldsymbol{L}^2(\Omega;\mathbb R^d)$, let $Q_h^{\div}\boldsymbol{\phi}\in\mathbb{V}_{h,k-1}^{\rm div}$ be determined by $(Q_h^{\div}\boldsymbol{\phi})|_K=Q_K^{\div}(\boldsymbol{\phi}|_K)$ for each $K\in\mathcal T_h$. For $v\in L^2(\Omega)$, let $Q_h^lv\in \mathbb P_l(\mathcal T_h)$ be determined by $(Q_h^{l}v)|_K=Q_{l}^K(v|_K)$ for each $K\in\mathcal T_h$. For simplicity, the vector version of $Q_h^l$ is still denoted by $Q_h^l$. And we abbreviate $Q_h^k$ as $Q_h$ if $l=k$.
 
-Based on the weak formulation \eqref{eq:ellipitc2ndproblemweakform}, we propose a stabilization-free virtual element method for problem \eqref{eq:ellipitc2ndproblem} as follows: find $u_h\in V_h$ such that
+Based on the weak formulation \eqref{eq:ellipitc2ndproblemweakform}, we propose a virtual element method \XH{without extrinsic stabilization} for problem \eqref{eq:ellipitc2ndproblem} as follows: find $u_h\in V_h$ such that
 \begin{equation}\label{eq:vem}
 a_h(u_h, v_h)=(f, Q_hv_h)\quad\forall~v_h\in V_h,
 \end{equation}
@@ -987,7 +1000,7 @@ By introducing $\boldsymbol{\phi}_h=Q_{h,k-1}^{\div}\nabla_h u_h$, the VEM \eqre
 \end{remark}
 
 \begin{remark}\rm
-The stabilization-free mixed-order HHO method for the Poisson equation in~\cite{CicuttinErnLemaire2019} is equivalent to find $u_h\in W_h$ such that
+The mixed-order HHO method \XH{without extrinsic stabilization} for the Poisson equation in~\cite{CicuttinErnLemaire2019} is equivalent to find $u_h\in W_h$ such that
 \begin{equation}\label{eq:2023111}    
 (\nabla_h u_h, \nabla_h v_h)=\sum_{K\in\mathcal T_h}(f, Q_{k-2}^Kv_h)_K\quad\forall~v_h\in W_h,
 \end{equation}
@@ -1009,19 +1022,19 @@ a_h(u_h, v_h)\lesssim |u_h|_{1,h}|v_h|_{1,h}\quad\forall~u_h,v_h\in H_0^1(\Omega
 \begin{lemma}
 It holds the coercivity
 \begin{equation}\label{eq:ahcoercivity}
-|v_h|_{1,h}^2\lesssim a_h(v_h, v_h)\quad\forall~v_h\in V_h.
+|v_h|_{1,h}^2\XH{\leq C_e^2} a_h(v_h, v_h)\quad\forall~v_h\in V_h.
 \end{equation}  
 \end{lemma}
 \begin{proof}
 Due to \eqref{eq:gradVknormequivalence}, we have
 \[
-\sum_{K\in\mathcal T_h}\|\nabla_h v_h\|_{0,K}^2\eqsim \sum_{K\in\mathcal T_h}\|Q_{K,k-1}^{\div}\nabla v_h\|_{0,K}^2\leq a_h(v_h, v_h)\quad\forall~v_h\in V_h,
+\sum_{K\in\mathcal T_h}\|\nabla_h v_h\|_{0,K}^2\XH{\leq C_e^2} \sum_{K\in\mathcal T_h}\|Q_{K,k-1}^{\div}\nabla v_h\|_{0,K}^2\leq \XH{C_e^2}a_h(v_h, v_h)\quad\forall~v_h\in V_h,
 \]
 which implies the coercivity \eqref{eq:ahcoercivity}.
 \end{proof}
 
 \begin{theorem}
-The stabilization-free VEM \eqref{eq:vem} is well-posed.
+The VEM \eqref{eq:vem} is well-posed.
 \end{theorem}
 \begin{proof}
 Thanks to the boundedness \eqref{eq:ahbounedness} and the coercivity \eqref{eq:ahcoercivity}, we conclude the result from the Lax-Milgram lemma \cite{LaxMilgram1954}.
@@ -1029,41 +1042,39 @@ Thanks to the boundedness \eqref{eq:ahbounedness} and the coercivity \eqref{eq:a
 
 \subsection{Error analysis}
 \begin{theorem}\label{thm:errorestimateH1}
-Let $u\in H_0^1(\Omega)$ be the solution of problem \eqref{eq:ellipitc2ndproblem}, and $u_h\in V_h$ be the solution of the VEM \eqref{eq:vem}. Assume $u\in H^{k+1}(\Omega)$ and $f\in H^{k-1}(\Omega)$. Then
+Let $u\in H_0^1(\Omega)$ be the solution of problem \eqref{eq:ellipitc2ndproblem}, and $u_h\in V_h$ be the solution of the VEM \eqref{eq:vem}. \XH{It holds that
+\begin{align}
+\label{eq:errorestimateH1abs}
+|u-u_h|_{1,h}&\leq C_e^2(\|\nabla u-Q_h^{k-1}\nabla u\|_0+\alpha C_p\|u-Q_hu\|_0) \\
+\notag
+&\quad + \inf_{v_h\in V_h}\big((C_e^2+1)|u-v_h|_{1,h}+\alpha C_p\|u-v_h\|_0\big)\\
+\notag
+&\quad + C_e^2\sup_{w_h\in V_h}\frac{a(u,w_h)-(f, Q_hw_h)}{|w_h|_{1,h}}.
+\end{align}}
+Assume $u\in H^{k+1}(\Omega)$ and $f\in H^{k-1}(\Omega)$. Then
 \begin{equation}\label{eq:errorestimateH1}
 |u-u_h|_{1,h}\lesssim h^k(|u|_{k+1}+|f|_{k-1}).
 \end{equation}
 \end{theorem}
 \begin{proof}
-Take any $v_h\in V_h$. Recall the consistency error estimate in \cite[Lemma 5.5]{ChenHuang2020ncvem}
-\[
-a(u,v_h-u_h)+(f, v_h-u_h)\lesssim h^k|u|_{k+1}|v_h-u_h|_{1,h}.
-\]
-Then 
-\begin{align*}
-&\quad \,a(u,v_h-u_h)-(f, Q_h(v_h-u_h)) \\
-&=a(u,v_h-u_h)+(f, v_h-u_h)+(f-Q_hf, v_h-u_h) \\
-&=a(u,v_h-u_h)+(f, v_h-u_h)+(f-Q_hf, v_h-u_h-Q_h^0(v_h-u_h)) \\
-&\lesssim h^k(|u|_{k+1}+|f|_{k-1})|v_h-u_h|_{1,h}.
-\end{align*}
-By the definitions of $a_h(\cdot, \cdot)$ and $a(\cdot, \cdot)$, it follows from the discrete Poincar\'e inequality \eqref{eq:vempoincareineqlty} that
+Take any $v_h\in V_h$. 
+\XH{By the definitions of $a_h(\cdot, \cdot)$ and $a(\cdot, \cdot)$, it follows from the discrete Poincar\'e inequality \eqref{eq:vempoincareineqlty} that
 \begin{align*}
 &\quad a_h(v_h, v_h-u_h)-a(u,v_h-u_h)\\
 &=(Q_{h,k-1}^{\div}\nabla_h v_h, Q_{h,k-1}^{\div}\nabla_h(v_h-u_h))-(\nabla u, \nabla_h(v_h-u_h))\\
 &\quad +\alpha(Q_hv_h, Q_h(v_h-u_h))-\alpha(u, v_h-u_h) \\
 &=(Q_{h,k-1}^{\div}\nabla_h v_h-\nabla u, \nabla_h(v_h-u_h))+\alpha(Q_hv_h-u,v_h-u_h)\\
-&\lesssim (\|\nabla u-Q_{h,k-1}^{\div}\nabla_h v_h\|_0+\|u-Q_hv_h\|_0)|v_h-u_h|_{1,h}.
+&\leq (\|\nabla u-Q_{h,k-1}^{\div}\nabla_h v_h\|_0+\alpha C_p\|u-Q_hv_h\|_0)|v_h-u_h|_{1,h}.
 \end{align*}
-Summing the last two inequalities, we get from the coercivity \eqref{eq:ahcoercivity} and \eqref{eq:vem} that
+Apply the coercivity \eqref{eq:ahcoercivity} and \eqref{eq:vem} to get
+\begin{equation*}
+C_e^{-2}|v_h-u_h|_{1,h}^2\leq a_h(v_h-u_h, v_h-u_h)=a_h(v_h, v_h-u_h)-(f, Q_h(v_h-u_h)).
+\end{equation*}
+Combining the last two inequalities yields
 \begin{align*}
-|v_h-u_h|_{1,h}^2&\lesssim a_h(v_h-u_h, v_h-u_h)=a_h(v_h, v_h-u_h)-(f, Q_h(v_h-u_h)) \\
-&\lesssim h^k(|u|_{k+1}+|f|_{k-1})|v_h-u_h|_{1,h} \\
-&\quad + (\|\nabla u-Q_{h,k-1}^{\div}\nabla_h v_h\|_0+\|u-Q_hv_h\|_0)|v_h-u_h|_{1,h},
+|v_h-u_h|_{1,h}&\leq C_e^2(\|\nabla u-Q_{h,k-1}^{\div}\nabla_h v_h\|_0+\alpha C_p\|u-Q_hv_h\|_0) \\
+&\quad + C_e^2\sup_{w_h\in V_h}\frac{a(u,w_h)-(f, Q_hw_h)}{|w_h|_{1,h}}.
 \end{align*}
-which implies
-\[
-|v_h-u_h|_{1,h}\lesssim h^k(|u|_{k+1}+|f|_{k-1})+\|\nabla u-Q_{h,k-1}^{\div}\nabla v_h\|_0+\|u-Q_hv_h\|_0.
-\]
 Since $\mathbb P_{k-1}(K;\mathbb R^d)\subseteq\mathbb{V}_{k-1}^{\rm div}(K)$ for $K\in\mathcal T_h$, we have $Q_{h,k-1}^{\div}(Q_h^{k-1}\nabla u)=Q_h^{k-1}\nabla u$. Hence
 \begin{align*}    
 \|\nabla u-Q_{h,k-1}^{\div}\nabla_h v_h\|_0&\leq \|\nabla u-Q_{h,k-1}^{\div}\nabla u\|_0+\|Q_{h,k-1}^{\div}(\nabla u-\nabla_h v_h)\|_0\\
@@ -1075,24 +1086,83 @@ Similarly, we have
 \[
 \|u-Q_hv_h\|_0\leq \|u-Q_hu\|_0+\|Q_h(u-v_h)\|_0\leq \|u-Q_hu\|_0+\|u-v_h\|_0.
 \]
-By combining the last three inequalities, we obtain
+Then we obtain from the last three inequalities that
+\begin{align*}
+|v_h-u_h|_{1,h}&\leq C_e^2\big(\|\nabla u-Q_h^{k-1}\nabla u\|_0+|u-v_h|_{1,h}+\alpha C_p(\|u-Q_hu\|_0+\|u-v_h\|_0)\big) \\
+&\quad + C_e^2\sup_{w_h\in V_h}\frac{a(u,w_h)-(f, Q_hw_h)}{|w_h|_{1,h}}.
+\end{align*}
+Thus, we acquire \eqref{eq:errorestimateH1abs} from the last inequality and the triangle inequality.}
+
+\XH{Next we derive estimate \eqref{eq:errorestimateH1}. Recall the consistency error estimate in \cite[Lemma 5.5]{ChenHuang2020ncvem}
 \[
-|v_h-u_h|_{1,h}\lesssim h^k(|u|_{k+1}+|f|_{k-1})+\|u-v_h\|_{1,h},
+a(u, w_h)+(f, w_h)\lesssim h^k|u|_{k+1}|w_h|_{1,h}\quad\forall~w_h\in V_h.
 \]
-which together with the triangle inequality yields
-\[
-|u-u_h|_{1,h}\lesssim h^k(|u|_{k+1}+|f|_{k-1})+\inf_{v_h\in V_h}\|u-v_h\|_{1,h}.
-\]
-At last, \eqref{eq:errorestimateH1} follows from the approximation of $V_h$ \cite{ChenHuang2020ncvem}.
+Then 
+\begin{align*}
+a(u, w_h)-(f, Q_hw_h) 
+&=a(u, w_h)+(f, w_h)+(f-Q_hf, w_h) \\
+&=a(u, w_h)+(f, w_h)+(f-Q_hf, w_h-Q_h^0w_h) \\
+&\lesssim h^k(|u|_{k+1}+|f|_{k-1})|w_h|_{1,h}.
+\end{align*}
+At last, \eqref{eq:errorestimateH1} follows from \eqref{eq:errorestimateH1abs} and the approximation of $V_h$ \cite{ChenHuang2020ncvem}.}
+% Take any $v_h\in V_h$. Recall the consistency error estimate in \cite[Lemma 5.5]{ChenHuang2020ncvem}
+% \[
+% a(u,v_h-u_h)+(f, v_h-u_h)\lesssim h^k|u|_{k+1}|v_h-u_h|_{1,h}.
+% \]
+% Then 
+% \begin{align*}
+% &\quad \,a(u,v_h-u_h)-(f, Q_h(v_h-u_h)) \\
+% &=a(u,v_h-u_h)+(f, v_h-u_h)+(f-Q_hf, v_h-u_h) \\
+% &=a(u,v_h-u_h)+(f, v_h-u_h)+(f-Q_hf, v_h-u_h-Q_h^0(v_h-u_h)) \\
+% &\lesssim h^k(|u|_{k+1}+|f|_{k-1})|v_h-u_h|_{1,h}.
+% \end{align*}
+% By the definitions of $a_h(\cdot, \cdot)$ and $a(\cdot, \cdot)$, it follows from the discrete Poincar\'e inequality \eqref{eq:vempoincareineqlty} that
+% \begin{align*}
+% &\quad a_h(v_h, v_h-u_h)-a(u,v_h-u_h)\\
+% &=(Q_{h,k-1}^{\div}\nabla_h v_h, Q_{h,k-1}^{\div}\nabla_h(v_h-u_h))-(\nabla u, \nabla_h(v_h-u_h))\\
+% &\quad +\alpha(Q_hv_h, Q_h(v_h-u_h))-\alpha(u, v_h-u_h) \\
+% &=(Q_{h,k-1}^{\div}\nabla_h v_h-\nabla u, \nabla_h(v_h-u_h))+\alpha(Q_hv_h-u,v_h-u_h)\\
+% &\lesssim (\|\nabla u-Q_{h,k-1}^{\div}\nabla_h v_h\|_0+\|u-Q_hv_h\|_0)|v_h-u_h|_{1,h}.
+% \end{align*}
+% Summing the last two inequalities, we get from the coercivity \eqref{eq:ahcoercivity} and \eqref{eq:vem} that
+% \begin{align*}
+% |v_h-u_h|_{1,h}^2&\lesssim a_h(v_h-u_h, v_h-u_h)=a_h(v_h, v_h-u_h)-(f, Q_h(v_h-u_h)) \\
+% &\lesssim h^k(|u|_{k+1}+|f|_{k-1})|v_h-u_h|_{1,h} \\
+% &\quad + (\|\nabla u-Q_{h,k-1}^{\div}\nabla_h v_h\|_0+\|u-Q_hv_h\|_0)|v_h-u_h|_{1,h},
+% \end{align*}
+% which implies
+% \[
+% |v_h-u_h|_{1,h}\lesssim h^k(|u|_{k+1}+|f|_{k-1})+\|\nabla u-Q_{h,k-1}^{\div}\nabla v_h\|_0+\|u-Q_hv_h\|_0.
+% \]
+% Since $\mathbb P_{k-1}(K;\mathbb R^d)\subseteq\mathbb{V}_{k-1}^{\rm div}(K)$ for $K\in\mathcal T_h$, we have $Q_{h,k-1}^{\div}(Q_h^{k-1}\nabla u)=Q_h^{k-1}\nabla u$. Hence
+% \begin{align*}    
+% \|\nabla u-Q_{h,k-1}^{\div}\nabla_h v_h\|_0&\leq \|\nabla u-Q_{h,k-1}^{\div}\nabla u\|_0+\|Q_{h,k-1}^{\div}(\nabla u-\nabla_h v_h)\|_0\\
+% &= \|\nabla u-Q_h^{k-1}\nabla u-Q_{h,k-1}^{\div}(\nabla u-Q_h^{k-1}\nabla u)\|_0\\
+% &\quad+\|Q_{h,k-1}^{\div}(\nabla u-\nabla_h v_h)\|_0 \\
+% &\leq \|\nabla u-Q_h^{k-1}\nabla u\|_0+|u-v_h|_{1,h}.
+% \end{align*}
+% Similarly, we have
+% \[
+% \|u-Q_hv_h\|_0\leq \|u-Q_hu\|_0+\|Q_h(u-v_h)\|_0\leq \|u-Q_hu\|_0+\|u-v_h\|_0.
+% \]
+% By combining the last three inequalities, we obtain
+% \[
+% |v_h-u_h|_{1,h}\lesssim h^k(|u|_{k+1}+|f|_{k-1})+\|u-v_h\|_{1,h},
+% \]
+% which together with the triangle inequality yields
+% \[
+% |u-u_h|_{1,h}\lesssim h^k(|u|_{k+1}+|f|_{k-1})+\inf_{v_h\in V_h}\|u-v_h\|_{1,h}.
+% \]
+% At last, \eqref{eq:errorestimateH1} follows from the approximation of $V_h$ \cite{ChenHuang2020ncvem}.
 \end{proof}
 
 
 
 
 
-\section{Stabilization-free conforming virtual element method}\label{sec:stabfreecfmvem}
+\section{Conforming virtual element method \XH{without extrinsic stabilization}}\label{sec:stabfreecfmvem}
 
-In this section we will develop a stabilization-free conforming VEM for the second order elliptic problem \eqref{eq:ellipitc2ndproblem} in two dimensions.
+In this section we will develop a conforming VEM \XH{without extrinsic stabilization} for the second order elliptic problem \eqref{eq:ellipitc2ndproblem} in two dimensions.
 % \begin{equation}\label{eq:ellipitc2ndproblem}
 % \begin{cases}
 % -\Delta u + \alpha u=f & \textrm{ in } \Omega,\\
@@ -1222,7 +1292,7 @@ Define the global conforming virtual element space
 V_h:=\{v_h\in H_0^1(\Omega): v_h|_K\in V_k(K) \textrm{ for each } K\in\mathcal T_h\}.
 \]
 
-Based on the weak formulation \eqref{eq:ellipitc2ndproblemweakform}, we propose a stabilization-free virtual element method for problem \eqref{eq:ellipitc2ndproblem} as follows: find $u_h\in V_h$ such that
+Based on the weak formulation \eqref{eq:ellipitc2ndproblemweakform}, we propose a virtual element method \XH{without extrinsic stabilization} for problem \eqref{eq:ellipitc2ndproblem} as follows: find $u_h\in V_h$ such that
 \begin{equation}\label{eq:cfmvem}
 a_h(u_h, v_h)=(f, Q_hv_h)\quad\forall~v_h\in V_h,
 \end{equation} 
@@ -1230,7 +1300,7 @@ where the discrete bilinear form
 \[
 a_h(u_h, v_h):=(Q_{h,k}^{\div}\nabla u_h, Q_{h,k}^{\div}\nabla v_h)+\alpha(Q_hu_h, Q_hv_h).
 \]
-The stabilization-free VEM \eqref{eq:cfmvem} is uni-solvent.
+The VEM \eqref{eq:cfmvem} is uni-solvent.
 
 % It is obvious that 
 % \begin{equation}\label{eq:cfmahbounedness}
@@ -1336,7 +1406,7 @@ Let $u\in H_0^1(\Omega)$ be the solution of problem \eqref{eq:ellipitc2ndproblem
 
 
 \section{Numerical results}\label{sec:numericalexamps}
-In this section, we will numerically test the stabilization-free nonconforming virtual element method \eqref{eq:vem} and the stabilization-free conforming
+In this section, we will numerically test the nonconforming virtual element method \eqref{eq:vem} and the conforming
 virtual element method \eqref{eq:cfmvem}, which are abbreviated as SFNCVEM and SFCVEM respectively.
 For the convenience of narration, we also abbreviate the standard conforming virtual element
 method in \cite{BeiraoBrezziCangianiManziniEtAl2013} and non-conforming virtual element method  in \cite{CangianiManziniSutton2017} as CVEM and NCVEM respectively. 
@@ -1506,7 +1576,7 @@ eigenvalue} & \textbf{Condition number} \\ \hline
 \end{table}
 
 \subsection{Comparison of assembling time}
-The only difference between the standard VEMs and the stabilization-free VEMs is the
+The only difference between the standard VEMs and the VEMs \XH{without extrinsic stabilization} is the
 stiffness matrix, so we compare the time consumed in assembling the stiffness matrix of
 four different VEMs in detail by varying the degree $k$ and the mesh size $h$
 respectively. We use the mesh in Fig.~\ref{fig:mesh}(a) for this experiment.
@@ -1574,7 +1644,7 @@ in Fig.~\ref{fig:collapsehexagon}.
 % We construct the virtual element space on $H_i$ and calculate the condition number
 % of the stiffness matrix of four methods. 
 As shown in Fig.~\ref{fig:collapsehexagon_conditionnumber} for $k=8$ and $k=10$, the condition numbers of stiffness
-matrices of the stabilization-free methods are smaller than those of the standard methods when $i$ is large.
+matrices of the VEMs \XH{without extrinsic stabilization} are smaller than those of the standard methods when $i$ is large.
 \begin{figure}[htbp]
 \subfigure[$k = 8$]{
 \begin{minipage}[t]{0.45\linewidth}

@@ -117,7 +117,8 @@ In fact, my strong opinion is that also the methods in [14, 15, 25] are not real
 }
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-We try our best to proofread the manuscript carefully.
+Thanks for this comment. We replace ``Stabilization-Free Virtual Element Methods'' by 
+``Virtual Element Methods Without Extrinsic Stabilization'' in the revised manuscript.
 
 
 \medskip
@@ -141,8 +142,17 @@ What I am trying to convince you is that:
 .}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-
-
+Yes. By the numerical results on the convergence rate, the invertibility of the local stiffness matrices, the assembling time and the condition number of stiffness
+matrix,
+the VEMs without extrinsic stabilization are competitive with respect to other existing VEMs.
+Now we emphasize that
+\begin{itemize}
+\item
+In existing VEMs, the additional stabilization term has to be chosen carefully for different partial differential equations to make the VEM work well, which is not easy and reduces its practicality.
+\item 
+Since there is no additional stabilization term, our VEMs will be preferred in the engineering community. 
+%More benefits of the VEMs without extrinsic stabilization will be the study of future works.
+\end{itemize}
 
 
 
@@ -153,6 +163,7 @@ What I am trying to convince you is that:
 \item \textsf{in the introduction, lines 29-30, you mention paper [15] claiming that it ``outperforms the standard method [14]''. This is clear, as the standard ``dofi-dofi'' stabilization cannot work well for anisotropic diffusion problems (and I am pretty sure that other simple variants would work very well). So, the claim is wrong and should be replaced by ``outperforms the standard VEM with a specific choice of the stabilization that is not designed for anisotropic diffusion'' or something like that.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+The theoretical part in [15] still has some problems as pointed out by another referee, and [15] is unpublished. We decide to remove the citation of paper [15] and papers depending on [15].
 
 
 \medskip
@@ -160,6 +171,14 @@ What I am trying to convince you is that:
 \item \textsf{lines 425-426. I still disagree with the choice of the enhancing constraint. Your definition is most likely not correct. You do not have to impose that constraint for polynomials orthogonal to $\mathbb P_{p-2}(K)$ but rather any completion of that space into $\mathbb P_p(K)$. In fact, I would simply take the scaled monomial completion. And I can put my fingers on the fact that this is what you implement.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+Any completion of $\mathbb P_{k-2}(K)$ in $\mathbb P_{k}(K)$ can be used for the enhancing constraint.
+But we use the orthogonal complement space $\mathbb P_{k-2}^{\perp}(K)$ of $\mathbb P_{k-2}(K)$ in $\mathbb P_{k}(K)$ with respect to the inner product $(\cdot, \cdot)_K$.
+With the orthogonal complement space $\mathbb P_{k-2}^{\perp}(K)$ for the enhancing constraint, it holds the following identity for the $L^2$ projection
+\begin{equation}\label{eq:QKPik}  
+Q_k^Kv= \Pi_k^Kv + Q_{k-2}^Kv-Q_{k-2}^K\Pi_k^Kv.
+\end{equation}
+Then we can compute the $L^2$ projection $Q_k^Kv$ by the right hand side of \eqref{eq:QKPik}.
+The identity \eqref{eq:QKPik} is not true for other choices of complement spaces.
 
 
 
@@ -168,6 +187,7 @@ What I am trying to convince you is that:
 \item \textsf{eq. (4.13). As the inf-sup constant plays the role of the ``stability constants'' you should underline its dependence on the polynomial degree, and the regularity of the mesh and the corresponding subtriangulation.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+Thanks for this suggestion. We have emphasized it Lemma 4.4.
 
 
 \medskip
@@ -175,6 +195,7 @@ What I am trying to convince you is that:
 \item \textsf{I would also state Theorem 4.9 with explicit constants in eq. (4.21). Notably, I would make it explicit the dependence of the inf-sup constant. In other words, write Theorem 4.9 as a standard Strang-type result and then show the convergence estimates.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
+Thanks for this suggestion. We rewrite Theorem 4.9 and its proof.
 
 
 
@@ -183,11 +204,18 @@ What I am trying to convince you is that:
 \item \textsf{I appreciate the numerical results and I now think that they are very convincing of one fact: your approach is not worse than the standard VEM approach. At the same time, you are not that better either. So, I would mitigate a bit your philosophical message in the introduction, saying that more benefits of your approach will be the study of future works. I think your paper is good. You should not (and need not) to oversell what you did.}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-
+Yes. The performance of our VEMs and other existing VEMs is similar for simple benchmarks.
+Now we emphasize that
+\begin{itemize}
+\item
+In existing VEMs, the additional stabilization term has to be chosen carefully for different partial differential equations to make the VEM work well, which is not easy and reduces its practicality.
+\item 
+Since there is no additional stabilization term, our VEMs will be preferred in the engineering community. 
+%More benefits of the VEMs without extrinsic stabilization will be the study of future works.
+\end{itemize}
 
 
 \end{enumerate}
-
 
 
 
@@ -201,7 +229,7 @@ What I am trying to convince you is that:
 I take the opportunity to encourage the authors NOT to cite unpublished results as they were true; the peer review process should still play a role in the scientific world!}
 
 \smallskip \noindent \textcolor[rgb]{1.00,0.00,0.00}{Reply.}
-
+Thanks for this suggestion. Now we remove the citation of paper [15], and the references depending on [15].
 
 
 
