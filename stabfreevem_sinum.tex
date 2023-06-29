@@ -73,7 +73,7 @@ The stabilization term significantly affects the performance of the VEM for the 
 and improper choices of the stabilization term will produce useless results.
 Special stabilization terms are designed for a nonlinear elasto-plastic deformation problem \cite{HudobivnikAldakheelWriggers2019} and an electromagnetic interface problem in three dimensions \cite{CaoChenGuo2023}, which are not easy to be extended to other problems. 
 \XH{
-In short, the stabilization term has to be chosen carefully for different partial differential equations to make the VEM work well, which is arduous and reduces its practicality.}
+In short, the stabilization term has to be chosen carefully for different partial differential equations to make the VEM work well, which is arduous and will reduce its practicality.}
 
 
 % Recently a stabilization-free linear VEM, based on a higher order polynomial projection of the gradient of virtual element functions, is devised for the Poisson equation in two dimensions in \cite{BerroneBorioMarcon2021}, where the degree of polynomial used in the projection depends on the number of vertices of the polygon and generally the geometry of the polygon. 
@@ -110,7 +110,7 @@ space $\mathbb P_{k}(K)$.  While only
 \|Q_{k-1}^{K}\nabla v\|_{0,K}\lesssim \|\nabla v\|_{0,K}, \quad \|\nabla\Pi_k^{K}v\|_{0,K}\lesssim \|\nabla v\|_{0,K}
 \]
 hold
-rather than the norm equivalence \eqref{intro:gradVknormequiv}, then the additional stabilization term is usually required to ensure the coercivity of the discrete bilinear form.
+rather than the norm equivalence \eqref{intro:gradVknormequiv}, then an additional stabilization term is usually required to ensure the coercivity of the discrete bilinear form.
 \XH{To remove the additional stabilization term, based on a regular simplicial tessellation of polytope $K$, we employ $k$-th order or $(k-1)$-th order $H(\div)$-conforming macro finite elements as $\mathbb{V}(K)$ in this paper, and keep the virtual element space $V_k(K)$ as the usual ones.}
 % $\mathbb{V}(K)$ is taken as $\mathbb P_{l}(K; \mathbb{R}^d)$ with large enough $l$ even for the lowest order case $k=1$ in \cite{BerroneBorioMarcon2021,BerroneBorioMarcon2022,DAltriMirandaPatrunoSacco2021}, and the virtual element space $V_k(K)$ has to be modified accordingly to make $Q_{l}^{K}\nabla v$ computable.
 % Instead, based on a regular simplicial tessellation of polytope $K$, we employ $k$-th order or $(k-1)$-th order $H(\div)$-conforming macro finite elements as $\mathbb{V}(K)$ in this paper, and keep the virtual element space $V_k(K)$ as the usual ones.
@@ -131,7 +131,7 @@ these considerations and the direct decomposition of an $H(\div)$-conforming
 macro finite element space related to $\mathbb{V}_{k}^{\rm div}(K)$, we propose
 the unisolvent DoFs for the space $\mathbb{V}_{k}^{\rm div}(K)$, and establish the
 $L^2$ norm equivalence.  By the way, we use the matrix-vector language to review
-a conforming finite element for differential $(d-2)$-form in
+a conforming finite element for the differential $(d-2)$-form in
 \cite{ArnoldFalkWinther2006,Arnold2018}. 
 
 
@@ -224,7 +224,7 @@ We impose the following conditions on the mesh $\mathcal T_h$ in this paper:
 \begin{itemize}
  \item[(A1)] Each element $K\in \mathcal T_h$ and each face $F\in \mathcal F_h^r$ for $1\leq r\leq d-1$ is star-shaped with a uniformly bounded chunkiness parameter.
 
- \item[(A2)] There exists a quasi-uniform simplicial mesh $\mathcal T_h^*$ such that each $K\in \mathcal T_h$ is a union of some simplexes in $\mathcal T_h^*$.
+ \item[(A2)] \XH{There exists a shape-regular simplicial mesh $\mathcal T_h^*$ such that each $K\in \mathcal T_h$ is a union of some simplexes in $\mathcal T_h^*$. For polytope $K\in \mathcal T_h$, let $\mathcal T_K$ be the simplicial partition of $K$ induced from $\mathcal T_h^*$. Assume simplicial partition $\mathcal T_K$ is quasi-uniform.}
 \end{itemize}
 
 For $K\in \mathcal T_h$, let $\boldsymbol{x}_K$ be the center of  the largest ball contained in $K$.
@@ -233,7 +233,8 @@ Throughout this paper, we use
 $C$ is a generic positive constant independent of mesh size $h$, but may depend on the chunkiness parameter of the polytope, the degree of polynomials $k$, the dimension of space $d$, and the shape regularity and quasi-uniform constants of the virtual triangulation $\mathcal T^*_h$,
 which may take different values at different appearances. Let $A\eqsim B$ mean $A\lesssim B$ and $B\lesssim A$.
 
-For polytope $K\in \mathcal T_h$, denote by $\mathcal T_K$ the simplicial partition of $K$, which is induced from $\mathcal T_h^*$. Let $\mathcal{F}(\mathcal T_K)$ and $\mathcal{E}(\mathcal T_K)$ be the set of all $(d-1)$-dimensional faces and $(d-2)$-dimensional faces of the simplicial partition $\mathcal T_K$ respectively. Set 
+% For polytope $K\in \mathcal T_h$, denote by $\mathcal T_K$ the simplicial partition of $K$, which is induced from $\mathcal T_h^*$. 
+Let $\mathcal{F}(\mathcal T_K)$ and $\mathcal{E}(\mathcal T_K)$ be the set of all $(d-1)$-dimensional faces and $(d-2)$-dimensional faces of the simplicial partition $\mathcal T_K$ respectively. Set 
 \[
 \mathcal{F}^{\partial}(\mathcal T_K):=\{F\in\mathcal{F}(\mathcal T_K): F\subset\partial K\},\quad \mathcal{E}^{\partial}(\mathcal T_K):=\{e\in\mathcal{E}(\mathcal T_K): e\subset\partial K\}.
 \]
