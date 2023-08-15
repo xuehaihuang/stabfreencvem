@@ -46,7 +46,7 @@
 
 % REQUIRED
 \begin{abstract}
-Virtual element methods (VEMs) without extrinsic stabilization in arbitrary degree of polynomial are developed for second order elliptic problems, including a nonconforming VEM in arbitrary dimension and a conforming VEM in two dimensions. The key is to construct local $H(\div)$-conforming macro finite element spaces such that the associated $L^2$ projection of the gradient of virtual element functions is computable, and the $L^2$ projector has a uniform lower bound on the gradient of virtual element function spaces in $L^2$ norm. Optimal error estimates are derived for these VEMs. Numerical experiments are provided to test the VEMs without extrinsic stabilization.
+Virtual element methods (VEMs) without extrinsic stabilization in arbitrary degree of polynomial are developed for second order elliptic problems, \XH{including a nonconforming VEM and a conforming VEM in arbitrary dimension under the mesh assumption that all the faces of each polytope are simplices}. The key is to construct local $H(\div)$-conforming macro finite element spaces such that the associated $L^2$ projection of the gradient of virtual element functions is computable, and the $L^2$ projector has a uniform lower bound on the gradient of virtual element function spaces in $L^2$ norm. Optimal error estimates are derived for these VEMs. Numerical experiments are provided to test the VEMs without extrinsic stabilization.
 \end{abstract}
 
 % REQUIRED
@@ -83,7 +83,7 @@ In short, the stabilization term has to be chosen carefully for different partia
 % The idea in \cite{BerroneBorioMarcon2021} is difficult to be extended to construct stabilization-free virtual element methods in higher dimensions, and
 % the analysis is rather elaborate. 
 % This motivates us to construct a nonconforming VEM in arbitrary dimension and a conforming VEM in two dimensions in arbitrary degree of polynomial  in a unified way.
-We intend to construct VEMs without extrinsic stabilization in arbitrary degree of polynomial, including a nonconforming VEM in arbitrary dimension and a conforming VEM in two dimensions,  in a unified way.
+We intend to construct VEMs without extrinsic stabilization in arbitrary degree of polynomial, \XH{including a nonconforming VEM and a conforming VEM in arbitrary dimension under the mesh assumption that all the faces of each polytope are simplices}, in a unified way.
 The key to construct VEMs without extrinsic stabilization is to find a finite-dimensional space $\mathbb{V}(K)$ for polytope $K$ and a projector $Q_K$ onto the space $\mathbb{V}(K)$ such that
 \begin{enumerate}[(C1)]
 \item It holds the norm equivalence 
@@ -126,8 +126,8 @@ for virtual element function $v\in V_k(K)$, we require that
 $\div\boldsymbol{\phi}\in\mathbb P_{\max\{k-1,0\}}(K)$ and
 $\boldsymbol{\phi}\cdot\boldsymbol{n}$ on each $(d-1)$-dimensional face of $K$
 is a polynomial for $\boldsymbol{\phi}\in\mathbb{V}_{k}^{\rm div}(K)$.  Based on
-these considerations and the direct decomposition of an $H(\div)$-conforming
-macro finite element space related to $\mathbb{V}_{k}^{\rm div}(K)$, we propose
+these considerations and the direct decomposition of the $H(\div)$-conforming
+macro finite element space $\mathbb{V}_{k}^{\rm div}(K)$, we propose
 the unisolvent DoFs for the space $\mathbb{V}_{k}^{\rm div}(K)$, and establish the
 $L^2$ norm equivalence.  By the way, we use the matrix-vector language to review
 a conforming finite element for the differential $(d-2)$-form in
@@ -145,7 +145,7 @@ a conforming finite element for the differential $(d-2)$-form in
 
 
 
-By the aid of the projector $Q_{K,k}^{\div}$, we advance a nonconforming VEM without extrinsic stabilization in arbitrary dimension and a conforming VEM without extrinsic stabilization in two dimensions  for second order elliptic problems.
+By the aid of the projector $Q_{K,k}^{\div}$, \XH{we advance a nonconforming VEM and a conforming VEM without extrinsic stabilization for second order elliptic problems in arbitrary dimension.}
 Indeed, these VEMs can be equivalently recast as
 primal mixed VEMs.
 We prove the norm equivalence~\eqref{intro:gradVknormequiv} and the well-posedness of the VEMs without extrinsic stabilization, and derive the optimal error estimates. 
@@ -162,7 +162,7 @@ By the way, we refer to \cite{CicuttinErnLemaire2019} for a hybrid high-order me
 
 
 The rest of this paper is organized as follows. Notation and mesh conditions are presented in Section~\ref{sec:prelim}. 
-In Section~\ref{sec:divmacrofem}, $H(\div)$-conforming macro finite elements in arbitrary dimension are constructed. A nonconforming VEM without extrinsic stabilization in arbitrary dimension is developed in Section \ref{sec:stabfreencfmvem}, and a conforming VEM without extrinsic stabilization in two dimensions is devised in Section \ref{sec:stabfreecfmvem}.
+In Section~\ref{sec:divmacrofem}, $H(\div)$-conforming macro finite elements in arbitrary dimension are constructed. A nonconforming VEM without extrinsic stabilization in arbitrary dimension is developed in Section \ref{sec:stabfreencfmvem}, and a conforming VEM without extrinsic stabilization in arbitrary dimension is devised in Section \ref{sec:stabfreecfmvem}.
 Some numerical results are shown in Section \ref{sec:numericalexamps}.
 
 
@@ -187,7 +187,9 @@ Denote by $Q_k^{K}$ the $L^2$-orthogonal projector onto $\mathbb P_k(K)$ or $\ma
 Let $\skw\boldsymbol{\tau}:=(\boldsymbol{\tau}-\boldsymbol{\tau}^{\intercal})/2$ be the antisymmetric part of a tensor $\boldsymbol{\tau}$.
 Denote by $\#S$ the number of elements in a finite set $S$.
 
-Given a $d$-dimensional polytope $K$, let $\mathcal{F}(K)$ and $\mathcal{E}(K)$ be the set of all $(d-1)$-dimensional faces and $(d-2)$-dimensional faces of $K$ respectively. For $F\in\mathcal{F}(K)$, denote by $\boldsymbol{n}_{K,F}$ the unit outward normal vector to $\partial K$, which will be abbreviated as $\boldsymbol{n}_F$ or $\boldsymbol{n}$ if not causing any confusion.
+Given a $d$-dimensional polytope $K$, \XH{let $\Delta_j(K)$ be the set of all $j$-dimensional faces of $K$ for $j=0,1,\ldots, d-1$. Set $\mathcal{F}(K):=\Delta_{d-1}(K)$ and $\mathcal{E}(K):=\Delta_{d-2}(K)$.}
+% let $\mathcal{F}(K)$ and $\mathcal{E}(K)$ be the set of all $(d-1)$-dimensional faces and $(d-2)$-dimensional faces of $K$ respectively.
+For $F\in\mathcal{F}(K)$, denote by $\boldsymbol{n}_{K,F}$ the unit outward normal vector to $\partial K$, which will be abbreviated as $\boldsymbol{n}_F$ or $\boldsymbol{n}$ if not causing any confusion.
 
 Given a $d$-dimensional simplex $T$,
 let $F_i\in\mathcal F(T)$ be the $(d-1)$-dimensional face opposite to vertex $\texttt{v}_i$, $\boldsymbol n_i$ be the unit outward normal to the face $F_i$, and $\lambda_i$ be the barycentric coordinate of the point $\boldsymbol x$ corresponding to the vertex $\texttt{v}_i$, for $i=0, 1, \cdots, d$.
@@ -221,9 +223,9 @@ Define the surface gradient $\nabla_Fv:=\nabla v-(\partial_nv)\boldsymbol{n}$ fo
 \subsection{Mesh conditions}\label{sec:meshcondition}
 We impose the following conditions on the mesh $\mathcal T_h$ in this paper:
 \begin{itemize}
- \item[(A1)] Each element $K\in \mathcal T_h$ and each face $F\in \mathcal F_h^r$ for $1\leq r\leq d-1$ is star-shaped with a uniformly bounded chunkiness parameter.
+ \item[(A1)] Each element $K\in \mathcal T_h$ and each face $F\in \mathcal F_h^r$ for $1\leq r\leq d-1$ is star-shaped with a uniformly bounded chunkiness parameter. \XH{All the $(d-1)$-dimensional faces of $K$ are simplices.}
 
- \item[(A2)] There exists a shape-regular simplicial mesh $\mathcal T_h^*$ such that each $K\in \mathcal T_h$ is a union of some simplexes in $\mathcal T_h^*$. For polytope $K\in \mathcal T_h$, let $\mathcal T_K$ be the simplicial partition of $K$ induced from $\mathcal T_h^*$. Assume simplicial partition $\mathcal T_K$ is quasi-uniform.
+ \item[(A2)] There exists a shape-regular simplicial mesh $\mathcal T_h^*$ such that each $K\in \mathcal T_h$ is a union of some simplexes in $\mathcal T_h^*$. For polytope $K\in \mathcal T_h$, let $\mathcal T_K$ be the simplicial partition of $K$ induced from $\mathcal T_h^*$. Assume simplicial partition $\mathcal T_K$ is quasi-uniform, \XH{and all the $(d-1)$-dimensional faces of $K$ are also faces of $\mathcal T_K$.}
 \end{itemize}
 
 For $K\in \mathcal T_h$, let $\boldsymbol{x}_K$ be the center of  the largest ball contained in $K$.
@@ -233,10 +235,11 @@ $C$ is a generic positive constant independent of mesh size $h$, but may depend 
 which may take different values at different appearances. Let $A\eqsim B$ mean $A\lesssim B$ and $B\lesssim A$.
 
 % For polytope $K\in \mathcal T_h$, denote by $\mathcal T_K$ the simplicial partition of $K$, which is induced from $\mathcal T_h^*$. 
-Let $\mathcal{F}(\mathcal T_K)$ and $\mathcal{E}(\mathcal T_K)$ be the set of all $(d-1)$-dimensional faces and $(d-2)$-dimensional faces of the simplicial partition $\mathcal T_K$ respectively. Set 
-\[
-\mathcal{F}^{\partial}(\mathcal T_K):=\{F\in\mathcal{F}(\mathcal T_K): F\subset\partial K\},\quad \mathcal{E}^{\partial}(\mathcal T_K):=\{e\in\mathcal{E}(\mathcal T_K): e\subset\partial K\}.
-\]
+% Let $\mathcal{F}(\mathcal T_K)$ and $\mathcal{E}(\mathcal T_K)$ be the set of all $(d-1)$-dimensional faces and $(d-2)$-dimensional faces of the simplicial partition $\mathcal T_K$ respectively. 
+% Set 
+% \[
+% \mathcal{F}^{\partial}(\mathcal T_K):=\{F\in\mathcal{F}(\mathcal T_K): F\subset\partial K\},\quad \mathcal{E}^{\partial}(\mathcal T_K):=\{e\in\mathcal{E}(\mathcal T_K): e\subset\partial K\}.
+% \]
 
 Hereafter we use $T$ to represent a simplex, and $K$ to denote a general polytope.
 
@@ -529,7 +532,7 @@ we acquire from the unisolvence of DoFs \eqref{BDMdof1}-\eqref{BDMdof3} for BDM 
 Note that $\div\skw=\curl$ for $d=2,3$.
 For $k\geq1$, by finite element complexes \eqref{eq:localBDMfemderhamcomplex}-\eqref{eq:localRTfemderhamcomplex0}, we have
 \begin{equation}\label{eq:20220324-4}
-\dim\div\skw\boldsymbol{V}_{k}^{d-2}(K)-\dim\div\skw\mathring{\boldsymbol{V}}_{k}^{d-2}(K)={k+d-2\choose d-1}\#\mathcal F^{\partial}(\mathcal T_K)-1.
+\dim\div\skw\boldsymbol{V}_{k}^{d-2}(K)-\dim\div\skw\mathring{\boldsymbol{V}}_{k}^{d-2}(K)={k+d-2\choose d-1}\#\XH{\mathcal F(K)}-1.
 \end{equation}
 % \begin{align*}  
 % \dim\div\skw\boldsymbol{V}_{k}^{d-2}(K)={k+d-2\choose d-1}\#\mathcal F(\mathcal T_K)+ \left(d{k+d-2\choose d}-{k+d-1\choose d}\right)\#\mathcal T_K, \\
@@ -540,39 +543,39 @@ For $k\geq1$, by finite element complexes \eqref{eq:localBDMfemderhamcomplex}-\e
 For each polygon $K\in \mathcal T_h$, 
 define the shape function space
 \[
-\boldsymbol{V}_{k-1}^{\rm div}(K):=\{\boldsymbol{\phi}\in\boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K): \div\boldsymbol{\phi}\in\mathbb P_{k-2}(K)\},
+\XH{\mathbb{V}_{k-1}^{\rm div}(K)}:=\{\boldsymbol{\phi}\in\boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K): \div\boldsymbol{\phi}\in\mathbb P_{k-2}(K)\},
 \]
 for $k\geq 2$, and 
 \[
-\boldsymbol{V}_{0}^{\rm div}(K):=\{\boldsymbol{\phi}\in\boldsymbol{V}_{0}^{\mathrm{RT}}(K): \div\boldsymbol{\phi}\in\mathbb P_{0}(K)\}.
+\XH{\mathbb{V}_{0}^{\rm div}(K)}:=\{\boldsymbol{\phi}\in\boldsymbol{V}_{0}^{\mathrm{RT}}(K): \div\boldsymbol{\phi}\in\mathbb P_{0}(K)\}.
 \]
-Apparently $\mathbb P_{k-1}(K;\mathbb R^d)\subseteq\boldsymbol{V}_{k-1}^{\rm div}(K)$, $\boldsymbol{V}_{0}^{\rm div}(K)\cap\ker(\div)=\boldsymbol{V}_0^{\mathrm{RT}}(K)\cap\ker(\div)$, and $\boldsymbol{V}_{k-1}^{\rm div}(K)\cap\ker(\div)=\boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K)\cap\ker(\div)$ for $k\geq2$.
+Apparently $\mathbb P_{k-1}(K;\mathbb R^d)\subseteq\XH{\mathbb{V}_{k-1}^{\rm div}(K)}$, $\XH{\mathbb{V}_{0}^{\rm div}(K)}\cap\ker(\div)=\boldsymbol{V}_0^{\mathrm{RT}}(K)\cap\ker(\div)$, and $\XH{\mathbb{V}_{k-1}^{\rm div}(K)}\cap\ker(\div)=\boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K)\cap\ker(\div)$ for $k\geq2$.
 
 
-In the following lemma we present a direct sum decomposition of space $\boldsymbol{V}_{k-1}^{\rm div}(K)$.
+In the following lemma we present a direct sum decomposition of space $\XH{\mathbb{V}_{k-1}^{\rm div}(K)}$.
 
 \begin{lemma}
 For $k\geq1$,
 it holds
 \begin{equation}\label{eq:Vdivlocaldecomp}
-\boldsymbol{V}_{k-1}^{\rm div}(K)=\div\skw \boldsymbol{V}_{k}^{d-2}(K) \oplus (\boldsymbol{x}-\boldsymbol{x}_K)\mathbb P_{\max\{k-2,0\}}(K).
+\XH{\mathbb{V}_{k-1}^{\rm div}(K)}=\div\skw \boldsymbol{V}_{k}^{d-2}(K) \oplus (\boldsymbol{x}-\boldsymbol{x}_K)\mathbb P_{\max\{k-2,0\}}(K).
 \end{equation}
 Then the complex
 \begin{equation*}
-\boldsymbol{V}_{k}^{d-2}(K)\xrightarrow{\div\skw}\boldsymbol{V}_{k-1}^{\rm div}(K)\xrightarrow{\div} \mathbb P_{\max\{k-2,0\}}(K)\to0    
+\boldsymbol{V}_{k}^{d-2}(K)\xrightarrow{\div\skw}\mathbb{V}_{k-1}^{\rm div}(K)\xrightarrow{\div} \mathbb P_{\max\{k-2,0\}}(K)\to0    
 \end{equation*}
 is exact.
 \end{lemma}
 \begin{proof}
 We only prove the case $k\geq2$, as the proof for case $k=1$ is similar.
-Since $\div:(\boldsymbol{x}-\boldsymbol{x}_K)\mathbb P_{k-2}(K)\to\mathbb P_{k-2}(K)$ is bijective \cite[Lemma 3.1]{ChenHuang2021divdiv}, we have $\div\skw \boldsymbol{V}_{k}^{d-2}(K)\cap(\boldsymbol{x}-\boldsymbol{x}_K)\mathbb P_{k-2}(K)=\{\boldsymbol{0}\}$. Clearly $\div\skw \boldsymbol{V}_{k}^{d-2}(K) \oplus(\boldsymbol{x}-\boldsymbol{x}_K)\mathbb P_{k-2}(K)\subseteq \boldsymbol{V}_{k-1}^{\rm div}(K)$.
+Since $\div:(\boldsymbol{x}-\boldsymbol{x}_K)\mathbb P_{k-2}(K)\to\mathbb P_{k-2}(K)$ is bijective \cite[Lemma 3.1]{ChenHuang2021divdiv}, we have $\div\skw \boldsymbol{V}_{k}^{d-2}(K)\cap(\boldsymbol{x}-\boldsymbol{x}_K)\mathbb P_{k-2}(K)=\{\boldsymbol{0}\}$. Clearly $\div\skw \boldsymbol{V}_{k}^{d-2}(K) \oplus(\boldsymbol{x}-\boldsymbol{x}_K)\mathbb P_{k-2}(K)\subseteq \XH{\mathbb{V}_{k-1}^{\rm div}(K)}$.
 
-On the other side, for $\boldsymbol{\phi}\in \boldsymbol{V}_{k-1}^{\rm div}(K)$, by $\div\boldsymbol{\phi}\in \mathbb P_{k-2}(K)$, there exists a $q\in\mathbb P_{k-2}(K)$ such that $\div((\boldsymbol{x}-\boldsymbol{x}_K)q)=\div\boldsymbol{\phi}$, i.e. $\boldsymbol{\phi}-(\boldsymbol{x}-\boldsymbol{x}_K)q\in\boldsymbol{V}_{k-1}^{\rm div}(K)\cap\ker(\div)=\boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K)\cap\ker(\div)$. Thanks to finite element complex \eqref{eq:localBDMfemderhamcomplex}, $\boldsymbol{\phi}-(\boldsymbol{x}-\boldsymbol{x}_K)q\in\div\skw \boldsymbol{V}_{k}^{d-2}(K)$. Thus \eqref{eq:Vdivlocaldecomp} follows.
+On the other side, for $\boldsymbol{\phi}\in \XH{\mathbb{V}_{k-1}^{\rm div}(K)}$, by $\div\boldsymbol{\phi}\in \mathbb P_{k-2}(K)$, there exists a $q\in\mathbb P_{k-2}(K)$ such that $\div((\boldsymbol{x}-\boldsymbol{x}_K)q)=\div\boldsymbol{\phi}$, i.e. $\boldsymbol{\phi}-(\boldsymbol{x}-\boldsymbol{x}_K)q\in\XH{\mathbb{V}_{k-1}^{\rm div}(K)}\cap\ker(\div)=\boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K)\cap\ker(\div)$. Thanks to finite element complex \eqref{eq:localBDMfemderhamcomplex}, $\boldsymbol{\phi}-(\boldsymbol{x}-\boldsymbol{x}_K)q\in\div\skw \boldsymbol{V}_{k}^{d-2}(K)$. Thus \eqref{eq:Vdivlocaldecomp} follows.
 \end{proof}
 
-Based on the space decomposition \eqref{eq:Vdivlocaldecomp} and the degrees of freedom of BDM element, we propose the following DoFs for space $\boldsymbol{V}_{k-1}^{\rm div}(K)$
+Based on the space decomposition \eqref{eq:Vdivlocaldecomp} and the degrees of freedom of BDM element, we propose the following DoFs for space \XH{$\mathbb{V}_{k-1}^{\rm div}(K)$}
 \begin{align}
-    (\boldsymbol{\phi}\cdot\boldsymbol{n}, q)_F & \quad\forall~q\in\mathbb P_{k-1}(F) \textrm{ on each }  F\in\mathcal F^{\partial}(\mathcal T_K), \label{Vdivdof1}\\
+    (\boldsymbol{\phi}\cdot\boldsymbol{n}, q)_F & \quad\forall~q\in\mathbb P_{k-1}(F) \textrm{ on each }  F\in\XH{\mathcal F(K)}, \label{Vdivdof1}\\
     (\div\boldsymbol{\phi}, q)_K & \quad\forall~q\in\mathbb P_{\max\{k-2,0\}}(K)/\mathbb R, \label{Vdivdof2} \\
     (\boldsymbol{\phi}, \boldsymbol{q})_K & \quad\forall~\boldsymbol{q}\in \div\skw\mathring{\boldsymbol{V}}_{k}^{d-2}(K)=\div\mathring{\boldsymbol{V}}_{k}^{d-2}(K). \label{Vdivdof3}
 \end{align}
@@ -580,19 +583,19 @@ Based on the space decomposition \eqref{eq:Vdivlocaldecomp} and the degrees of f
 % where $\mathcal E^{\partial}(\mathcal T_K):=\{e\in\mathcal E(\mathcal T_K): e\subset\partial K\}$.
 % DoF \eqref{Vdivdof3} will disappear when $\mathcal T_K=\{K\}$ is a simplex.
 \begin{lemma}
-The set of DoFs \eqref{Vdivdof1}-\eqref{Vdivdof3} is uni-solvent for space $\boldsymbol{V}_{k-1}^{\rm div}(K)$.
+The set of DoFs \eqref{Vdivdof1}-\eqref{Vdivdof3} is uni-solvent for space \XH{$\mathbb{V}_{k-1}^{\rm div}(K)$}.
 \end{lemma}
 \begin{proof}
 By \eqref{eq:20220324-4} and \eqref{eq:Vdivlocaldecomp},
 the number of DoFs \eqref{Vdivdof1}-\eqref{Vdivdof3} is
 \begin{align*}
-&\quad {k+d-2\choose d-1}\#\mathcal F^{\partial}(\mathcal T_K)+\dim\mathbb P_{\max\{k-2,0\}}(K)-1+\dim\div\skw\mathring{\boldsymbol{V}}_{k}^{d-2}(K) \\
-&=\dim\div\skw\boldsymbol{V}_{k}^{d-2}(K)+\dim\mathbb P_{\max\{k-2,0\}}(K)=\dim\boldsymbol{V}_{k-1}^{\rm div}(K).
+&\quad {k+d-2\choose d-1}\#\XH{\mathcal F(K)}+\dim\mathbb P_{\max\{k-2,0\}}(K)-1+\dim\div\skw\mathring{\boldsymbol{V}}_{k}^{d-2}(K) \\
+&=\dim\div\skw\boldsymbol{V}_{k}^{d-2}(K)+\dim\mathbb P_{\max\{k-2,0\}}(K)=\dim\XH{\mathbb{V}_{k-1}^{\rm div}(K)}.
 \end{align*}
 % By \eqref{eq:Vdivlocaldecomp},
 % the number of DoFs \eqref{Vdivdof1}-\eqref{Vdivdof3} equals to $\dim\boldsymbol{V}_{k-1}^{\rm div}(K)$.
 
-Assume $\boldsymbol{\phi}\in\boldsymbol{V}_{k-1}^{\rm div}(K)$ and all the DoFs \eqref{Vdivdof1}-\eqref{Vdivdof3} vanish. By the vanishing DoF~\eqref{Vdivdof1}, $\boldsymbol{\phi}\in \boldsymbol{H}_0(\div, K)$ and $\div\boldsymbol{\phi}\in L_0^2(K)$. Then it follows from the vanishing DoF~\eqref{Vdivdof2} that $\div\boldsymbol{\phi}=0$. 
+Assume $\boldsymbol{\phi}\in\XH{\mathbb{V}_{k-1}^{\rm div}(K)}$ and all the DoFs \eqref{Vdivdof1}-\eqref{Vdivdof3} vanish. By the vanishing DoF~\eqref{Vdivdof1}, $\boldsymbol{\phi}\in \boldsymbol{H}_0(\div, K)$ and $\div\boldsymbol{\phi}\in L_0^2(K)$. Then it follows from the vanishing DoF~\eqref{Vdivdof2} that $\div\boldsymbol{\phi}=0$. 
 Thanks to the exactness of complexes \eqref{eq:localBDMfemderhamcomplex0}-\eqref{eq:localRTfemderhamcomplex0}, $\boldsymbol{\phi}\in\div\skw\mathring{\boldsymbol{V}}_{k}^{d-2}(K)$. Therefore $\boldsymbol{\phi}=\boldsymbol{0}$ holds from the vanishing DoF~\eqref{Vdivdof3}.
 \end{proof}
 
@@ -632,13 +635,13 @@ And DoF \eqref{Vdivdof3} disappears for $k=1$ and $k=2$.
 % Therefore \eqref{eq:V1gradKprop} follows from \eqref{eq:20220203} and the last inequality.
 % \end{proof}
 
-Next we consider the norm equivalence of space $\boldsymbol{V}_{k-1}^{\rm div}(K)$.
+Next we consider the norm equivalence of space \XH{$\mathbb{V}_{k-1}^{\rm div}(K)$}.
 
 
 \begin{lemma}\label{lem:Vkm1divnormequivalence}
-For $\boldsymbol{\phi}\in\boldsymbol{V}_{k-1}^{\rm div}(K)$, it holds the norm equivalence
+For $\boldsymbol{\phi}\in\XH{\mathbb{V}_{k-1}^{\rm div}(K)}$, it holds the norm equivalence
 \begin{equation}\label{eq:Vkm1divnormequivalence}
-\|\boldsymbol{\phi}\|_{0,K}\eqsim h_K\|\div\boldsymbol{\phi}\|_{0,K} + \sup_{\boldsymbol{\psi}\in\div\mathring{\boldsymbol{V}}_{k}^{d-2}(K)}\frac{(\boldsymbol{\phi}, \boldsymbol{\psi})_K}{\|\boldsymbol{\psi}\|_{0,K}} +\sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}.
+\|\boldsymbol{\phi}\|_{0,K}\eqsim h_K\|\div\boldsymbol{\phi}\|_{0,K} + \sup_{\boldsymbol{\psi}\in\div\mathring{\boldsymbol{V}}_{k}^{d-2}(K)}\frac{(\boldsymbol{\phi}, \boldsymbol{\psi})_K}{\|\boldsymbol{\psi}\|_{0,K}} +\sum_{F\in\XH{\mathcal F(K)}}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}.
 \end{equation}
 \end{lemma}
 \begin{proof}
@@ -654,17 +657,17 @@ Then we have
 \begin{equation}\label{eq:20230201}  
 h_K\|\div\boldsymbol{\phi}\|_{0,K}\lesssim \|\boldsymbol{\phi}\|_{0,K}.
 \end{equation}
-For $F\in\mathcal F^{\partial}(\mathcal T_K)$, there exists a simplex $T\in\mathcal T_K$ satisfying $F\subset\partial T$, then apply the trace inequality \cite[Theorem 1.5.1.10]{Grisvard1985} (see also \cite[(2.18)]{BrennerSung2018}) and the inverse inequality to get
+For $F\in\XH{\mathcal F(K)}$, there exists a simplex $T\in\mathcal T_K$ satisfying $F\subset\partial T$, then apply the trace inequality \cite[Theorem 1.5.1.10]{Grisvard1985} (see also \cite[(2.18)]{BrennerSung2018}) and the inverse inequality to get
 $$
 h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F} \lesssim \|\boldsymbol{\phi}\|_{0,T}+h_T|\boldsymbol{\phi}|_{1,T}\lesssim \|\boldsymbol{\phi}\|_{0,T}.
 $$ 
 This means
 $$
-\sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F} \lesssim \sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}\|\boldsymbol{\phi}\|_{0,T}\lesssim \|\boldsymbol{\phi}\|_{0,K}.
+\sum_{F\in\XH{\mathcal F(K)}}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F} \lesssim \sum_{F\in\XH{\mathcal F(K)}}\|\boldsymbol{\phi}\|_{0,T}\lesssim \|\boldsymbol{\phi}\|_{0,K}.
 $$ 
 Combining \eqref{eq:20230201}, the Cauchy-Schwarz inequality and the last inequality yields
 $$
-h_K\|\div\boldsymbol{\phi}\|_{0,K}+\sup_{\boldsymbol{\psi}\in\div\mathring{\boldsymbol{V}}_{k}^{d-2}(K)}\frac{(\boldsymbol{\phi}, \boldsymbol{\psi})_K}{\|\boldsymbol{\psi}\|_{0,K}} +\sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}\lesssim \|\boldsymbol{\phi}\|_{0,K}.
+h_K\|\div\boldsymbol{\phi}\|_{0,K}+\sup_{\boldsymbol{\psi}\in\div\mathring{\boldsymbol{V}}_{k}^{d-2}(K)}\frac{(\boldsymbol{\phi}, \boldsymbol{\psi})_K}{\|\boldsymbol{\psi}\|_{0,K}} +\sum_{F\in\XH{\mathcal F(K)}}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}\lesssim \|\boldsymbol{\phi}\|_{0,K}.
 $$
 % \begin{align*}
 % &\quad h_K\|\div\boldsymbol{\phi}\|_{0,K}+\sup_{\boldsymbol{\psi}\in\div\mathring{\boldsymbol{V}}_{k}^{d-2}(K)}\frac{(\boldsymbol{\phi}, \boldsymbol{\psi})_K}{\|\boldsymbol{\psi}\|_{0,K}} +\sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}\\
@@ -674,7 +677,7 @@ $$
 Next we focus on the proof of the lower bound. Again we only prove the case $k\geq2$, whose argument can be applied to case $k=1$. Take $\boldsymbol{\phi}_1\in\boldsymbol{V}_{k-1}^{\mathrm{BDM}}(K)$ such that $(\boldsymbol{\phi}_1\cdot\boldsymbol{n})|_{\partial K}=(\boldsymbol{\phi}\cdot\boldsymbol{n})|_{\partial K}$, and all the DoFs \eqref{BDMdof1}-\eqref{BDMdof3} of $\boldsymbol{\phi}_1$ interior to $K$ equal to zero. 
 By the norm equivalence on each simplex $T$ and the vanishing DoFs \eqref{BDMdof2}-\eqref{BDMdof3}, we get
 \begin{align}\label{eq:20220324-5}
-\|\boldsymbol{\phi}_1\|_{0,K}^2 = \sum_{T\in\mathcal T_K}\|\boldsymbol{\phi}_1\|_{0,T}^2 \eqsim \sum_{T\in\mathcal T_K}\sum_{F\in\mathcal F(T)}h_F\|\boldsymbol{\phi}_1\cdot\boldsymbol{n}\|_{0,F}^2 =\sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}^2.
+\|\boldsymbol{\phi}_1\|_{0,K}^2 = \sum_{T\in\mathcal T_K}\|\boldsymbol{\phi}_1\|_{0,T}^2 \eqsim \sum_{T\in\mathcal T_K}\sum_{F\in\mathcal F(T)}h_F\|\boldsymbol{\phi}_1\cdot\boldsymbol{n}\|_{0,F}^2 =\sum_{F\in\XH{\mathcal F(K)}}h_F\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}^2.
 \end{align}
 Due to the vanishing DoF \eqref{BDMdof2}, it holds that $\div\boldsymbol{\phi}_1=Q_0^T(\div\boldsymbol{\phi}_1)$ for $T\in\mathcal T_K$.
 % We have
@@ -684,7 +687,7 @@ Due to the vanishing DoF \eqref{BDMdof2}, it holds that $\div\boldsymbol{\phi}_1
 Then apply the integration by parts and the Cauchy-Schwarz inequality to acquire
 \begin{equation}\label{eq:202302011}
 \|\div\boldsymbol{\phi}_1\|_{0,T}^2=\|Q_0^T(\div\boldsymbol{\phi}_1)\|_{0,T}^2
-\leq\frac{1}{|T|}\sum_{F\in\mathcal F(T)\cap\mathcal F^{\partial}(\mathcal T_K)}|F|\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}^2\;\;\forall~T\in\mathcal T_K.
+\leq\frac{1}{|T|}\sum_{F\in\mathcal F(T)\cap\XH{\mathcal F(K)}}|F|\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}^2\;\;\forall~T\in\mathcal T_K.
 \end{equation}
 % for $T\in\mathcal T_K$.
 Now let $w\in H^1(K)\cap L_0^2(K)$ be the solution of 
@@ -700,7 +703,7 @@ The weak formulation is
 \]
 Obviously we obtain from \eqref{eq:202302011} that
 \begin{equation}\label{eq:202302031}  
-\|\nabla w\|_{0,K}\lesssim h_K\|\div(\boldsymbol{\phi}-\boldsymbol{\phi}_1)\|_{0,K}\lesssim h_K\|\div\boldsymbol{\phi}\|_{0,K} +\sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}.
+\|\nabla w\|_{0,K}\lesssim h_K\|\div(\boldsymbol{\phi}-\boldsymbol{\phi}_1)\|_{0,K}\lesssim h_K\|\div\boldsymbol{\phi}\|_{0,K} +\sum_{F\in\XH{\mathcal F(K)}}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}.
 \end{equation}
 Let $I_K^{\div}: \boldsymbol{H}_0(\div,K)\to\mathring{\boldsymbol{V}}_{k-1}^{\mathrm{BDM}}(K)$ be the local $L^2$-bounded commuting projection operator in \cite{ArnoldGuzman2021,FalkWinther2014}, then
 \begin{equation}\label{eq:20230203}  
@@ -717,7 +720,7 @@ $. Set $\boldsymbol{\phi}_2=-I_K^{\div}(\nabla w)\in\mathring{\boldsymbol{V}}_{k
 \end{equation}
 It follows from \eqref{eq:20230203} and \eqref{eq:202302031} that
 \begin{equation}\label{eq:20220324-7}
-\|\boldsymbol{\phi}_2\|_{0,K}=\|I_K^{\div}(\nabla w)\|_{0,K}\lesssim \|\nabla w\|_{0,K}\lesssim h_K\|\div\boldsymbol{\phi}\|_{0,K} +\sum_{F\in\mathcal F^{\partial}(\mathcal T_K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}.
+\|\boldsymbol{\phi}_2\|_{0,K}=\|I_K^{\div}(\nabla w)\|_{0,K}\lesssim \|\nabla w\|_{0,K}\lesssim h_K\|\div\boldsymbol{\phi}\|_{0,K} +\sum_{F\in\XH{\mathcal F(K)}}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}.
 \end{equation}
 By \eqref{eq:20220324-6}, $\boldsymbol{\phi}-\boldsymbol{\phi}_1-\boldsymbol{\phi}_2\in\mathring{\boldsymbol{V}}_{k-1}^{\mathrm{BDM}}(K)\cap\ker(\div)$, which together the exactness of complex \eqref{eq:localBDMfemderhamcomplex0} indicates $\boldsymbol{\phi}-\boldsymbol{\phi}_1-\boldsymbol{\phi}_2\in\div\mathring{\boldsymbol{V}}_{k}^{d-2}(K)$. Hence
 \begin{align*}  
@@ -729,25 +732,25 @@ Finally, \eqref{eq:Vkm1divnormequivalence} holds from \eqref{eq:20220324-5} and 
 \end{proof}
 
 
-Let 
-\[
-\mathbb{V}_{k-1}^{\rm div}(K):=\{\boldsymbol{\phi}\in\boldsymbol{V}_{k-1}^{\rm div}(K): (\boldsymbol{\phi}\cdot\boldsymbol{n})|_F\in\mathbb P_{k-1}(F) \quad\forall~F\in\mathcal F(K)\}.
-\]
-On each face $F\in\mathcal F(K)$, $(\boldsymbol{\phi}\cdot\boldsymbol{n})|_F$ is a polynomial for $\boldsymbol{\phi}\in\mathbb{V}_{k-1}^{\rm div}(K)$ but $(\boldsymbol{\phi}\cdot\boldsymbol{n})|_F$ is a piecewise polynomial for $\boldsymbol{\phi}\in\boldsymbol{V}_{k-1}^{\rm div}(K)$.
-Due to DoFs \eqref{Vdivdof1}-\eqref{Vdivdof3} for $\boldsymbol{V}_{k-1}^{\rm div}(K)$, a set of unisolvent DoFs for $\mathbb{V}_{k-1}^{\rm div}(K)$ is 
-\begin{align}
-    (\boldsymbol{\phi}\cdot\boldsymbol{n}, q)_F & \quad\forall~q\in\mathbb P_{k-1}(F) \textrm{ on each }  F\in\mathcal F(K), \label{Vpdivdof1}\\
-    (\div\boldsymbol{\phi}, q)_K & \quad\forall~q\in\mathbb P_{\max\{k-2,0\}}(K)/\mathbb R, \label{Vpdivdof2} \\
-    (\boldsymbol{\phi}, \boldsymbol{q})_K & \quad\forall~\boldsymbol{q}\in \div\mathring{\boldsymbol{V}}_{k}^{d-2}(K). \label{Vpdivdof3}
-\end{align}
+% Let 
+% \[
+% \mathbb{V}_{k-1}^{\rm div}(K):=\{\boldsymbol{\phi}\in\boldsymbol{V}_{k-1}^{\rm div}(K): (\boldsymbol{\phi}\cdot\boldsymbol{n})|_F\in\mathbb P_{k-1}(F) \quad\forall~F\in\mathcal F(K)\}.
+% \]
+% On each face $F\in\mathcal F(K)$, $(\boldsymbol{\phi}\cdot\boldsymbol{n})|_F$ is a polynomial for $\boldsymbol{\phi}\in\mathbb{V}_{k-1}^{\rm div}(K)$ but $(\boldsymbol{\phi}\cdot\boldsymbol{n})|_F$ is a piecewise polynomial for $\boldsymbol{\phi}\in\boldsymbol{V}_{k-1}^{\rm div}(K)$.
+% Due to DoFs \eqref{Vdivdof1}-\eqref{Vdivdof3} for $\boldsymbol{V}_{k-1}^{\rm div}(K)$, a set of unisolvent DoFs for $\mathbb{V}_{k-1}^{\rm div}(K)$ is 
+% \begin{align}
+%     (\boldsymbol{\phi}\cdot\boldsymbol{n}, q)_F & \quad\forall~q\in\mathbb P_{k-1}(F) \textrm{ on each }  F\in\mathcal F(K), \label{Vpdivdof1}\\
+%     (\div\boldsymbol{\phi}, q)_K & \quad\forall~q\in\mathbb P_{\max\{k-2,0\}}(K)/\mathbb R, \label{Vpdivdof2} \\
+%     (\boldsymbol{\phi}, \boldsymbol{q})_K & \quad\forall~\boldsymbol{q}\in \div\mathring{\boldsymbol{V}}_{k}^{d-2}(K). \label{Vpdivdof3}
+% \end{align}
 
-As an immediate result of Lemma~\ref{lem:Vkm1divnormequivalence}, we get the following norm equivalence of space $\mathbb{V}_{k-1}^{\rm div}(K)$.
-\begin{corollary}
-For $\boldsymbol{\phi}\in\mathbb{V}_{k-1}^{\rm div}(K)$, it holds the norm equivalence
-\begin{equation}\label{eq:Vkm1divnormequiv}
-\|\boldsymbol{\phi}\|_{0,K}\eqsim h_K\|\div\boldsymbol{\phi}\|_{0,K} + \sup_{\boldsymbol{\psi}\in\div\mathring{\boldsymbol{V}}_{k}^{d-2}(K)}\frac{(\boldsymbol{\phi}, \boldsymbol{\psi})_K}{\|\boldsymbol{\psi}\|_{0,K}} +\sum_{F\in\mathcal F(K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}.
-\end{equation}
-\end{corollary}
+% As an immediate result of Lemma~\ref{lem:Vkm1divnormequivalence}, we get the following norm equivalence of space $\mathbb{V}_{k-1}^{\rm div}(K)$.
+% \begin{corollary}
+% For $\boldsymbol{\phi}\in\mathbb{V}_{k-1}^{\rm div}(K)$, it holds the norm equivalence
+% \begin{equation}\label{eq:Vkm1divnormequiv}
+% \|\boldsymbol{\phi}\|_{0,K}\eqsim h_K\|\div\boldsymbol{\phi}\|_{0,K} + \sup_{\boldsymbol{\psi}\in\div\mathring{\boldsymbol{V}}_{k}^{d-2}(K)}\frac{(\boldsymbol{\phi}, \boldsymbol{\psi})_K}{\|\boldsymbol{\psi}\|_{0,K}} +\sum_{F\in\mathcal F(K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}.
+% \end{equation}
+% \end{corollary}
 
 
 For later use, let $Q_{K,k-1}^{\div}$ be the $L^2$-orthogonal projection operator onto $\mathbb{V}_{k-1}^{\rm div}(K)$ with respect to the inner product $(\cdot, \cdot)_K$.
@@ -920,7 +923,7 @@ Consequently,
 \begin{proof}
 Clearly the norm equivalence \eqref{eq:gradVknormequivalence} follows from the local inf-sup condition~\eqref{eq:localdiscreteinfsup}. We will focus on the proof of \eqref{eq:localdiscreteinfsup}.
 Without loss of generality, assume $v\in V_k(K)\cap L_0^2(K)$.
-Based on DoFs \eqref{Vpdivdof1}-\eqref{Vpdivdof3}, take $\boldsymbol{\phi}\in\mathbb{V}_{k-1}^{\rm div}(K)$ such that
+Based on DoFs \eqref{Vdivdof1}-\eqref{Vdivdof3}, take $\boldsymbol{\phi}\in\mathbb{V}_{k-1}^{\rm div}(K)$ such that
 \begin{align*}
 (\boldsymbol{\phi}\cdot\boldsymbol{n}, q)_F&=h_K^{-1}(v, q)_F  \quad\quad\,\forall~q\in\mathbb P_{k-1}(F) \textrm{ on each }  F\in\mathcal F(K), \\
 (\div\boldsymbol{\phi}, q)_K&=-h_K^{-2}(v, q)_K  \quad\forall~q\in\mathbb P_{\max\{k-2,0\}}(K)/\mathbb R, \\
@@ -942,7 +945,7 @@ On the other hand, it follows from the integration by parts that
 \|Q_0^K(\div\boldsymbol{\phi})\|_{0,K}&\lesssim h_{K}^{d/2}\big|Q_0^K(\div\boldsymbol{\phi})\big|\lesssim h_{K}^{-d/2}\big|(\div\boldsymbol{\phi},1)_{K}\big|=h_{K}^{-d/2}\big|(\boldsymbol{\phi}\cdot\boldsymbol{n},1)_{\partial K}\big| \\
 &\lesssim \sum_{F\in\mathcal F(K)}h_F^{-1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F}.
 \end{align*}
-Employing the norm equivalence \eqref{eq:Vkm1divnormequiv},
+Employing the norm equivalence \eqref{eq:Vkm1divnormequivalence}, %{eq:Vkm1divnormequiv},
 we acquire
 \begin{align*}
 \|\boldsymbol{\phi}\|_{0,K}&\eqsim h_K\|\div\boldsymbol{\phi}\|_{0,K} +\sum_{F\in\mathcal F(K)}h_F^{1/2}\|\boldsymbol{\phi}\cdot\boldsymbol{n}\|_{0,F} \\
@@ -1162,7 +1165,7 @@ At last, \eqref{eq:errorestimateH1} follows from \eqref{eq:errorestimateH1abs} a
 
 \section{Conforming virtual element method without extrinsic stabilization}\label{sec:stabfreecfmvem}
 
-In this section we will develop a conforming VEM without extrinsic stabilization for the second order elliptic problem \eqref{eq:ellipitc2ndproblem} in two dimensions.
+In this section we will develop a conforming VEM without extrinsic stabilization for the second order elliptic problem \eqref{eq:ellipitc2ndproblem} in arbitrary dimension.
 % \begin{equation}\label{eq:ellipitc2ndproblem}
 % \begin{cases}
 % -\Delta u + \alpha u=f & \textrm{ in } \Omega,\\
@@ -1177,26 +1180,28 @@ In this section we will develop a conforming VEM without extrinsic stabilization
 
 % In this section we will construct an $H(\div)$-conforming macro finite element, and then establish a norm equivalence of the gradient of the $H^1$-conforming virtual element space, which is vital in devising a stabilization free virtual element method.
 
-For polygon $K\subset\mathbb R^2$, let $\mathcal{V}(K)$ be the set of all vertices of $K$. And we overload the notation $\mathcal{E}(K)$ to denote the set of all edges of $K$ in this section.
+% For polygon $K\subset\mathbb R^2$, let $\mathcal{V}(K)$ be the set of all vertices of $K$. And we overload the notation $\mathcal{E}(K)$ to denote the set of all edges of $K$ in this section.
 
 
 \subsection{$H^1$-conforming virtual element}
 
-Recall the $H^1$-conforming virtual element in \cite{ChenHuangWei2022,AhmadAlsaediBrezziMariniEtAl2013,BeiraoBrezziCangianiManziniEtAl2013,BeiraoBrezziMariniRusso2014}.
-The degrees of freedom are given by
-\begin{align}
-v(\delta), & \quad \delta\in\mathcal V(K), \label{eq:cfmvemdof1}\\
-\frac{1}{|e|}(v, \phi_i^e)_e, & \quad i=1,\ldots, k-1, e\in\mathcal E(K), \label{eq:cfmvemdof2}\\
-\frac{1}{|K|}(v, \phi_i^K)_K, & \quad i=1,\ldots, \dim\mathbb P_{k-2}(K), \label{eq:cfmvemdof3}
-\end{align}
-where $\{\phi_i^e\}_{i=1}^{k-1}$ is a basis of $\mathbb P_{k-2}(e)$, and $\{\phi_i^K\}_{i=1}^{\dim\mathbb P_{k-2}(K)}$ a basis of $\mathbb P_{k-2}(K)$.
-And the space of shape functions is
+\XH{Recall the $H^1$-conforming virtual element in \cite{ChenHuangWei2022,AhmadAlsaediBrezziMariniEtAl2013,BeiraoBrezziCangianiManziniEtAl2013,BeiraoBrezziMariniRusso2014}.
+By assumption (A1), all the $(d-1)$-dimensional faces of $K$ are simplices, so we can require the shape function restricted to each face to be a polynomial when defining an $H^1$-conforming virtual element.
+To this end, let the space of shape functions be
 \begin{align*}
-V_k(K)&:=\big\{ v\in H^1(K): \Delta v\in \mathbb P_{k}(K),  v|_{\partial K}\in H^1(\partial K),  v|_e\in \mathbb P_{k}(e)\;\;\forall~e\in\mathcal E(K),\\    
-&\qquad\qquad\qquad\qquad\qquad\qquad\quad\;\;\; \textrm{and } (v-\Pi_k^Kv, q)_K=0\quad\forall~q\in\mathbb P_{k-2}^{\perp}(K)\},
+V_k(K)&:=\big\{ v\in H^1(K): \Delta v\in \mathbb P_{k}(K),  v|_{\partial K}\in H^1(\partial K),  v|_F\in \mathbb P_{k}(F)\;\;\forall~F\in\mathcal F(K),\\    
+&\qquad\qquad\qquad\qquad\qquad\qquad\qquad\;\;\; \textrm{and } (v-\Pi_k^Kv, q)_K=0\quad\forall~q\in\mathbb P_{k-2}^{\perp}(K)\},
 \end{align*}
 where $\Pi_k^K$ is defined by \eqref{eq:projlocal2d1}-\eqref{eq:projlocal2d2}.
 It holds $\mathbb P_k(K)\subseteq V_k(K)$.
+The degrees of freedom are given by
+\begin{align}
+v(\delta), & \quad \delta\in\Delta_0(K), \label{eq:cfmvemdof1}\\
+\frac{1}{|e|}(v, \phi_i^e)_e, & \quad e\in\Delta_j(K), i=1,\ldots, \dim\mathbb P_{k-j-1}(e), j=1,\ldots, d-1, \label{eq:cfmvemdof2}\\
+\frac{1}{|K|}(v, \phi_i^K)_K, & \quad i=1,\ldots, \dim\mathbb P_{k-2}(K), \label{eq:cfmvemdof3}
+\end{align}
+where $\{\phi_i^e\}_{i=1}^{\dim\mathbb P_{k-j-1}(e)}$ is a basis of space $\mathbb P_{k-j-1}(e)$, and $\{\phi_i^K\}_{i=1}^{\dim\mathbb P_{k-2}(K)}$ a basis of space $\mathbb P_{k-2}(K)$.}
+
 % To define the space of shape functions $V_k(K)$, we introduce a local $H^1$-projector $\Pi_k^K: H^1(K)\to\mathbb P_k(K)$: given $v\in H^1(K)$, let $\Pi_k^Kv\in\mathbb P_k(K)$ be determined by
 % \begin{align}
 % (\nabla\Pi_k^Kv, \nabla q)_K&=(\nabla v, \nabla q)_K\quad  \forall~q\in \mathbb P_k(K),\label{eq:projlocal1}\\
@@ -1214,9 +1219,10 @@ It holds $\mathbb P_k(K)\subseteq V_k(K)$.
 
 
 For $v\in V_k(K)$, the $H^1$ projection $\Pi_k^Kv$ and the $L^2$ projection $Q_k^Kv= \Pi_k^Kv + Q_{k-2}^Kv-Q_{k-2}^K\Pi_k^Kv$ are computable using the DoFs \eqref{eq:cfmvemdof1}-\eqref{eq:cfmvemdof3}. 
-We have the norm equivalence of space $V_k(K)$ (cf. \cite[Lemma 4.7]{ChenHuangWei2022} and \cite{ChenHuang2018,BrennerSung2018,BeiraodaVeigaLovadinaRusso2017}), that is for $v\in V_k(K)$, it holds
+Following the argument in \cite[Lemma 4.7]{ChenHuangWei2022} and \cite{ChenHuang2018,BrennerSung2018,BeiraodaVeigaLovadinaRusso2017},
+we have the norm equivalence of space $V_k(K)$, that is for $v\in V_k(K)$, it holds
 \begin{equation}\label{eq:cfmVknormequivalence}
-h_K^2|v|_{1,K}^2\lesssim\|v\|_{0,K}^2\eqsim \|Q_{k-2}^Kv\|_{0,K}^2 + \sum_{\delta\in \mathcal V(K)}h_K^2|v(\delta)|^2+\sum_{e\in\mathcal E(K)}h_K\|Q_{k-2}^ev\|_{0,e}^2.
+h_K^2|v|_{1,K}^2\lesssim\|v\|_{0,K}^2\eqsim \|Q_{k-2}^Kv\|_{0,K}^2 + h_K\|v\|_{0,\partial K}^2.
 \end{equation}
 
 Employing the same argument as in Lemma~\ref{lem:gradVknormequivalence}, from  \eqref{eq:cfmVknormequivalence}, we get the norm equivalence
@@ -1229,7 +1235,7 @@ Employing the same argument as in Lemma~\ref{lem:gradVknormequivalence}, from  \
 When $k\geq2$, we can replace $Q_{K,k}^{\div}$ by the $L^2$-orthogonal projection operator onto space $\mathbb{V}_{k,k-2}^{\rm div}(K)$, where
 \begin{align*}
 \mathbb{V}_{k,k-2}^{\rm div}(K):=&\{\boldsymbol{\phi}\in\mathbb{V}_{k}^{\rm div}(K): \div\boldsymbol{\phi}\in\mathbb P_{k-2}(K)\} \\
-=&\{\boldsymbol{\phi}\in\boldsymbol{V}_{k}^{\mathrm{BDM}}(K): \div\boldsymbol{\phi}\in\mathbb P_{k-2}(K), \boldsymbol{\phi}\cdot\boldsymbol{n}|_e\in\mathbb P_{k}(e)\;\;\forall~e\in\mathcal E(K)\}.
+=&\{\boldsymbol{\phi}\in\boldsymbol{V}_{k}^{\mathrm{BDM}}(K): \div\boldsymbol{\phi}\in\mathbb P_{k-2}(K), \boldsymbol{\phi}\cdot\boldsymbol{n}|_F\in\mathbb P_{k}(F)\;\;\forall~F\in\mathcal F(K)\}.
 \end{align*}
 \end{remark}
 % \subsection{Local inf-sup condition and norm equivalence}
