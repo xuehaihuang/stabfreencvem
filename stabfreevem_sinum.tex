@@ -72,7 +72,7 @@ For the a posteriori error analysis on anisotropic polygonal meshes in \cite{Ant
 The stabilization term significantly affects the performance of the VEM for the Poisson eigenvalue problem \cite{BoffiGardiniGastaldi2020},
 and improper choices of the stabilization term will produce useless results.
 Special stabilization terms are designed for a nonlinear elasto-plastic deformation problem \cite{HudobivnikAldakheelWriggers2019} and an electromagnetic interface problem in three dimensions \cite{CaoChenGuo2023}, which are not easy to be extended to other problems. 
-In short, the stabilization term has to be chosen carefully for different partial differential equations to make the VEM work well, which is arduous and will reduce its practicality.
+In short, the stabilization term has to be chosen carefully for different partial differential equations to make the VEM work well, which is arduous and \XH{might} reduce its practicality.
 
 
 % Recently a stabilization-free linear VEM, based on a higher order polynomial projection of the gradient of virtual element functions, is devised for the Poisson equation in two dimensions in \cite{BerroneBorioMarcon2021}, where the degree of polynomial used in the projection depends on the number of vertices of the polygon and generally the geometry of the polygon. 
@@ -155,7 +155,7 @@ matrix for the VEMs without extrinsic stabilization, which appear competitive wi
 
 The idea on constructing VEMs without extrinsic stabilization in this paper is simple,
 and can be extended to more VEMs and more partial differential equations.
-Since there is no additional stabilization term, these VEMs will be preferred in the engineering community. More benefits of the VEMs without extrinsic stabilization will be the study of future works.
+Since there is no additional stabilization term, these VEMs \XH{might be of interest for} the engineering community. More benefits of the VEMs without extrinsic stabilization will be the study of future works.
 By the way, we refer to \cite{CicuttinErnLemaire2019} for a hybrid high-order method, and 
 \cite{YeZhang2020,AlTaweelWang2020,AlTaweelWang2020a,YeZhang2021,YeZhang2021a,AlTaweelWangYeZhang2021} for weak Galerkin finite element methods without extrinsic stabilization.
 
