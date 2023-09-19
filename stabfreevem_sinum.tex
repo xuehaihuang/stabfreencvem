@@ -46,7 +46,7 @@
 
 % REQUIRED
 \begin{abstract}
-Virtual element methods (VEMs) without extrinsic stabilization in arbitrary degree of polynomial are developed for second order elliptic problems, \XH{including a nonconforming VEM and a conforming VEM in arbitrary dimension}. The key is to construct local $H(\div)$-conforming macro finite element spaces such that the associated $L^2$ projection of the gradient of virtual element functions is computable, and the $L^2$ projector has a uniform lower bound on the gradient of virtual element function spaces in $L^2$ norm. Optimal error estimates are derived for these VEMs. Numerical experiments are provided to test the VEMs without extrinsic stabilization.
+Virtual element methods (VEMs) without extrinsic stabilization in arbitrary degree of polynomial are developed for second order elliptic problems, including a nonconforming VEM and a conforming VEM in arbitrary dimension. The key is to construct local $H(\div)$-conforming macro finite element spaces such that the associated $L^2$ projection of the gradient of virtual element functions is computable, and the $L^2$ projector has a uniform lower bound on the gradient of virtual element function spaces in $L^2$ norm. Optimal error estimates are derived for these VEMs. Numerical experiments are provided to test the VEMs without extrinsic stabilization.
 \end{abstract}
 
 % REQUIRED
@@ -72,7 +72,7 @@ For the a posteriori error analysis on anisotropic polygonal meshes in \cite{Ant
 The stabilization term significantly affects the performance of the VEM for the Poisson eigenvalue problem \cite{BoffiGardiniGastaldi2020},
 and improper choices of the stabilization term will produce useless results.
 Special stabilization terms are designed for a nonlinear elasto-plastic deformation problem \cite{HudobivnikAldakheelWriggers2019} and an electromagnetic interface problem in three dimensions \cite{CaoChenGuo2023}, which are not easy to be extended to other problems. 
-In short, the stabilization term has to be chosen carefully for different partial differential equations to make the VEM work well, which is arduous and \XH{might} reduce its practicality.
+In short, the stabilization term has to be chosen carefully for different partial differential equations to make the VEM work well, which is arduous and might reduce its practicality.
 
 
 % Recently a stabilization-free linear VEM, based on a higher order polynomial projection of the gradient of virtual element functions, is devised for the Poisson equation in two dimensions in \cite{BerroneBorioMarcon2021}, where the degree of polynomial used in the projection depends on the number of vertices of the polygon and generally the geometry of the polygon. 
@@ -83,7 +83,7 @@ In short, the stabilization term has to be chosen carefully for different partia
 % The idea in \cite{BerroneBorioMarcon2021} is difficult to be extended to construct stabilization-free virtual element methods in higher dimensions, and
 % the analysis is rather elaborate. 
 % This motivates us to construct a nonconforming VEM in arbitrary dimension and a conforming VEM in two dimensions in arbitrary degree of polynomial  in a unified way.
-We intend to construct VEMs without extrinsic stabilization in arbitrary degree of polynomial, \XH{including a nonconforming VEM and a conforming VEM in arbitrary dimension},  in a unified way.
+We intend to construct VEMs without extrinsic stabilization in arbitrary degree of polynomial, including a nonconforming VEM and a conforming VEM in arbitrary dimension,  in a unified way.
 The key to construct VEMs without extrinsic stabilization is to find a finite-dimensional space $\mathbb{V}(K)$ for polytope $K$ and a projector $Q_K$ onto the space $\mathbb{V}(K)$ such that
 \begin{enumerate}[(C1)]
 \item It holds the norm equivalence 
@@ -145,7 +145,7 @@ a conforming finite element for the differential $(d-2)$-form in
 
 
 
-By the aid of the projector $Q_{K,k}^{\div}$, \XH{we advance a nonconforming VEM and a conforming VEM without extrinsic stabilization for second order elliptic problems in arbitrary dimension.}
+By the aid of the projector $Q_{K,k}^{\div}$, we advance a nonconforming VEM and a conforming VEM without extrinsic stabilization for second order elliptic problems in arbitrary dimension.
 Indeed, these VEMs can be equivalently recast as
 primal mixed VEMs.
 We prove the norm equivalence~\eqref{intro:gradVknormequiv} and the well-posedness of the VEMs without extrinsic stabilization, and derive the optimal error estimates. 
@@ -155,7 +155,7 @@ matrix for the VEMs without extrinsic stabilization, which appear competitive wi
 
 The idea on constructing VEMs without extrinsic stabilization in this paper is simple,
 and can be extended to more VEMs and more partial differential equations.
-Since there is no additional stabilization term, these VEMs \XH{might be of interest for} the engineering community. More benefits of the VEMs without extrinsic stabilization will be the study of future works.
+Since there is no additional stabilization term, these VEMs might be of interest for the engineering community. More benefits of the VEMs without extrinsic stabilization will be the study of future works.
 By the way, we refer to \cite{CicuttinErnLemaire2019} for a hybrid high-order method, and 
 \cite{YeZhang2020,AlTaweelWang2020,AlTaweelWang2020a,YeZhang2021,YeZhang2021a,AlTaweelWangYeZhang2021} for weak Galerkin finite element methods without extrinsic stabilization.
 
@@ -187,7 +187,7 @@ Denote by $Q_k^{K}$ the $L^2$-orthogonal projector onto $\mathbb P_k(K)$ or $\ma
 Let $\skw\boldsymbol{\tau}:=(\boldsymbol{\tau}-\boldsymbol{\tau}^{\intercal})/2$ be the antisymmetric part of a tensor $\boldsymbol{\tau}$.
 Denote by $\#S$ the number of elements in a finite set $S$.
 
-Given a $d$-dimensional polytope $K$, \XH{let $\Delta_j(K)$ be the set of all $j$-dimensional faces of $K$ for $j=0,1,\ldots, d-1$. Set $\mathcal{F}(K):=\Delta_{d-1}(K)$ and $\mathcal{E}(K):=\Delta_{d-2}(K)$.}
+Given a $d$-dimensional polytope $K$, let $\Delta_j(K)$ be the set of all $j$-dimensional faces of $K$ for $j=0,1,\ldots, d-1$. Set $\mathcal{F}(K):=\Delta_{d-1}(K)$ and $\mathcal{E}(K):=\Delta_{d-2}(K)$.
 % Given a $d$-dimensional polytope $K$, let $\mathcal{F}(K)$ and $\mathcal{E}(K)$ be the set of all $(d-1)$-dimensional faces and $(d-2)$-dimensional faces of $K$ respectively. 
 For $F\in\mathcal{F}(K)$, denote by $\boldsymbol{n}_{K,F}$ the unit outward normal vector to $\partial K$, which will be abbreviated as $\boldsymbol{n}_F$ or $\boldsymbol{n}$ if not causing any confusion.
 
@@ -1166,13 +1166,11 @@ At last, \eqref{eq:errorestimateH1} follows from \eqref{eq:errorestimateH1abs} a
 
 In this section we will develop a conforming VEM without extrinsic stabilization for the second order elliptic problem \eqref{eq:ellipitc2ndproblem}.
 
-\XH{
 We additionally impose the following condition on the mesh $\mathcal T_h$ in this section:
 \begin{itemize}
  \item[(A3)] All the $(d-1)$-dimensional faces of $K\in \mathcal T_h$ are simplices.
 % , and all the $(d-1)$-dimensional faces of $K$ are also faces of $\mathcal T_K$.
 \end{itemize}
-}
 
 
 % \begin{equation}\label{eq:ellipitc2ndproblem}
@@ -1194,7 +1192,7 @@ We additionally impose the following condition on the mesh $\mathcal T_h$ in thi
 
 \subsection{$H^1$-conforming virtual element}
 
-\XH{Recall the $H^1$-conforming virtual element in \cite{ChenHuangWei2022,AhmadAlsaediBrezziMariniEtAl2013,BeiraoBrezziCangianiManziniEtAl2013,BeiraoBrezziMariniRusso2014}.
+Recall the $H^1$-conforming virtual element in \cite{ChenHuangWei2022,AhmadAlsaediBrezziMariniEtAl2013,BeiraoBrezziCangianiManziniEtAl2013,BeiraoBrezziMariniRusso2014}.
 By assumption (A3), we can require the shape function restricted to each face to be a polynomial when defining an $H^1$-conforming virtual element.
 To this end, let the space of shape functions be
 \begin{align*}
@@ -1209,7 +1207,7 @@ v(\delta), & \quad \delta\in\Delta_0(K), \label{eq:cfmvemdof1}\\
 \frac{1}{|e|}(v, \phi_i^e)_e, & \quad e\in\Delta_j(K), i=1,\ldots, \dim\mathbb P_{k-j-1}(e), j=1,\ldots, d-1, \label{eq:cfmvemdof2}\\
 \frac{1}{|K|}(v, \phi_i^K)_K, & \quad i=1,\ldots, \dim\mathbb P_{k-2}(K), \label{eq:cfmvemdof3}
 \end{align}
-where $\{\phi_i^e\}_{i=1}^{\dim\mathbb P_{k-j-1}(e)}$ is a basis of space $\mathbb P_{k-j-1}(e)$, and $\{\phi_i^K\}_{i=1}^{\dim\mathbb P_{k-2}(K)}$ a basis of space $\mathbb P_{k-2}(K)$.}
+where $\{\phi_i^e\}_{i=1}^{\dim\mathbb P_{k-j-1}(e)}$ is a basis of space $\mathbb P_{k-j-1}(e)$, and $\{\phi_i^K\}_{i=1}^{\dim\mathbb P_{k-2}(K)}$ a basis of space $\mathbb P_{k-2}(K)$.
 
 % Recall the $H^1$-conforming virtual element in \cite{ChenHuangWei2022,AhmadAlsaediBrezziMariniEtAl2013,BeiraoBrezziCangianiManziniEtAl2013,BeiraoBrezziMariniRusso2014}.
 % The degrees of freedom are given by
