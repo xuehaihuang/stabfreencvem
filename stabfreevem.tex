@@ -131,11 +131,20 @@ In short, the stabilization term has to be chosen carefully for different partia
 % Numerical examples in \cite{BerroneBorioMarcon2022} show that the stabilization-free VEM in \cite{BerroneBorioMarcon2021} outperforms the standard VEM in \cite{BeiraodaVeigaBrezziMariniRusso2016} for anisotropic elliptic problems on general convex polygonal meshes.
 % The stabilization-free VEM in \cite{BerroneBorioMarcon2021} is then applied to solve the Laplacian eigenvalue problem \cite{MengWangBuMei2022}. Along this line, similar stabilization-free virtual element methods are devised for a plane elasticity problem in~\cite{DAltriMirandaPatrunoSacco2021,ChenSukumar2022,ChenSukumar2023}. 
 
+A linear VEM without extrinsic stabilization, based on a higher order polynomial projection of the gradient of virtual element functions, is devised for the Poisson equation in two dimensions in \cite{BerroneBorioMarcon2021}, where the degree of polynomial used in the projection depends on the number of vertices of the polygon and generally the geometry of the polygon. 
+Numerical examples in \cite{BerroneBorioMarcon2022} show that the VEM in \cite{BerroneBorioMarcon2021} outperforms the standard one in \cite{BeiraodaVeigaBrezziMariniRusso2016} for anisotropic elliptic problems on general convex polygonal meshes.
+% The stabilization-free VEM in \cite{BerroneBorioMarcon2021} is then applied to solve the Laplacian eigenvalue problem \cite{MengWangBuMei2022}. 
+% Along this line, similar stabilization-free virtual element methods are devised for a plane elasticity problem in~\cite{DAltriMirandaPatrunoSacco2021,ChenSukumar2022,ChenSukumar2023}. 
+The idea in \cite{BerroneBorioMarcon2021} is difficult to be extended to construct VEMs without extrinsic stabilization in higher dimensions, and
+the analysis is rather elaborate. 
+This motivates us to construct VEMs without extrinsic stabilization in arbitrary dimension and arbitrary degree of polynomial in a unified way.
+
 
 % The idea in \cite{BerroneBorioMarcon2021} is difficult to be extended to construct stabilization-free virtual element methods in higher dimensions, and
 % the analysis is rather elaborate. 
 % This motivates us to construct a nonconforming VEM in arbitrary dimension and a conforming VEM in two dimensions in arbitrary degree of polynomial  in a unified way.
-We intend to construct VEMs without extrinsic stabilization in arbitrary degree of polynomial, including a nonconforming VEM and a conforming VEM in arbitrary dimension,  in a unified way.
+% We intend to construct VEMs without extrinsic stabilization in arbitrary degree of polynomial, including a nonconforming VEM and a conforming VEM in arbitrary dimension,  in a unified way.
+
 The key to construct VEMs without extrinsic stabilization is to find a finite-dimensional space $\mathbb{V}(K)$ for polytope $K$ and a projector $Q_K$ onto the space $\mathbb{V}(K)$ such that
 \begin{enumerate}[(C1)]
 \item It holds the norm equivalence 

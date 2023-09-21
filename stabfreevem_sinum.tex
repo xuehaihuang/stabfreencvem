@@ -75,16 +75,17 @@ Special stabilization terms are designed for a nonlinear elasto-plastic deformat
 In short, the stabilization term has to be chosen carefully for different partial differential equations to make the VEM work well, which is arduous and might reduce its practicality.
 
 
-% Recently a stabilization-free linear VEM, based on a higher order polynomial projection of the gradient of virtual element functions, is devised for the Poisson equation in two dimensions in \cite{BerroneBorioMarcon2021}, where the degree of polynomial used in the projection depends on the number of vertices of the polygon and generally the geometry of the polygon. 
-% Numerical examples in \cite{BerroneBorioMarcon2022} show that the stabilization-free VEM in \cite{BerroneBorioMarcon2021} outperforms the standard VEM in \cite{BeiraodaVeigaBrezziMariniRusso2016} for anisotropic elliptic problems on general convex polygonal meshes.
-% The stabilization-free VEM in \cite{BerroneBorioMarcon2021} is then applied to solve the Laplacian eigenvalue problem \cite{MengWangBuMei2022}. Along this line, similar stabilization-free virtual element methods are devised for a plane elasticity problem in~\cite{DAltriMirandaPatrunoSacco2021,ChenSukumar2022,ChenSukumar2023}. 
+\XH{A linear VEM without extrinsic stabilization, based on a higher order polynomial projection of the gradient of virtual element functions, is devised for the Poisson equation in two dimensions in \cite{BerroneBorioMarcon2021}, where the degree of polynomial used in the projection depends on the number of vertices of the polygon and generally the geometry of the polygon. 
+Numerical examples in \cite{BerroneBorioMarcon2022} show that the VEM in \cite{BerroneBorioMarcon2021} outperforms the standard one in \cite{BeiraodaVeigaBrezziMariniRusso2016} for anisotropic elliptic problems on general convex polygonal meshes.
+% The stabilization-free VEM in \cite{BerroneBorioMarcon2021} is then applied to solve the Laplacian eigenvalue problem \cite{MengWangBuMei2022}. 
+% Along this line, similar stabilization-free virtual element methods are devised for a plane elasticity problem in~\cite{DAltriMirandaPatrunoSacco2021,ChenSukumar2022,ChenSukumar2023}. 
+The idea in \cite{BerroneBorioMarcon2021} is difficult to be extended to construct VEMs without extrinsic stabilization in higher dimensions, and
+the analysis is rather elaborate. 
+This motivates us to construct VEMs without extrinsic stabilization in arbitrary dimension and arbitrary degree of polynomial in a unified way.}
 
+% We intend to construct VEMs without extrinsic stabilization in arbitrary degree of polynomial, including a nonconforming VEM and a conforming VEM in arbitrary dimension,  in a unified way.
 
-% The idea in \cite{BerroneBorioMarcon2021} is difficult to be extended to construct stabilization-free virtual element methods in higher dimensions, and
-% the analysis is rather elaborate. 
-% This motivates us to construct a nonconforming VEM in arbitrary dimension and a conforming VEM in two dimensions in arbitrary degree of polynomial  in a unified way.
-We intend to construct VEMs without extrinsic stabilization in arbitrary degree of polynomial, including a nonconforming VEM and a conforming VEM in arbitrary dimension,  in a unified way.
-The key to construct VEMs without extrinsic stabilization is to find a finite-dimensional space $\mathbb{V}(K)$ for polytope $K$ and a projector $Q_K$ onto the space $\mathbb{V}(K)$ such that
+The key to construct VEMs without extrinsic stabilization is to find a finite-dimensional space $\mathbb{V}(K)$ for polytope $K$ and a projector $Q_K$ onto $\mathbb{V}(K)$ such that
 \begin{enumerate}[(C1)]
 \item It holds the norm equivalence 
 \begin{equation}\label{intro:gradVknormequiv} 
@@ -410,9 +411,9 @@ By a direct computation, $H\begin{pmatrix}
 0 & 1 \\
 -1 & 0
 \end{pmatrix}$. Hence
-\[
+$
 2\skw(\tilde{\boldsymbol{n}}_1\tilde{\boldsymbol{n}}_2^{\intercal})=2{\rm det}(H)\skw(\boldsymbol{n}_1^e(\boldsymbol{n}_2^e)^{\intercal}),
-\]
+$
 which ends the proof.
 \end{proof}
 
@@ -441,9 +442,9 @@ For $1\leq l\leq d$ but $l\neq i, j$, by the definition of $\boldsymbol{N}_{ij}$
 $, obviously we have $\boldsymbol{\tau}\boldsymbol{n}|_{F_i}=\boldsymbol{0}$ for $i=1,\ldots, d$.
 
 On the other side, assume $\boldsymbol{\tau}\boldsymbol{n}|_{F_i}=\boldsymbol{0}$ for $i=1,\ldots, d$. Express $\boldsymbol{\tau}$ as 
-\[
+$
 \boldsymbol{\tau}=\sum_{1\leq i<j\leq d}p_{ij}\boldsymbol{N}_{ij},
-\]
+$
 where $p_{ij}=\boldsymbol{n}_i^{\intercal}\boldsymbol{\tau}\boldsymbol{n}_j\in\mathbb P_{k}(T)$.
 Therefore, $p_{ij}|_{F_i}=p_{ij}|_{F_j}=0$, which ends the proof.
 \end{proof}
@@ -645,9 +646,9 @@ For $\boldsymbol{\phi}\in\boldsymbol{V}_{k-1}^{\rm div}(K)$, it holds the norm e
 \end{lemma}
 \begin{proof}
 By the inverse inequality \cite{Ciarlet1978,Verfuerth2013} (see also \cite[Lemma 10]{Huang2020}),
-$$
+it holds that $
 h_K\|\div\boldsymbol{\phi}\|_{0,K}\lesssim  \|\div\boldsymbol{\phi}\|_{-1,K},
-$$ 
+$ 
 where
 $$
 \|\div\boldsymbol{\phi}\|_{-1,K}=\sup_{v\in H_0^1(K)}\frac{(\div\boldsymbol{\phi}, v)_K}{|v|_{1,K}}=-\sup_{v\in H_0^1(K)}\frac{(\boldsymbol{\phi}, \nabla v)_K}{|v|_{1,K}} \leq \|\boldsymbol{\phi}\|_{0,K}.
